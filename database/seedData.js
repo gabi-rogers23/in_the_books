@@ -29,15 +29,15 @@ async function createTables() {
             "dateOfBirth" VARCHAR(255),
             "birthPlace" VARCHAR(255),
             "authorImage" VARCHAR(255),
-            "authorBio" VARCHAR(255)
+            "authorBio" VARCHAR
         );
 
         CREATE TABLE books (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255),
             "authorId" INTEGER REFERENCES author(id),
-            price INTEGER,
-            description VARCHAR(255),
+            price FLOAT(2),
+            description VARCHAR,
             "bookImage" VARCHAR(255),
             fiction BOOLEAN DEFAULT false
         );`)
@@ -52,7 +52,7 @@ async function createTables() {
 async function createBooks() {
     try{
         console.log("Creating books...")
-        const fakeBooks = [];
+        const promises = [];
         for (let i=0; i<100; i++){
 
             const randomAuthor = {
@@ -63,7 +63,7 @@ async function createBooks() {
                 authorBio: faker.lorem.paragraph()
             };
 
-            console.log("Random Author: ", randomAuthor)
+            // console.log("Random Author: ", randomAuthor)
 
             const randomBook = {
                 title: faker.company.name(),
@@ -72,12 +72,13 @@ async function createBooks() {
                 bookImage: faker.image.abstract(),
                 fiction: faker.datatype.boolean() 
             }
-
-            console.log("Random Book ", randomBook)
-
-           await createBook(randomAuthor, randomBook)
+            
+            promises.push(createBook(randomAuthor, randomBook));
         }
 
+         const books = await Promise.all(promises) 
+        
+        console.log("Books created", books)
     } catch(error){
         console.log("Error Building Books")
         throw error;

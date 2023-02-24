@@ -6,18 +6,14 @@ async function createBook(
   { title, price, description, bookImage, fiction }
 ) {
   try {
-    const {
+    let {
       rows: [authorSearch],
     } = await client.query(`
         SELECT * FROM author WHERE ("authorName"='${bookAuthor.authorName}' AND
         "dateOfBirth"='${bookAuthor.dateOfBirth}' AND "birthPlace"='${bookAuthor.birthPlace}');
         `);
-
-
     if (!authorSearch) {
-      const author = await createAuthor(bookAuthor);
-      const authorId = author.id;
-      console.log("Author from CREATE author: ", author)
+        authorSearch = await createAuthor(bookAuthor);
     }
 
 
@@ -25,12 +21,14 @@ async function createBook(
       rows: [book],
     } = await client.query(
       `
-        INSERT INTO books(title, authorId, price, description, bookImage, fiction)
+        INSERT INTO books(title, "authorId", price, description, "bookImage", fiction)
         VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
         `,
-      [title, authorId, price, description, bookImage, fiction]
+      [title, authorSearch.id, price, description, bookImage, fiction]
     );
+    
+    console.log("CREATE BOOK RETURNING: ", book)
 
     return book;
   } catch (error) {
