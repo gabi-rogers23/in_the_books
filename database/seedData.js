@@ -1,4 +1,4 @@
-
+import { faker } from '@faker-js/faker';
 const { error } = require("console");
 const client = require("./client");
 
@@ -43,7 +43,23 @@ async function createTables() {
     
 }
 
+async function createBooks() {
+    try{
+        console.log("Creating books...")
+        const fakeBooks = [];
+        for (let i=0; i<100; i++){
+            const randomAuthor = {
+                person: faker.person.firstName(),
+                birthdate: faker.date.birthdate(),
+                image: faker.image.url(),
+                lorem: faker.lorem.paragraph()
+            };
+            fakeBooks.push(randomAuthor)
 
+        }
+
+    } return fakeBooks
+}
 
 
 
