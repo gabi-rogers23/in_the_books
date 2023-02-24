@@ -1,21 +1,12 @@
 const client = require("./index");
-const { createAuthor } = require("./author");
+const { createAuthor, getAuthorById } = require("./author");
 
 async function createBook(
   bookAuthor,
   { title, price, description, bookImage, fiction }
 ) {
   try {
-    let {
-      rows: [authorSearch],
-    } = await client.query(`
-        SELECT * FROM author WHERE ("authorName"='${bookAuthor.authorName}' AND
-        "dateOfBirth"='${bookAuthor.dateOfBirth}' AND "birthPlace"='${bookAuthor.birthPlace}');
-        `);
-    if (!authorSearch) {
-        authorSearch = await createAuthor(bookAuthor);
-    }
-
+    // console.log("author in createbook", author);
 
     const {
       rows: [book],
@@ -25,10 +16,10 @@ async function createBook(
         VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
         `,
-      [title, authorSearch.id, price, description, bookImage, fiction]
+      [title, bookAuthor.id, price, description, bookImage, fiction]
     );
-    
-    console.log("CREATE BOOK RETURNING: ", book)
+
+    // console.log("CREATE BOOK RETURNING: ", book)
 
     return book;
   } catch (error) {
