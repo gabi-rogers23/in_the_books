@@ -1,5 +1,4 @@
 const client = require("./index");
-const { createAuthor, getAuthorById } = require("./author");
 
 async function createBook(
   bookAuthor,
@@ -27,6 +26,47 @@ async function createBook(
   }
 }
 
+async function getAllBooks() {
+  try {
+    const { rows: books } = await client.query(`
+          SELECT *
+          FROM books;
+        `);
+    return books;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getFullBookById(bookId) {
+    //attach tags
+    //attach author info
+  try {
+    const {
+      rows: [book],
+    } = await client.query(
+      `
+            SELECT * 
+            FROM books 
+            WHERE id=$1;
+      `,
+      [bookId]
+    );
+
+if(!book){
+    throw{
+        name: "Book Not Found Error", 
+        message: "Could not find a book with that bookId"
+    };
+}
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 module.exports = {
   createBook,
+  getAllBooks
 };
