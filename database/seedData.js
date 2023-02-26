@@ -135,7 +135,7 @@ async function seedTags(){
         const tagPromises = []
         console.log("Starting to create tags...");
 
-        for (let i=0; i <30; i++){
+        for (let i=0; i <60; i++){
          const tagList = [faker.commerce.productAdjective(), faker.commerce.productAdjective()]
          const randomId = Math.floor(Math.random() * 100) + 1;
          tagPromises.push(createBookTag(randomId, tagList))

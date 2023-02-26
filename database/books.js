@@ -35,21 +35,20 @@ async function getAllBooks() {
     ON a.id = b."authorId";
    `);
 
-   const { rows : bookTags } = await client.query(`
-   SELECT t.name AS tag, "bookId", "tagId"
+    const { rows: bookTags } = await client.query(`
+   SELECT t.name AS tag, "tagId"
    FROM book_tags bt
    JOIN books b ON b.id=bt."bookId"
    JOIN tags t ON t.id=bt."tagId";   
-   `)
+   `);
 
-  books.forEach((book)=>{
-    book.tags = bookTags.filter((tag)=>
-      book.id === tag.bookId)
-  })
+    books.forEach((book) => {
+      book.tags = bookTags.filter((tag) => book.id === tag.bookId);
+    });
 
     // console.log("BOOK AUTHOR ", books);
     // console.log("BOOK TAGS ", bookTags)
-    return books
+    return books;
   } catch (error) {
     throw error;
   }
@@ -57,21 +56,29 @@ async function getAllBooks() {
 
 async function getBookById(bookId) {
   try {
-  const books = await getAllBooks()
+    const {
+      rows: [book],
+    } = await client.query(`
+  SELECT b.id AS id, title, "authorId", price, description, "bookImage", fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
+  FROM books b 
+  JOIN author a
+  ON a.id = b."authorId"
+  WHERE b.id =${bookId};
+  `);
 
-  const book = books.filter((book)=>{
-    return book.id === bookId})
+    const { rows: tags } = await client.query(`
+SELECT t.name AS tag, "tagId"
+FROM book_tags bt
+JOIN books b ON b.id=bt."bookId"
+JOIN tags t ON t.id=bt."tagId"
+WHERE b.id = ${bookId};  
+`);
 
-    console.log("Book" , book)
+    book.tags = tags;
 
-    if (!book.title) {
-      throw {
-        name: "Book Not Found Error",
-        message: "Could not find a book with that bookId",
-      };
-    }else{
-      return book;
-    }
+    // console.log("Book" , book)
+
+    return book;
   } catch (error) {
     throw error;
   }
@@ -80,5 +87,5 @@ async function getBookById(bookId) {
 module.exports = {
   createBook,
   getAllBooks,
-  getBookById
+  getBookById,
 };
