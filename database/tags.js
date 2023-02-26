@@ -30,25 +30,12 @@ async function createTags(tagList) {
   }
 }
 
-async function getTagByName(name) {
-  try {
-    const {
-      rows: [tag],
-    } = await client.query(`
-        SELECT * FROM tags WHERE name='${name}';
-        `);
-    return tag;
-  } catch (error) {
-    throw error;
-  }
-}
-
 async function createBookTag(bookId, tagList) {
   try {
       const createdTags = await createTags(tagList);
      for (let i=0; i < createdTags.length; i++) {
          const tag = createdTags[i]
-        console.log("createdTAG ", tag)
+        // console.log("createdTAG ", tag)
 
       const {
         rows: [bookTag],
@@ -61,7 +48,7 @@ async function createBookTag(bookId, tagList) {
             `,
         [bookId, tag.id]
       );
-      console.log("Book Tags ", bookTag);
+      // console.log("Book Tags ", bookTag);
     };
  
   } catch (error) {

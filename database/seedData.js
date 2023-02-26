@@ -1,6 +1,6 @@
 const { faker } = require("@faker-js/faker");
 const client = require("./index");
-const { createBook } = require("./books");
+const { createBook, getAllBooks, getBookById } = require("./books");
 const { createAuthor, getAuthorById } = require("./author");
 const { createBookTag } = require("./tags")
 
@@ -94,7 +94,8 @@ async function createBooks() {
     const promises = [];
 
     for (let i = 0; i < 100; i++) {
-      const randomId = Math.floor(Math.random() * 100);
+      const randomId = Math.floor(Math.random() * 100) + 1;
+    
       let author = await getAuthorById(randomId);
 
       if (!author) {
@@ -136,7 +137,7 @@ async function seedTags(){
 
         for (let i=0; i <30; i++){
          const tagList = [faker.commerce.productAdjective(), faker.commerce.productAdjective()]
-         const randomId = Math.floor(Math.random() * 100);
+         const randomId = Math.floor(Math.random() * 100) + 1;
          tagPromises.push(createBookTag(randomId, tagList))
         }
 
@@ -160,6 +161,8 @@ async function rebuildDB() {
     await seedAuthors();
     await createBooks();
     await seedTags();
+    await getAllBooks();
+    await getBookById(20);
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;
