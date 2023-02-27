@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 const { error } = require("console");
-const client = require("./client");
+const client = require("./index");
 
 
 async function dropTables() {
@@ -34,7 +34,16 @@ async function createTables() {
             description VARCHAR(255),
             "bookImage" IMAGE,
             fiction BOOLEAN DEFAULT false,
-        )`)
+        )
+        CREATE TABLE users (
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(255),
+            password VARCHAR(255,
+            shippingAddress VARCHAR(255),
+            phoneNumber VARCHAR (255),
+            "isAdmin" BOOLEAN DEFAULT false
+        )
+        `)
         console.log("Finished building tables")
     }catch(error) {
         console.log("Error building tables")
@@ -61,12 +70,35 @@ async function createBooks() {
     } return fakeBooks
 }
 
-
-
-
-
-
-
+async function createInitialUsers() {
+    try {
+      console.log('Starting to create users...')
+      const admin = await createUser({
+        email: faker.internet.email(), 
+        password: faker.internet.password(),
+        shippingAddress: faker.address.streetAddress(),
+        phoneNumber: faker.phone.number(),
+        isAdmin: true
+      });
+  
+      const testUser1 = await createUser({
+        email: faker.internet.email(), 
+        password: faker.internet.password(),
+        shippingAddress: faker.address.streetAddress(),
+        phoneNumber: faker.phone.number(),
+        isAdmin: false
+  
+      });
+  
+      console.log("---INITIAL USERS---", admin, testUser1)
+  
+      console.log('Finished creating users');
+    } catch (error) {
+      console.log("Error creating users");
+      throw (error);
+    }
+  }
+  
 
 async function rebuildDB() {
     try{
@@ -80,5 +112,6 @@ async function rebuildDB() {
 module.exports = {
     rebuildDB,
     dropTables,
-    createTables
+    createTables,
+    createInitialUsers
 };
