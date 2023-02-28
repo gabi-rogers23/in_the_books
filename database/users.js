@@ -1,4 +1,4 @@
-const { client } = require('./index');
+const client  = require('./index');
 const bcrypt = require('bcrypt');
 
 // database functions
@@ -10,7 +10,6 @@ async function createUser({ email, password, shippingAddress, phoneNumber, isAdm
     const { rows: [user] } = await client.query(`
     INSERT INTO users( email, password, "shippingAddress", "phoneNumber", "isAdmin") 
     VALUES($1, $2, $3, $4, $5) 
-    ON CONFLICT (username) DO NOTHING 
     RETURNING *;
   `, [ email, hashedPassword, shippingAddress, phoneNumber, isAdmin]);
     if (hashedPassword) {
