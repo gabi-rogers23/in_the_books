@@ -53,16 +53,16 @@ async function createTables() {
             "bookId" INTEGER REFERENCES books(id),
             "tagId" INTEGER REFERENCES tags(id), 
             UNIQUE ("bookId", "tagId")
-        )  
+        );  
         
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
             email VARCHAR(255),
-            password VARCHAR(255,
-            shippingAddress VARCHAR(255),
-            phoneNumber VARCHAR (255),
+            password VARCHAR(255),
+            "shippingAddress" VARCHAR(255),
+            "phoneNumber" VARCHAR (255),
             "isAdmin" BOOLEAN DEFAULT false
-        )
+        );
         `);
     console.log("Finished building tables");
   } catch (error) {
@@ -128,7 +128,6 @@ async function createInitialUsers() {
     }
   }
   
-=======
 async function createBooks() {
   try {
     console.log("Creating books...");
