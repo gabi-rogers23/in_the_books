@@ -1,8 +1,11 @@
+
+
 const { faker } = require("@faker-js/faker");
 const client = require("./index");
 const { createBook, getAllBooks, getBookById } = require("./books");
 const { createAuthor, getAuthorById } = require("./author");
 const { createBookTag } = require("./tags")
+
 
 async function dropTables() {
   try {
@@ -53,6 +56,15 @@ async function createTables() {
             "bookId" INTEGER REFERENCES books(id),
             "tagId" INTEGER REFERENCES tags(id), 
             UNIQUE ("bookId", "tagId")
+        )  
+        
+        CREATE TABLE users (
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(255),
+            password VARCHAR(255,
+            shippingAddress VARCHAR(255),
+            phoneNumber VARCHAR (255),
+            "isAdmin" BOOLEAN DEFAULT false
         )
         `);
     console.log("Finished building tables");
@@ -60,6 +72,7 @@ async function createTables() {
     console.log("Error building tables");
     throw error;
   }
+
 }
 
 async function seedAuthors() {
@@ -88,6 +101,37 @@ async function seedAuthors() {
   }
 }
 
+
+async function createInitialUsers() {
+    try {
+      console.log('Starting to create users...')
+      const admin = await createUser({
+        email: faker.internet.email(), 
+        password: faker.internet.password(),
+        shippingAddress: faker.address.streetAddress(),
+        phoneNumber: faker.phone.number(),
+        isAdmin: true
+      });
+  
+      const testUser1 = await createUser({
+        email: faker.internet.email(), 
+        password: faker.internet.password(),
+        shippingAddress: faker.address.streetAddress(),
+        phoneNumber: faker.phone.number(),
+        isAdmin: false
+  
+      });
+  
+      console.log("---INITIAL USERS---", admin, testUser1)
+  
+      console.log('Finished creating users');
+    } catch (error) {
+      console.log("Error creating users");
+      throw (error);
+    }
+  }
+  
+=======
 async function createBooks() {
   try {
     console.log("Creating books...");
@@ -146,6 +190,7 @@ console.log("Getting books!")
 //add tags to book
 console.log("Tags Seeded!")
 
+
     }catch(error){
         console.log("Error Seeding Tags!")
         throw error;
@@ -170,7 +215,10 @@ async function rebuildDB() {
 }
 
 module.exports = {
-  rebuildDB,
-  dropTables,
-  createTables,
+
+    rebuildDB,
+    dropTables,
+    createTables,
+    createInitialUsers
 };
+
