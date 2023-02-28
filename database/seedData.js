@@ -1,84 +1,176 @@
-import { faker } from '@faker-js/faker';
-const { error } = require("console");
-const client = require("./client");
-
+const { faker } = require("@faker-js/faker");
+const client = require("./index");
+const { createBook, getAllBooks, getBookById } = require("./books");
+const { createAuthor, getAuthorById } = require("./author");
+const { createBookTag } = require("./tags")
 
 async function dropTables() {
-    try {
-        await client.query(`
-        DROP TABLE IF EXISTS books;
-        `);
-        console.log("Tables dropped");
-        
-    }catch(error){
-        console.log("Error dropping tables")
-    }throw(error);
+  try {
+    console.log("Starting to drop tables");
+    await client.query(`
+    DROP TABLE IF EXISTS book_tags;
+    DROP TABLE IF EXISTS tags;
+    DROP TABLE IF EXISTS books;
+    DROP TABLE IF EXISTS author;
+    `);
+    console.log("Tables dropped");
+  } catch (error) {
+    console.log("Error dropping tables");
+    throw error;
+  }
 }
 
 async function createTables() {
-    try{
-        await client.query(`
+  try {
+    console.log("Starting to Create Tables");
+    await client.query(`
         CREATE TABLE author (
             id SERIAL PRIMARY KEY,
-            "authorName" VARCHAR(255),
+            "authorFirstName" VARCHAR(255),
+            "authorLastName" VARCHAR(255),
             "dateOfBirth" VARCHAR(255),
             "birthPlace" VARCHAR(255),
-            "authorImage" IMAGE,
-            "authorBio" VARCHAR(255),
-        )
+            "authorImage" VARCHAR(255),
+            "authorBio" VARCHAR
+        );
 
         CREATE TABLE books (
             id SERIAL PRIMARY KEY,
+            title VARCHAR(255),
             "authorId" INTEGER REFERENCES author(id),
-            price INTEGER,
-            description VARCHAR(255),
-            "bookImage" IMAGE,
-            fiction BOOLEAN DEFAULT false,
-        )`)
-        console.log("Finished building tables")
-    }catch(error) {
-        console.log("Error building tables")
-        throw(error)
+            price FLOAT(2),
+            description VARCHAR,
+            "bookImage" VARCHAR(255),
+            fiction BOOLEAN DEFAULT false
+        );
+        
+        CREATE TABLE tags (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR (255) UNIQUE NOT NULL 
+        );
+        
+        CREATE TABLE book_tags (
+            "bookId" INTEGER REFERENCES books(id),
+            "tagId" INTEGER REFERENCES tags(id), 
+            UNIQUE ("bookId", "tagId")
+        )
+        `);
+    console.log("Finished building tables");
+  } catch (error) {
+    console.log("Error building tables");
+    throw error;
+  }
+}
+
+async function seedAuthors() {
+  try {
+    console.log("Starting to seed authors...");
+    const promises = [];
+
+    for (let i = 0; i < 75; i++) {
+      const fakeAuthor = {
+        authorFirstName: faker.name.firstName(),
+        authorLastName: faker.name.lastName(),
+        dateOfBirth: faker.date.birthdate(),
+        birthPlace: faker.address.city(),
+        authorImage: faker.image.avatar(),
+        authorBio: faker.lorem.paragraph(),
+      };
+
+      promises.push(createAuthor(fakeAuthor));
     }
-    
+
+    const authors = await Promise.all(promises);
+    console.log("Authors seeded!");
+  } catch (error) {
+    console.log("Error in seedAuthors");
+    throw error;
+  }
 }
 
 async function createBooks() {
-    try{
-        console.log("Creating books...")
-        const fakeBooks = [];
-        for (let i=0; i<100; i++){
-            const randomAuthor = {
-                person: faker.person.firstName(),
-                birthdate: faker.date.birthdate(),
-                image: faker.image.url(),
-                lorem: faker.lorem.paragraph()
-            };
-            fakeBooks.push(randomAuthor)
+  try {
+    console.log("Creating books...");
+    const promises = [];
 
-        }
+    for (let i = 0; i < 100; i++) {
+      const randomId = Math.floor(Math.random() * 100) + 1;
+    
+      let author = await getAuthorById(randomId);
 
-    } return fakeBooks
+      if (!author) {
+        author = await createAuthor({
+          authorFirstName: faker.name.firstName(),
+          authorLastName: faker.name.lastName(),
+          dateOfBirth: faker.date.birthdate(),
+          birthPlace: faker.address.city(),
+          authorImage: faker.image.avatar(),
+          authorBio: faker.lorem.paragraph(),
+        });
+      }
+
+      const randomBook = {
+        title: faker.random.words(),
+        price: faker.finance.amount(),
+        description: faker.lorem.paragraph(),
+        bookImage: faker.image.abstract(),
+        fiction: faker.datatype.boolean(),
+      };
+
+      promises.push(createBook(author, randomBook));
+    }
+
+    const books = await Promise.all(promises);
+
+    console.log("Books seeded!");
+  } catch (error) {
+    console.log("Error in createBooks");
+    throw error;
+  }
 }
 
+async function seedTags(){
 
+    try{
+        const tagPromises = []
+        console.log("Starting to create tags...");
 
+        for (let i=0; i <60; i++){
+         const tagList = [faker.commerce.productAdjective(), faker.commerce.productAdjective()]
+         const randomId = Math.floor(Math.random() * 100) + 1;
+         tagPromises.push(createBookTag(randomId, tagList))
+        }
 
+const tags = await Promise.all(tagPromises)
+console.log("Getting books!")
+//add tags to book
+console.log("Tags Seeded!")
 
-
-
+    }catch(error){
+        console.log("Error Seeding Tags!")
+        throw error;
+    }
+}
 
 async function rebuildDB() {
-    try{
-        await dropTables();
-    }catch(error){
-        console.log("error during rebuildDB");
-    throw(error)
-    }
-};
+  try {
+    client.connect();
+    console.log("Starting to rebuild DB");
+    await dropTables();
+    await createTables();
+    await seedAuthors();
+    await createBooks();
+    await seedTags();
+    await getAllBooks();
+    await getBookById(20);
+  } catch (error) {
+    console.log("error during rebuildDB ");
+    throw error;
+  }
+}
 
 module.exports = {
-    rebuildDB,
-    dropTables,
-    createTables
+  rebuildDB,
+  dropTables,
+  createTables,
 };
