@@ -1,7 +1,7 @@
 const { faker } = require("@faker-js/faker");
 const client = require("./index");
-const { createBook, getAllBooks, getBookById } = require("./books");
-const { createAuthor, getAuthorById } = require("./author");
+const { createBook, getAllBooks, getBookById, updateBook, destroyBook } = require("./books");
+const { createAuthor, getAuthorById, updateAuthor } = require("./author");
 const { createBookTag } = require("./tags")
 const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users")
 
@@ -120,7 +120,7 @@ async function createInitialUsers() {
   
       });
   
-      console.log("---INITIAL USERS---", admin, testUser1)
+      // console.log("---INITIAL USERS---", admin, testUser1)
   
       console.log('Finished creating users');
     } catch (error) {
@@ -129,7 +129,7 @@ async function createInitialUsers() {
     }
   }
   
-async function createBooks() {
+async function seedBooks() {
   try {
     console.log("Creating books...");
     const promises = [];
@@ -194,6 +194,34 @@ console.log("Tags Seeded!")
     }
 }
 
+async function testDB(){
+  try{
+    const bookFields = {
+      id : 20, 
+      description : "This is a test update", 
+      title : "Test Title", 
+      fiction : true
+    }
+
+    const authorFields = {
+      id : 20, 
+      authorBio : "J.R.R. Tolkien was an English writer and philologist. He was the author of the high fantasy works The Hobbit and The Lord of the Rings.", 
+      authorFirstName : "John Ronald Reuel", 
+      authorLastName : "Tolkien", 
+      authorImage : "https://en.wikipedia.org/wiki/J._R._R._Tolkien#/media/File:J._R._R._Tolkien,_ca._1925.jpg"
+      
+    }
+
+    await getAllBooks();
+    await getBookById(20);
+    await updateBook(bookFields)
+    await updateAuthor(authorFields)
+    await destroyBook(20)
+  }catch(error){
+    throw error
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
@@ -201,11 +229,10 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await seedAuthors();
-    await createBooks();
+    await seedBooks();
     await seedTags();
-    await getAllBooks();
-    await getBookById(20);
     await createInitialUsers();
+    await testDB()
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;
@@ -213,7 +240,6 @@ async function rebuildDB() {
 }
 
 module.exports = {
-
     rebuildDB,
     dropTables,
     createTables

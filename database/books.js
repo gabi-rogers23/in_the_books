@@ -84,8 +84,70 @@ WHERE b.id = ${bookId};
   }
 }
 
+async function updateBook({ id, ...fields }) {
+  try {
+    const updateFields = {};
+
+    if (Object.hasOwn(fields, "title")) {
+      updateFields.title = fields.title;
+    }
+    if (Object.hasOwn(fields, "price")) {
+      updateFields.price = fields.price;
+    }
+    if (Object.hasOwn(fields, "description")) {
+      updateFields.description = fields.description;
+    }
+    if (Object.hasOwn(fields, "bookImage")) {
+      updateFields.bookImage = fields.bookImage;
+    }
+    if (Object.hasOwn(fields, "fiction")) {
+      updateFields.fiction = fields.fiction;
+    }
+
+    const setString = Object.keys(updateFields)
+      .map((key, i) => `"${key}"=$${i + 1}`)
+      .join(", ");
+
+    // console.log (setString)
+
+    const {
+      rows: [updatedBook],
+    } = await client.query(
+      `
+UPDATE books
+SET ${setString}
+WHERE id=${id}
+RETURNING *;
+`,
+      Object.values(updateFields)
+    );
+
+    return updatedBook;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function destroyBook(id) {
+  try {
+    await client.query(`
+    DELETE FROM book_tags
+    WHERE "bookId"=${id};
+    `);
+
+    await client.query(`
+    DELETE FROM books
+    WHERE id=${id};
+    `);
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createBook,
   getAllBooks,
   getBookById,
+  updateBook,
+  destroyBook,
 };
