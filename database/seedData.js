@@ -3,7 +3,7 @@ const client = require("./index");
 const { createBook, getAllBooks, getBookById } = require("./books");
 const { createAuthor, getAuthorById } = require("./author");
 const { createBookTag } = require("./tags")
-
+const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users")
 
 async function dropTables() {
   try {
@@ -13,6 +13,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS tags;
     DROP TABLE IF EXISTS books;
     DROP TABLE IF EXISTS author;
+    DROP TABLE IF EXISTS users;
     `);
     console.log("Tables dropped");
   } catch (error) {
@@ -204,6 +205,7 @@ async function rebuildDB() {
     await seedTags();
     await getAllBooks();
     await getBookById(20);
+    await createInitialUsers();
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;
@@ -214,6 +216,5 @@ module.exports = {
 
     rebuildDB,
     dropTables,
-    createTables,
-    createInitialUsers
+    createTables
 };
