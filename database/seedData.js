@@ -13,6 +13,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS tags;
     DROP TABLE IF EXISTS books;
     DROP TABLE IF EXISTS author;
+    DROP TABLE IF EXISTS users;
     `);
     console.log("Tables dropped");
   } catch (error) {
