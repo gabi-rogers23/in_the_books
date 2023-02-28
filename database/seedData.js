@@ -1,5 +1,3 @@
-
-
 const { faker } = require("@faker-js/faker");
 const client = require("./index");
 const { createBook, getAllBooks, getBookById } = require("./books");
@@ -36,7 +34,6 @@ async function createTables() {
             "authorImage" VARCHAR(255),
             "authorBio" VARCHAR
         );
-
         CREATE TABLE books (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255),
@@ -221,4 +218,3 @@ module.exports = {
     createTables,
     createInitialUsers
 };
-
