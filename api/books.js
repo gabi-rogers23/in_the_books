@@ -1,6 +1,6 @@
 const express = require("express");
+const router = express.Router();
 const { getAllBooks } = require ("../database");
-
 
 //GET /books
 
@@ -12,3 +12,5 @@ router.get("/", async (req, res, next) => {
         next(error)
     }
 });
+
+module.exports = router
