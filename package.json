@@ -38,7 +38,6 @@
     "url": "https://github.com/InTheBooks/in-the-books-shop/issues"
   },
   "keywords": [],
-  "homepage": "https://github.com/InTheBooks/in-the-books-shop#readme",
   "browserslist": {
     "production": [
       ">0.2%",

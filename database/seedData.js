@@ -157,7 +157,7 @@ async function seedBooks() {
         title: faker.random.words(),
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
-        bookImage: faker.image.abstract(),
+        bookImage: faker.image.image(100, 150, true),
         fiction: faker.datatype.boolean(),
       };
 

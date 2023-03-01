@@ -36,7 +36,7 @@ async function getAllBooks() {
    `);
 
     const { rows: bookTags } = await client.query(`
-   SELECT t.name AS tag, "tagId"
+   SELECT t.name AS tag, "tagId", "bookId"
    FROM book_tags bt
    JOIN books b ON b.id=bt."bookId"
    JOIN tags t ON t.id=bt."tagId";   
@@ -48,6 +48,7 @@ async function getAllBooks() {
 
     // console.log("BOOK AUTHOR ", books);
     // console.log("BOOK TAGS ", bookTags)
+    // console.log(books)
     return books;
   } catch (error) {
     throw error;
