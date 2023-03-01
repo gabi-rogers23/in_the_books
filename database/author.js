@@ -1,5 +1,4 @@
-const { destroyBook } = require("./books");
-const client = require("./index");
+const client = require("./client");
 
 async function createAuthor({
   authorFirstName,

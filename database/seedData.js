@@ -1,9 +1,15 @@
 const { faker } = require("@faker-js/faker");
-const client = require("./index");
-const { createBook, getAllBooks, getBookById, updateBook, destroyBook } = require("./books");
+const client = require("./client");
+const {
+  createBook,
+  getAllBooks,
+  getBookById,
+  updateBook,
+  destroyBook,
+} = require("./books");
 const { createAuthor, getAuthorById, updateAuthor } = require("./author");
-const { createBookTag } = require("./tags")
-const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users")
+const { createBookTag } = require("./tags");
+const { createUser } = require("./users");
 
 async function dropTables() {
   try {
@@ -70,7 +76,6 @@ async function createTables() {
     console.log("Error building tables");
     throw error;
   }
-
 }
 
 async function seedAuthors() {
@@ -99,36 +104,34 @@ async function seedAuthors() {
   }
 }
 
-
 async function createInitialUsers() {
-    try {
-      console.log('Starting to create users...')
-      const admin = await createUser({
-        email: faker.internet.email(), 
-        password: faker.internet.password(),
-        shippingAddress: faker.address.streetAddress(),
-        phoneNumber: faker.phone.number(),
-        isAdmin: true
-      });
-  
-      const testUser1 = await createUser({
-        email: faker.internet.email(), 
-        password: faker.internet.password(),
-        shippingAddress: faker.address.streetAddress(),
-        phoneNumber: faker.phone.number(),
-        isAdmin: false
-  
-      });
-  
-      // console.log("---INITIAL USERS---", admin, testUser1)
-  
-      console.log('Finished creating users');
-    } catch (error) {
-      console.log("Error creating users");
-      throw (error);
-    }
+  try {
+    console.log("Starting to create users...");
+    const admin = await createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      shippingAddress: faker.address.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      isAdmin: true,
+    });
+
+    const testUser1 = await createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      shippingAddress: faker.address.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      isAdmin: false,
+    });
+
+    // console.log("---INITIAL USERS---", admin, testUser1)
+
+    console.log("Finished creating users");
+  } catch (error) {
+    console.log("Error creating users");
+    throw error;
   }
-  
+}
+
 async function seedBooks() {
   try {
     console.log("Creating books...");
@@ -136,7 +139,7 @@ async function seedBooks() {
 
     for (let i = 0; i < 100; i++) {
       const randomId = Math.floor(Math.random() * 100) + 1;
-    
+
       let author = await getAuthorById(randomId);
 
       if (!author) {
@@ -170,55 +173,56 @@ async function seedBooks() {
   }
 }
 
-async function seedTags(){
+async function seedTags() {
+  try {
+    const tagPromises = [];
+    console.log("Starting to create tags...");
 
-    try{
-        const tagPromises = []
-        console.log("Starting to create tags...");
-
-        for (let i=0; i <60; i++){
-         const tagList = [faker.commerce.productAdjective(), faker.commerce.productAdjective()]
-         const randomId = Math.floor(Math.random() * 100) + 1;
-         tagPromises.push(createBookTag(randomId, tagList))
-        }
-
-const tags = await Promise.all(tagPromises)
-console.log("Getting books!")
-//add tags to book
-console.log("Tags Seeded!")
-
-
-    }catch(error){
-        console.log("Error Seeding Tags!")
-        throw error;
+    for (let i = 0; i < 60; i++) {
+      const tagList = [
+        faker.commerce.productAdjective(),
+        faker.commerce.productAdjective(),
+      ];
+      const randomId = Math.floor(Math.random() * 100) + 1;
+      tagPromises.push(createBookTag(randomId, tagList));
     }
+
+    const tags = await Promise.all(tagPromises);
+    console.log("Getting books!");
+    //add tags to book
+    console.log("Tags Seeded!");
+  } catch (error) {
+    console.log("Error Seeding Tags!");
+    throw error;
+  }
 }
 
-async function testDB(){
-  try{
+async function testDB() {
+  try {
     const bookFields = {
-      id : 20, 
-      description : "This is a test update", 
-      title : "Test Title", 
-      fiction : true
-    }
+      id: 20,
+      description: "This is a test update",
+      title: "Test Title",
+      fiction: true,
+    };
 
     const authorFields = {
-      id : 20, 
-      authorBio : "J.R.R. Tolkien was an English writer and philologist. He was the author of the high fantasy works The Hobbit and The Lord of the Rings.", 
-      authorFirstName : "John Ronald Reuel", 
-      authorLastName : "Tolkien", 
-      authorImage : "https://en.wikipedia.org/wiki/J._R._R._Tolkien#/media/File:J._R._R._Tolkien,_ca._1925.jpg"
-      
-    }
+      id: 20,
+      authorBio:
+        "J.R.R. Tolkien was an English writer and philologist. He was the author of the high fantasy works The Hobbit and The Lord of the Rings.",
+      authorFirstName: "John Ronald Reuel",
+      authorLastName: "Tolkien",
+      authorImage:
+        "https://en.wikipedia.org/wiki/J._R._R._Tolkien#/media/File:J._R._R._Tolkien,_ca._1925.jpg",
+    };
 
     await getAllBooks();
     await getBookById(20);
-    await updateBook(bookFields)
-    await updateAuthor(authorFields)
-    await destroyBook(20)
-  }catch(error){
-    throw error
+    await updateBook(bookFields);
+    await updateAuthor(authorFields);
+    await destroyBook(20);
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -232,7 +236,7 @@ async function rebuildDB() {
     await seedBooks();
     await seedTags();
     await createInitialUsers();
-    await testDB()
+    await testDB();
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;
@@ -240,7 +244,7 @@ async function rebuildDB() {
 }
 
 module.exports = {
-    rebuildDB,
-    dropTables,
-    createTables
+  rebuildDB,
+  dropTables,
+  createTables,
 };

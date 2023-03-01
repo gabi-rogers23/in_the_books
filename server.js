@@ -9,7 +9,6 @@ const server = http.createServer(app)
 server.listen(PORT, () => {
   console.log(
     chalk.blueBright("Server is listening on PORT:"),
-    chalk.yellow(PORT),
-    chalk.blueBright("Get your routine on!")
+    chalk.yellow(PORT)
   )
 })
