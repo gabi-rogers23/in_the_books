@@ -2,17 +2,24 @@
   "name": "in-the-books",
   "version": "1.0.0",
   "description": "an API for our book shop, using node, express, postgresql, and jQuery",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "faker": "^6.6.6",
     "pg": "^8.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "chalk": "^4.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0"
   },
   "scripts": {
     "seed:dev": "nodemon ./database/seed.js",
+    "start:dev": "nodemon server.js",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
