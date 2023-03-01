@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-const client = require("./index");
+const client = require("public/index");
 
 const App = () => {
   return <div>
