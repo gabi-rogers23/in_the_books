@@ -7,9 +7,24 @@ const {
   updateBook,
   destroyBook,
 } = require("./books");
-const { createAuthor, getAuthorById, updateAuthor } = require("./author");
 const { createBookTag } = require("./tags");
-const { createUser } = require("./users");
+const { createAuthor, getAuthorById } = require("./author");
+const {
+  createUser,
+  updateUser,
+  getUser,
+  getUserByEmail,
+  getAllUsers,
+} = require("./users");
+const {
+  createCart,
+  getCartById,
+  getCartByUserId,
+  destroyCart,
+  addToCart,
+  removeFromCart,
+  updateCart,
+} = require("./dbCart");
 
 async function dropTables() {
   try {
@@ -17,9 +32,11 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS book_tags;
     DROP TABLE IF EXISTS tags;
-    DROP TABLE IF EXISTS books;
+    DROP TABLE IF EXISTS books CASCADE;
     DROP TABLE IF EXISTS author;
-    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS cart_items;
     `);
     console.log("Tables dropped");
   } catch (error) {
@@ -70,6 +87,17 @@ async function createTables() {
             "phoneNumber" VARCHAR (255),
             "isAdmin" BOOLEAN DEFAULT false
         );
+        CREATE TABLE cart (
+            id SERIAL PRIMARY KEY,
+            "userId"  VARCHAR (255),
+            "productIds" VARCHAR (255)
+        
+        );
+        CREATE TABLE cart_items (
+            id SERIAL PRIMARY KEY,
+            "addedItem" INTEGER REFERENCES books(id),
+            "quantity" VARCHAR (255)
+        )
         `);
     console.log("Finished building tables");
   } catch (error) {
@@ -131,6 +159,25 @@ async function createInitialUsers() {
     throw error;
   }
 }
+async function createInitialCart() {
+  const [testUser1] = await getAllUsers();
+
+  const [books] = await getAllBooks();
+  try {
+    console.log('Starting to create cart..."');
+    const cart1 = await createCart({
+      userId: testUser1.id,
+      productIds: books.title,
+    });
+    console.log("---INITIAL CART---", cart1);
+    console.log("Finished Creating Initial Cart..");
+  } catch (error) {
+    console.log("Error creating cart");
+    throw error;
+  }
+}
+
+async function InitialAddToCart() {}
 
 async function seedBooks() {
   try {
@@ -236,6 +283,7 @@ async function rebuildDB() {
     await seedBooks();
     await seedTags();
     await createInitialUsers();
+    await createInitialCart();
     await testDB();
   } catch (error) {
     console.log("error during rebuildDB ");
