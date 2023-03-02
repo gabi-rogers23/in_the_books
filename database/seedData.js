@@ -198,7 +198,7 @@ async function createBooks() {
         title: faker.random.words(),
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
-        bookImage: faker.image.abstract(),
+        bookImage: faker.image.image(),
         fiction: faker.datatype.boolean(),
       };
 
