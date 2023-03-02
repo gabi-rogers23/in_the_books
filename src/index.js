@@ -1,12 +1,23 @@
 import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// import App from "./components/app";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import { Home, Books, NavBar } from "./components/exports"
 
-// const App = () => {
-//   return <div>
-//     Hello World
-//   </div>
-// };
+const App = () => {
+  return <div>
+    <NavBar />
+     <Routes>
+    <Route exact strict path="/" element={<Home />} />
+    <Route path='/books' element={<Books />} />
+    </Routes>
+  </div>
+};
 
-const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(<App />);
+const container = document.getElementById("app");
+const root = createRoot(container);
+
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

@@ -1,5 +1,4 @@
-const client = require("./index");
-const {} = require("./books");
+const client = require("./client");
 
 async function createTags(tagList) {
   if (tagList.length === 0) {
