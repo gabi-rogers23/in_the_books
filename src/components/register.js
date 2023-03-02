@@ -1,4 +1,5 @@
 import {React, useState} from "react"
+import { useNavigate } from "react-router-dom";
 
 const Register = ({ setIsLoading, setIsLoggedIn }) => {
     const [username, setUsername] = useState("");
@@ -33,7 +34,6 @@ const Register = ({ setIsLoading, setIsLoggedIn }) => {
       <>
         <form
           onSubmit={handleRegister}
-          
         >
           <div >
             <h1 >
