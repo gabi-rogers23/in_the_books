@@ -29,7 +29,7 @@ return(
                     <div><img src={book.bookImage} width="100"/></div>
                     <div><b>Title:</b> {book.title}</div>
                     <div><b>Author:</b> {book.authorFirstName} {book.authorLastName}</div>
-                    <div><b>Price:</b>{book.price}</div>
+                    <div><b>Price:</b> {book.price}</div>
                     {book.tags.length > 0 && (<div><b>Tags:</b> <ul>{book.tags.map((tag)=>{
                        return( <li key={tag.tagId}>{tag.tag}</li>)
                     })}</ul></div>)}
