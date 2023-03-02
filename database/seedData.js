@@ -2,8 +2,15 @@ const { faker } = require("@faker-js/faker");
 const client = require("./index");
 const { createBook, getAllBooks, getBookById } = require("./books");
 const { createAuthor, getAuthorById } = require("./author");
-const { createBookTag } = require("./tags")
-const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users")
+const { createBookTag } = require("./tags");
+const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users");
+const {createCart,
+    getCartById,
+    getCartByUserId,
+    destroyCart,
+    addToCart,
+    removeFromCart,
+    updateCart} = require ("./dbCart");
 
 async function dropTables() {
   try {
@@ -11,9 +18,11 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS book_tags;
     DROP TABLE IF EXISTS tags;
-    DROP TABLE IF EXISTS books;
+    DROP TABLE IF EXISTS books CASCADE;
     DROP TABLE IF EXISTS author;
-    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS cart_items;
     `);
     console.log("Tables dropped");
   } catch (error) {
@@ -64,6 +73,18 @@ async function createTables() {
             "phoneNumber" VARCHAR (255),
             "isAdmin" BOOLEAN DEFAULT false
         );
+        CREATE TABLE cart (
+            id SERIAL PRIMARY KEY,
+            "cartId"  VARCHAR (255),
+            "bookTitle" VARCHAR (255),
+            "bookId" INTEGER REFERENCES books(id),
+            "bookPrice" VARCHAR (255)
+        );
+        CREATE TABLE cart_items (
+            id SERIAL PRIMARY KEY,
+            "newProductIds" VARCHAR (255),
+            "quantity" VARCHAR (255)
+        )
         `);
     console.log("Finished building tables");
   } catch (error) {
@@ -129,6 +150,40 @@ async function createInitialUsers() {
     }
   }
   
+  async function createInitialCart(){
+    const [testUser1] = await getAllUsers();
+
+    const [books] = await getAllBooks();
+    try {
+        console.log('Starting to create cart..."')
+        const cart1= await createCart({
+
+            cartId: testUser1.id,
+            bookTitle: books.title,
+            bookId: books.id,
+            bookPrice: books.price
+
+        });
+        console.log("---INITIAL CART---", cart1)
+        console.log("Finished Creating Initial Cart..")
+    }catch (error) {
+        console.log("Error creating cart");
+        throw (error);
+    }
+}
+
+async function InitialAddToCart(){
+   const [cart1] = createCart(productIds)
+    try{
+        const cart = await createInitialCart({
+            newProductids: cart1.productIds
+        })
+    }catch (error) {
+        console.log("Error creating cart");
+        throw (error);
+    }
+}
+
 async function createBooks() {
   try {
     console.log("Creating books...");
@@ -154,7 +209,7 @@ async function createBooks() {
         title: faker.random.words(),
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
-        bookImage: faker.image.abstract(),
+        bookImage: faker.image.image(),
         fiction: faker.datatype.boolean(),
       };
 
@@ -206,6 +261,8 @@ async function rebuildDB() {
     await getAllBooks();
     await getBookById(20);
     await createInitialUsers();
+    await createInitialCart();
+    await InitialAddToCart();
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;
