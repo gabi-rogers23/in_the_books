@@ -145,10 +145,29 @@ async function destroyBook(id) {
   }
 }
 
+async function getBooksByTagId(tagId){
+  try{
+    const { rows: books } = await client.query(`
+    SELECT b.title AS title, b.id AS id,"bookImage",bt."tagId", "authorFirstName","authorLastName", t.name AS "tagName" 
+    FROM book_tags bt
+    JOIN books b ON b.id=bt."bookId"
+    JOIN tags t ON bt."tagId"=t.id
+    JOIN author a ON a.id=b."authorId"
+    WHERE "tagId"='${tagId}';
+    `);
+// console.log(books)
+    return books;
+    
+  }catch(error){
+    throw error;
+  }
+}
+
 module.exports = {
   createBook,
   getAllBooks,
   getBookById,
   updateBook,
   destroyBook,
+  getBooksByTagId
 };
