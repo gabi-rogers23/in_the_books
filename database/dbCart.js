@@ -1,19 +1,4 @@
-<<<<<<< HEAD
-const client = require("./index");
 
-
-
-
-async function createCart () {
-    try{
-        await client.query(`
-        CREATE TABLE "cartItems"(
-            "bookId" INTEGER,
-            "cartId" INTEGER,
-        )`)
-    }
-}
-=======
 const client  = require('./index');
 
  async function createCart(userId, productIds) {
@@ -182,4 +167,3 @@ const client  = require('./index');
    removeFromCart,
    updateCart
  }
->>>>>>> 8abec6e (cart changes)
