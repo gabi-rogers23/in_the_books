@@ -26,9 +26,8 @@ router.get("/:bookId", async  (req, res, next)=>{
 //GET /books/:tag
 router.get("/bookTag/:tag", async (req, res, next)=>{
   try{
-    console.log("Hi" , req.params.tag)
     const bookTagList = await getBooksByTag(req.params.tag)
-    console.log("HELLO FROM ROUTES", bookTagList)
+    // console.log("HELLO FROM ROUTES", bookTagList)
     res.send(bookTagList);
     
   }catch(error){
