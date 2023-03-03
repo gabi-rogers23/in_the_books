@@ -4,7 +4,7 @@ async function createTags(tagList) {
   if (tagList.length === 0) {
     return;
   }
-//   console.log("TAG LIST: ", tagList)
+  //   console.log("TAG LIST: ", tagList)
 
   const insertValues = tagList.map((_, index) => `$${index + 1}`).join("), (");
 
@@ -31,10 +31,10 @@ async function createTags(tagList) {
 
 async function createBookTag(bookId, tagList) {
   try {
-      const createdTags = await createTags(tagList);
-     for (let i=0; i < createdTags.length; i++) {
-         const tag = createdTags[i]
-        // console.log("createdTAG ", tag)
+    const createdTags = await createTags(tagList);
+    for (let i = 0; i < createdTags.length; i++) {
+      const tag = createdTags[i];
+      // console.log("createdTAG ", tag)
 
       const {
         rows: [bookTag],
@@ -48,8 +48,22 @@ async function createBookTag(bookId, tagList) {
         [bookId, tag.id]
       );
       // console.log("Book Tags ", bookTag);
-    };
- 
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getTagById(tagId) {
+  try {
+    const {
+      rows: [tag],
+    } = await client.query(`
+  SELECT * FROM tags
+  WHERE tags.id='${tagId}';
+  `);
+  console.log(tag)
+    return tag;
   } catch (error) {
     throw error;
   }
@@ -58,4 +72,5 @@ async function createBookTag(bookId, tagList) {
 module.exports = {
   createTags,
   createBookTag,
+  getTagById
 };

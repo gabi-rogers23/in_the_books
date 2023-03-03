@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./app.css";
 import { GiBookCover } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";

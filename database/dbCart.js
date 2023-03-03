@@ -1,6 +1,4 @@
-
 const client  = require('./client');
-
  async function createCart(userId, productIds) {
 
    if (!userId) {

@@ -1,27 +1,28 @@
-import React from 'react';
-import { createRoot, } from "react-dom/client";
-import "./components/app.css";
-import { Route, Routes, BrowserRouter, Router, NavLink, createBrowserRouter } from "react-router-dom";
-import {Home, NavBar, Books} from "./components/exports"
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+import {
+  Home,
+  Books,
+  BookDetails,
+  BookTagSearch,
+  NavBar
+} from "./components/exports";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-      <>
+    <>
       <NavBar />
-          <Routes>
-              <Route path="/" element={<Home/>}>
-     
-              </Route>
-
-              <Route path="/books" element={<Books/>}>
-    
-              </Route>
-                      
-          </Routes>
-  
-      </>
-  )
-  }
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/books/:bookId" element={<BookDetails />} />
+        <Route path="/booktag/:tagName" element={<BookTagSearch />} />
+      </Routes>
+    </>
+  );
+};
 
 const container = document.getElementById("app");
 const root = createRoot(container);
@@ -29,6 +30,5 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <App />
-    
   </BrowserRouter>
 );

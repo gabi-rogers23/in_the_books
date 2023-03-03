@@ -6,6 +6,7 @@ const {
   getBookById,
   updateBook,
   destroyBook,
+  getBooksByTag
 } = require("./books");
 const { createBookTag } = require("./tags");
 const { createAuthor, getAuthorById, updateAuthor } = require("./author");
@@ -170,7 +171,7 @@ async function createInitialCart() {
       productIds: books.title,
     });
     console.log("---INITIAL CART---", cart1);
-    console.log("Finished Creating Initial Cart..");
+    console.log("Finished Creating Initial Cart.");
   } catch (error) {
     console.log("Error creating cart");
     throw error;
@@ -235,8 +236,6 @@ async function seedTags() {
     }
 
     const tags = await Promise.all(tagPromises);
-    console.log("Getting books!");
-    //add tags to book
     console.log("Tags Seeded!");
   } catch (error) {
     console.log("Error Seeding Tags!");
@@ -268,6 +267,7 @@ async function testDB() {
     await updateBook(bookFields);
     await updateAuthor(authorFields);
     await destroyBook(20);
+    await getBooksByTag('Sleek');
   } catch (error) {
     throw error;
   }
