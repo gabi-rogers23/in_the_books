@@ -1,6 +1,7 @@
-const client  = require('./index');
+const client  = require('./client');
 
  async function createCart(userId, bookTitle, bookId, bookPrice) {
+
 
    if (!userId) {
      userId = null
@@ -8,10 +9,12 @@ const client  = require('./index');
 
    try {
      const { rows: [cart] } = await client.query(`
+
            INSERT INTO cart ("cartId", "bookTitle", "bookId", "bookPrice") 
              VALUES($1, $2, $3, $4) 
              RETURNING *;
            `, [userId, bookTitle, bookId, bookPrice]);
+
 
 
      return cart;
@@ -68,15 +71,18 @@ const client  = require('./index');
 
           async function addToCart(userId, newProductId) {
             const newCart = await getCartById(userId)
+
    
             newCart.productIds.push(newProductId)
    
             const newProductIds = newCart.productIds
 
+
    try {
      await client.query(`
          UPDATE cart
          SET "bookId" = '{${newProductIds}}'
+
          WHERE "userId"=${userId}
          RETURNING *;
          `)
@@ -168,3 +174,4 @@ const client  = require('./index');
    removeFromCart,
    updateCart
  }
+

@@ -1,4 +1,4 @@
-const client = require("./index");
+const client = require("./client");
 
 async function createBook(
   bookAuthor,
@@ -36,7 +36,7 @@ async function getAllBooks() {
    `);
 
     const { rows: bookTags } = await client.query(`
-   SELECT t.name AS tag, "tagId"
+   SELECT t.name AS tag, "tagId", "bookId"
    FROM book_tags bt
    JOIN books b ON b.id=bt."bookId"
    JOIN tags t ON t.id=bt."tagId";   
@@ -48,6 +48,7 @@ async function getAllBooks() {
 
     // console.log("BOOK AUTHOR ", books);
     // console.log("BOOK TAGS ", bookTags)
+    // console.log(books)
     return books;
   } catch (error) {
     throw error;
@@ -84,8 +85,89 @@ WHERE b.id = ${bookId};
   }
 }
 
+async function updateBook({ id, ...fields }) {
+  try {
+    const updateFields = {};
+
+    if (Object.hasOwn(fields, "title")) {
+      updateFields.title = fields.title;
+    }
+    if (Object.hasOwn(fields, "price")) {
+      updateFields.price = fields.price;
+    }
+    if (Object.hasOwn(fields, "description")) {
+      updateFields.description = fields.description;
+    }
+    if (Object.hasOwn(fields, "bookImage")) {
+      updateFields.bookImage = fields.bookImage;
+    }
+    if (Object.hasOwn(fields, "fiction")) {
+      updateFields.fiction = fields.fiction;
+    }
+
+    const setString = Object.keys(updateFields)
+      .map((key, i) => `"${key}"=$${i + 1}`)
+      .join(", ");
+
+    // console.log (setString)
+
+    const {
+      rows: [updatedBook],
+    } = await client.query(
+      `
+UPDATE books
+SET ${setString}
+WHERE id=${id}
+RETURNING *;
+`,
+      Object.values(updateFields)
+    );
+
+    return updatedBook;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function destroyBook(id) {
+  try {
+    await client.query(`
+    DELETE FROM book_tags
+    WHERE "bookId"=${id};
+    `);
+
+    await client.query(`
+    DELETE FROM books
+    WHERE id=${id};
+    `);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getBooksByTag(tagName){
+  try{
+    const { rows: books } = await client.query(`
+    SELECT b.title AS title, b.id AS id,"bookImage",bt."tagId", "authorFirstName","authorLastName", t.name AS "tagName" 
+    FROM tags t
+    JOIN book_tags bt ON t.id=bt."tagId"
+    JOIN books b ON b.id=bt."bookId"
+    JOIN author a ON a.id=b."authorId"
+    WHERE t.name IN ('${tagName}');
+    `);
+// console.log(books)
+    return books;
+    
+  }catch(error){
+    throw error;
+  }
+}
+
 module.exports = {
   createBook,
   getAllBooks,
   getBookById,
+  updateBook,
+  destroyBook,
+  getBooksByTag
 };

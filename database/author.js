@@ -1,4 +1,4 @@
-const client = require("./index");
+const client = require("./client");
 
 async function createAuthor({
   authorFirstName,
@@ -44,7 +44,52 @@ async function getAuthorById(authorId) {
   }
 }
 
+async function updateAuthor({ id, ...fields }) {
+  try {
+    const updateFields = {};
+
+    if (Object.hasOwn(fields, "authorFirstName")) {
+      updateFields.authorFirstName = fields.authorFirstName;
+    }
+    if (Object.hasOwn(fields, "authorLastName")) {
+      updateFields.authorLastName = fields.authorLastName;
+    }
+    if (Object.hasOwn(fields, "dateOfBirth")) {
+      updateFields.dateOfBirth = fields.dateOfBirth;
+    }
+    if (Object.hasOwn(fields, "authorImage")) {
+      updateFields.authorImage = fields.authorImage;
+    }
+    if (Object.hasOwn(fields, "authorBio")) {
+      updateFields.authorBio = fields.authorBio;
+    }
+
+    const setString = Object.keys(updateFields)
+      .map((key, i) => `"${key}"=$${i + 1}`)
+      .join(", ");
+
+    const {
+      rows: [updatedAuthor],
+    } = await client.query(
+      `
+    UPDATE author
+    SET ${setString}
+    WHERE id=${id}
+    RETURNING *;
+    `,
+      Object.values(updateFields)
+    );
+
+    return updatedAuthor;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
 module.exports = {
   createAuthor,
   getAuthorById,
+  updateAuthor,
 };

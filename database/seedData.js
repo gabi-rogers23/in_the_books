@@ -1,8 +1,15 @@
 const { faker } = require("@faker-js/faker");
-const client = require("./index");
-const { createBook, getAllBooks, getBookById } = require("./books");
-const { createAuthor, getAuthorById } = require("./author");
+const client = require("./client");
+const {
+  createBook,
+  getAllBooks,
+  getBookById,
+  updateBook,
+  destroyBook,
+  getBooksByTag
+} = require("./books");
 const { createBookTag } = require("./tags");
+const { createAuthor, getAuthorById, updateAuthor } = require("./author");
 const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users");
 const {createCart,
     getCartById,
@@ -83,15 +90,13 @@ async function createTables() {
         CREATE TABLE cart_items (
             id SERIAL PRIMARY KEY,
             "newProductIds" VARCHAR (255),
-            "quantity" VARCHAR (255)
-        )
+            "quantity" VARCHAR (255);
         `);
     console.log("Finished building tables");
   } catch (error) {
     console.log("Error building tables");
     throw error;
   }
-
 }
 
 async function seedAuthors() {
@@ -120,34 +125,48 @@ async function seedAuthors() {
   }
 }
 
-
 async function createInitialUsers() {
-    try {
-      console.log('Starting to create users...')
-      const admin = await createUser({
-        email: faker.internet.email(), 
-        password: faker.internet.password(),
-        shippingAddress: faker.address.streetAddress(),
-        phoneNumber: faker.phone.number(),
-        isAdmin: true
-      });
-  
-      const testUser1 = await createUser({
-        email: faker.internet.email(), 
-        password: faker.internet.password(),
-        shippingAddress: faker.address.streetAddress(),
-        phoneNumber: faker.phone.number(),
-        isAdmin: false
-  
-      });
-  
-      console.log("---INITIAL USERS---", admin, testUser1)
-  
-      console.log('Finished creating users');
-    } catch (error) {
-      console.log("Error creating users");
-      throw (error);
-    }
+  try {
+    console.log("Starting to create users...");
+    const admin = await createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      shippingAddress: faker.address.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      isAdmin: true,
+    });
+
+    const testUser1 = await createUser({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      shippingAddress: faker.address.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      isAdmin: false,
+    });
+
+    // console.log("---INITIAL USERS---", admin, testUser1)
+
+    console.log("Finished creating users");
+  } catch (error) {
+    console.log("Error creating users");
+    throw error;
+  }
+}
+async function createInitialCart() {
+  const [testUser1] = await getAllUsers();
+
+  const [books] = await getAllBooks();
+  try {
+    console.log('Starting to create cart..."');
+    const cart1 = await createCart({
+      userId: testUser1.id,
+      productIds: books.title,
+    });
+    console.log("---INITIAL CART---", cart1);
+    console.log("Finished Creating Initial Cart.");
+  } catch (error) {
+    console.log("Error creating cart");
+    throw error;
   }
   
   async function createInitialCart(){
@@ -184,14 +203,18 @@ async function InitialAddToCart(){
     }
 }
 
-async function createBooks() {
+
+
+async function InitialAddToCart() {}
+
+async function seedBooks() {
   try {
     console.log("Creating books...");
     const promises = [];
 
     for (let i = 0; i < 100; i++) {
       const randomId = Math.floor(Math.random() * 100) + 1;
-    
+
       let author = await getAuthorById(randomId);
 
       if (!author) {
@@ -209,7 +232,7 @@ async function createBooks() {
         title: faker.random.words(),
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
-        bookImage: faker.image.image(),
+        bookImage: faker.image.image(100, 150, true),
         fiction: faker.datatype.boolean(),
       };
 
@@ -225,28 +248,56 @@ async function createBooks() {
   }
 }
 
-async function seedTags(){
+async function seedTags() {
+  try {
+    const tagPromises = [];
+    console.log("Starting to create tags...");
 
-    try{
-        const tagPromises = []
-        console.log("Starting to create tags...");
-
-        for (let i=0; i <60; i++){
-         const tagList = [faker.commerce.productAdjective(), faker.commerce.productAdjective()]
-         const randomId = Math.floor(Math.random() * 100) + 1;
-         tagPromises.push(createBookTag(randomId, tagList))
-        }
-
-const tags = await Promise.all(tagPromises)
-console.log("Getting books!")
-//add tags to book
-console.log("Tags Seeded!")
-
-
-    }catch(error){
-        console.log("Error Seeding Tags!")
-        throw error;
+    for (let i = 0; i < 60; i++) {
+      const tagList = [
+        faker.commerce.productAdjective(),
+        faker.commerce.productAdjective(),
+      ];
+      const randomId = Math.floor(Math.random() * 100) + 1;
+      tagPromises.push(createBookTag(randomId, tagList));
     }
+
+    const tags = await Promise.all(tagPromises);
+    console.log("Tags Seeded!");
+  } catch (error) {
+    console.log("Error Seeding Tags!");
+    throw error;
+  }
+}
+
+async function testDB() {
+  try {
+    const bookFields = {
+      id: 20,
+      description: "This is a test update",
+      title: "Test Title",
+      fiction: true,
+    };
+
+    const authorFields = {
+      id: 20,
+      authorBio:
+        "J.R.R. Tolkien was an English writer and philologist. He was the author of the high fantasy works The Hobbit and The Lord of the Rings.",
+      authorFirstName: "John Ronald Reuel",
+      authorLastName: "Tolkien",
+      authorImage:
+        "https://en.wikipedia.org/wiki/J._R._R._Tolkien#/media/File:J._R._R._Tolkien,_ca._1925.jpg",
+    };
+
+    await getAllBooks();
+    await getBookById(20);
+    await updateBook(bookFields);
+    await updateAuthor(authorFields);
+    await destroyBook(20);
+    await getBooksByTag('Sleek');
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function rebuildDB() {
@@ -256,13 +307,12 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await seedAuthors();
-    await createBooks();
+    await seedBooks();
     await seedTags();
-    await getAllBooks();
-    await getBookById(20);
     await createInitialUsers();
     await createInitialCart();
     await InitialAddToCart();
+    await testDB();
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;
@@ -270,8 +320,7 @@ async function rebuildDB() {
 }
 
 module.exports = {
-
-    rebuildDB,
-    dropTables,
-    createTables
+  rebuildDB,
+  dropTables,
+  createTables,
 };
