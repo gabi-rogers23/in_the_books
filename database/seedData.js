@@ -8,7 +8,7 @@ const {
   destroyBook,
 } = require("./books");
 const { createBookTag } = require("./tags");
-const { createAuthor, getAuthorById } = require("./author");
+const { createAuthor, getAuthorById, updateAuthor } = require("./author");
 const {
   createUser,
   updateUser,

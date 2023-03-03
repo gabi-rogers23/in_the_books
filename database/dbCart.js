@@ -1,5 +1,5 @@
 
-const client  = require('./index');
+const client  = require('./client');
 
  async function createCart(userId, productIds) {
 
