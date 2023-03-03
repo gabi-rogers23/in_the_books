@@ -17,6 +17,7 @@ useEffect(()=>{
 
 function buttonHandler(e, nav ) {
     e.preventDefault();
+    console.log("click")
     navigate(nav);
   }
 
@@ -38,7 +39,7 @@ function buttonHandler(e, nav ) {
               {book.tags.length > 0 && (
                 <div>
                   <b>Tags:</b>{book.tags.map((tag) => {
-                      return <div key={tag.tagId} onClick={((e)=> buttonHandler(e, `/booktag/${tag.tagId}`))}>{tag.tag} </div>;
+                      return <div key={tag.tagId} onClick={((e)=> buttonHandler(e, `/booktag/${tag.tag}`))}>{tag.tag} </div>;
                     })}
                 
                 </div>

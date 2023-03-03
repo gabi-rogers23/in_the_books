@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getAllBooks, getBookById, getBooksByTagId } = require("../database");
+const { getAllBooks, getBookById, getBooksByTag } = require("../database");
 
 //GET /books
 router.get("/", async (req, res, next) => {
@@ -23,11 +23,12 @@ router.get("/:bookId", async  (req, res, next)=>{
   }
 })
 
-//GET /books/:tagId
-router.get("/bookTag/:tagId", async (req, res, next)=>{
+//GET /books/:tag
+router.get("/bookTag/:tag", async (req, res, next)=>{
   try{
-    const bookTagList = await getBooksByTagId(req.params.tagId)
-    // console.log("HELLO FROM ROUTES", bookTagList)
+    console.log("Hi" , req.params.tag)
+    const bookTagList = await getBooksByTag(req.params.tag)
+    console.log("HELLO FROM ROUTES", bookTagList)
     res.send(bookTagList);
     
   }catch(error){

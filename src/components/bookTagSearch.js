@@ -1,23 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getBooksByTagId, getTagById } from "../api/api";
+import { getBooksByTag } from "../api/api";
 
 const BookTagSearch = () => {
   const [listBooks, setListBooks] = useState([]);
   const [itemIndex, setItemIndex] = useState(null);
-  const [tagName, setTagName] = useState("");
-  const { tagId } = useParams();
+  const { tagName } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    Promise.all([getBooksByTagId(tagId),getTagById(tagId)]).then(([bookResults, tagResults]) => {
+    Promise.all([getBooksByTag(tagName)]).then(([bookResults]) => {
       try {
         setListBooks(bookResults);
         console.log(tagResults)
-        setTagName(tagResults.name)
       } catch (error) {
-        console.log(error, " Problem with Search Books By tagId Promises");
+        console.log(error, " Problem with Search Books By tagName Promises");
       }
     });
   }, []);

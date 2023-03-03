@@ -38,24 +38,15 @@ export async function getBookById(bookId) {
   }
 }
 
-export async function getBooksByTagId(tagId) {
+export async function getBooksByTag(tagName) {
   try {
-    const res = await fetch(`${BASE_URL}/books/bookTag/${tagId}`);
+    console.log(tagName)
+    const res = await fetch(`${BASE_URL}/books/bookTag/${tagName}`);
     const data = await res.json();
-    // console.log("GET BOOKS BY TAG ID SRC/API RETURNING: ", data)
+    console.log("GET BOOKS BY TAG NAME SRC/API RETURNING: ", data)
     return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function getTagById(tagId){
-  try {
-    const res = await fetch(`${BASE_URL}/tags/${tagId}`);
-    const data = await res.json();
-    console.log("GET TAG BY TAGID SRC/API RETURNING: ", data)
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}

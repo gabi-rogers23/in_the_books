@@ -6,9 +6,9 @@ const {
   getBookById,
   updateBook,
   destroyBook,
-  getBooksByTagId
+  getBooksByTag
 } = require("./books");
-const { createBookTag, getTagById } = require("./tags");
+const { createBookTag } = require("./tags");
 const { createAuthor, getAuthorById, updateAuthor } = require("./author");
 const {
   createUser,
@@ -267,7 +267,7 @@ async function testDB() {
     await updateBook(bookFields);
     await updateAuthor(authorFields);
     await destroyBook(20);
-    await getTagById(12)
+    await getBooksByTag('Sleek');
   } catch (error) {
     throw error;
   }

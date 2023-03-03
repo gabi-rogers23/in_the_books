@@ -145,15 +145,15 @@ async function destroyBook(id) {
   }
 }
 
-async function getBooksByTagId(tagId){
+async function getBooksByTag(tagName){
   try{
     const { rows: books } = await client.query(`
     SELECT b.title AS title, b.id AS id,"bookImage",bt."tagId", "authorFirstName","authorLastName", t.name AS "tagName" 
-    FROM book_tags bt
+    FROM tags t
+    JOIN book_tags bt ON t.id=bt."tagId"
     JOIN books b ON b.id=bt."bookId"
-    JOIN tags t ON bt."tagId"=t.id
     JOIN author a ON a.id=b."authorId"
-    WHERE "tagId"='${tagId}';
+    WHERE t.name IN ('${tagName}');
     `);
 // console.log(books)
     return books;
@@ -169,5 +169,5 @@ module.exports = {
   getBookById,
   updateBook,
   destroyBook,
-  getBooksByTagId
+  getBooksByTag
 };

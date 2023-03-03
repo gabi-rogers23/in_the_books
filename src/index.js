@@ -10,7 +10,7 @@ const App = () => {
     <Route exact strict path="/" element={<Home />} />
     <Route path='/books' element={<Books />} />
     <Route path="/books/:bookId" element={<BookDetails />} />
-    <Route path='/booktag/:tagId' element={<BookTagSearch/>} />
+    <Route path='/booktag/:tagName' element={<BookTagSearch/>} />
     </Routes>
   </div>
 };
