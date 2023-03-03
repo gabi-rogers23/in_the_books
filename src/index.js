@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 import { Homepage } from "./components"
+import { Home, Books, NavBar } from "./components/exports"
 
 const App = () => {
   // const [token, setToken] = useState(localStorage.getItem("loginData"))
@@ -24,8 +25,18 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
+      <Routes>
+    <Route exact strict path="/" element={<Home />} />
+    <Route path='/books' element={<Books />} />
+    </Routes>
     </div>
   );
 };
-const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(<App />);
+
+const container = document.getElementById("app");
+const root = createRoot(container);
+
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
