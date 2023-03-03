@@ -6,7 +6,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     return(
-        <div>HOME PAGE</div>
+        <div className="home">HOME PAGE</div>
     )
 }
 
