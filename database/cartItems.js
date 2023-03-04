@@ -12,6 +12,7 @@ async function createCartItem(cartId, bookId, quantity) {
         `,
       [cartId, bookId, quantity]
     );
+    // console.log(cartItem)
     return cartItem
   } catch (error) {
     throw error;

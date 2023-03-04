@@ -161,7 +161,8 @@ async function seedCartItems() {
       promises.push(createCartItem(randomUserId, randomBookId, randomQuantity))
     }
     const cartItems = await Promise.all(promises);
-    console.log(cartItems)
+    // console.log(cartItems)
+    console.log("Finished seeding cart items!")
   } catch (error) {
     console.log("Error seeding cart items!");
     throw error;
@@ -284,8 +285,8 @@ async function rebuildDB() {
     await seedBooks();
     await seedTags();
     await createInitialUsers();
-    await getCartByUserId(4);
     await seedCartItems();
+    await getCartByUserId(4);
     await testDB();
   } catch (error) {
     console.log("error during rebuildDB ");

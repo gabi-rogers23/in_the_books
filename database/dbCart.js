@@ -1,58 +1,71 @@
-const client  = require('./client');
+const { getBookById } = require("./books");
+const client = require("./client");
 
- async function createCart(userId) {
-   if (!userId) {
-     return "User Id Not Found"
-   }
+async function createCart(userId) {
+  if (!userId) {
+    return "User Id Not Found";
+  }
 
-   try {
-     const { rows: [cart] } = await client.query(`
+  try {
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
 
            INSERT INTO cart("userId") 
              VALUES($1) 
              RETURNING *;
-           `, [userId]);
+           `,
+      [userId]
+    );
 
-
-          //  console.log("CART", cart)
-     return cart;
-    } catch (error) {
-      throw error
-    }
+    //  console.log("CART", cart)
+    return cart;
+  } catch (error) {
+    throw error;
   }
- 
-     
-      async function getCartByUserId(userId) {
-     
-        try {
-          const { rows: [cart] } = await client.query(`
-              SELECT *
-              FROM cart
-              WHERE "userId"=${userId};
+}
+
+async function getCartByUserId(userId) {
+  try {
+    const {
+      rows: [cart],
+    } = await client.query(`
+              SELECT * FROM cart WHERE "userId"=${userId}
             `);
-           
-            if (!cart) {
-                throw {
-                  error: "error",
-                  name: "CartNotFound",
-                  message: "Cart was not found"
-                };
-              }
-        //  console.log(cart)
-              return cart;
-            } catch (error) {
-              throw error;
-            }
-          }
+    console.log(cart);
+
+    if (!cart) {
+      throw {
+        error: "error",
+        name: "CartNotFound",
+        message: "Cart was not found",
+      };
+    }
+
+    const { rows: cartItems } = await client.query(`
+              SELECT "bookId", title, price, quantity,"authorFirstName", "authorLastName"
+              FROM cart_items ci
+              JOIN cart c ON c.id = ci."cartId"
+              JOIN books b ON b.id =ci."bookId"
+              JOIN author a ON a.id = b."authorId"
+              WHERE "userId"=${userId};
+              `);
+
+    cart.items = cartItems;
+
+    console.log(cart);
+  } catch (error) {
+    throw error;
+  }
+}
 
 //           async function addToCart(userId, newProductId) {
 //             const newCart = await getCartById(userId)
 
-   
 //             newCart.productIds.push(newProductId)
-   
-//             const newProductIds = newCart.productIds
 
+//             const newProductIds = newCart.productIds
 
 //    try {
 //      await client.query(`
@@ -141,12 +154,11 @@ const client  = require('./client');
 //    }
 //  }
 
- module.exports = {
-   createCart,
-   getCartByUserId,
+module.exports = {
+  createCart,
+  getCartByUserId,
   //  destroyCart,
   //  addToCart,
   //  removeFromCart,
   //  updateCart
- }
-
+};
