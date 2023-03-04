@@ -1,5 +1,6 @@
 const client  = require('./client');
 const bcrypt = require('bcrypt');
+const { createCart } = require("./dbCart");
 
 // database functions
 // user functions
@@ -12,8 +13,10 @@ async function createUser({ email, password, shippingAddress, phoneNumber, isAdm
     VALUES($1, $2, $3, $4, $5) 
     RETURNING *;
   `, [ email, hashedPassword, shippingAddress, phoneNumber, isAdmin]);
-    if (hashedPassword) {
+   
+  if (hashedPassword) {
       delete user.password
+      createCart(user.id);
       return user;
     }
     return user;

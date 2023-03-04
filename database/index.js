@@ -4,5 +4,6 @@ module.exports = {
     ...require('./tags'),
     ...require('./author'),
     ...require('./users'),
-    ...require('./dbCart')
+    ...require('./dbCart'),
+    ...require('./cartItems')
 }

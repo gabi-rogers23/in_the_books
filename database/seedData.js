@@ -6,30 +6,27 @@ const {
   getBookById,
   updateBook,
   destroyBook,
-  getBooksByTag
-} = require("./books");
-const { createBookTag } = require("./tags");
-const { createAuthor, getAuthorById, updateAuthor } = require("./author");
-const {createUser, updateUser, getUser, getUserByEmail, getAllUsers } = require("./users");
-const {createCart,
-    getCartById,
-    getCartByUserId,
-    destroyCart,
-    addToCart,
-    removeFromCart,
-    updateCart} = require ("./dbCart");
+  getBooksByTag,
+  createBookTag,
+  createAuthor,
+  getAuthorById,
+  updateAuthor,
+  createUser,
+  getCartByUserId,
+  createCartItem
+} = require("./index");
 
 async function dropTables() {
   try {
     console.log("Starting to drop tables");
     await client.query(`
     DROP TABLE IF EXISTS book_tags;
-    DROP TABLE IF EXISTS tags;
-    DROP TABLE IF EXISTS books CASCADE;
-    DROP TABLE IF EXISTS author;
-    DROP TABLE IF EXISTS users CASCADE;
-    DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS cart_items;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS tags;
+    DROP TABLE IF EXISTS books;
+    DROP TABLE IF EXISTS author;
     `);
     console.log("Tables dropped");
   } catch (error) {
@@ -58,6 +55,7 @@ async function createTables() {
             price FLOAT(2),
             description VARCHAR,
             "bookImage" VARCHAR(255),
+            stock VARCHAR(255),
             fiction BOOLEAN DEFAULT false
         );
         
@@ -80,17 +78,18 @@ async function createTables() {
             "phoneNumber" VARCHAR (255),
             "isAdmin" BOOLEAN DEFAULT false
         );
+
         CREATE TABLE cart (
             id SERIAL PRIMARY KEY,
-            "cartId"  VARCHAR (255),
-            "bookTitle" VARCHAR (255),
-            "bookId" INTEGER REFERENCES books(id),
-            "bookPrice" VARCHAR (255)
+            "userId" INTEGER REFERENCES users(id)
         );
+
         CREATE TABLE cart_items (
             id SERIAL PRIMARY KEY,
-            "newProductIds" VARCHAR (255),
-            "quantity" VARCHAR (255);
+            "cartId" INTEGER REFERENCES cart(id),
+            "bookId" INTEGER REFERENCES books(id),
+            "quantity" VARCHAR (255) 
+            );
         `);
     console.log("Finished building tables");
   } catch (error) {
@@ -127,85 +126,59 @@ async function seedAuthors() {
 
 async function createInitialUsers() {
   try {
-    console.log("Starting to create users...");
-    const admin = await createUser({
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-      shippingAddress: faker.address.streetAddress(),
-      phoneNumber: faker.phone.number(),
-      isAdmin: true,
-    });
+    console.log("Starting to create users with carts...");
+    const promises = [];
 
-    const testUser1 = await createUser({
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-      shippingAddress: faker.address.streetAddress(),
-      phoneNumber: faker.phone.number(),
-      isAdmin: false,
-    });
+    for (let i = 0; i < 5; i++) {
+      const user = {
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        shippingAddress: faker.address.streetAddress(),
+        phoneNumber: faker.phone.number(),
+        isAdmin: faker.datatype.boolean(),
+      };
+      promises.push(createUser(user));
+    }
+    const users = await Promise.all(promises);
+    // console.log("---INITIAL USERS---", users)
 
-    // console.log("---INITIAL USERS---", admin, testUser1)
-
-    console.log("Finished creating users");
+    console.log("Finished creating users with carts!");
   } catch (error) {
-    console.log("Error creating users");
+    console.log("Error creating users!");
     throw error;
   }
 }
-async function createInitialCart() {
-  const [testUser1] = await getAllUsers();
 
-  const [books] = await getAllBooks();
+async function seedCartItems() {
   try {
-    console.log('Starting to create cart..."');
-    const cart1 = await createCart({
-      userId: testUser1.id,
-      productIds: books.title,
-    });
-    console.log("---INITIAL CART---", cart1);
-    console.log("Finished Creating Initial Cart.");
+    console.log("Starting to seed cart items...");
+    const promises = [];
+
+    for (let i = 0; i < 25; i++) {
+      const randomBookId = Math.floor(Math.random() * 100) + 1;
+      const randomUserId = Math.floor(Math.random() * 5) + 1;
+      const randomQuantity = Math.floor(Math.random() * 5) + 1;
+      promises.push(createCartItem(randomUserId, randomBookId, randomQuantity))
+    }
+    const cartItems = await Promise.all(promises);
+    console.log(cartItems)
   } catch (error) {
-    console.log("Error creating cart");
+    console.log("Error seeding cart items!");
     throw error;
   }
-  
-  async function createInitialCart(){
-    const [testUser1] = await getAllUsers();
-
-    const [books] = await getAllBooks();
-    try {
-        console.log('Starting to create cart..."')
-        const cart1= await createCart({
-
-            cartId: testUser1.id,
-            bookTitle: books.title,
-            bookId: books.id,
-            bookPrice: books.price
-
-        });
-        console.log("---INITIAL CART---", cart1)
-        console.log("Finished Creating Initial Cart..")
-    }catch (error) {
-        console.log("Error creating cart");
-        throw (error);
-    }
 }
 
-async function InitialAddToCart(){
-   const [cart1] = createCart(productIds)
-    try{
-        const cart = await createInitialCart({
-            newProductids: cart1.productIds
-        })
-    }catch (error) {
-        console.log("Error creating cart");
-        throw (error);
-    }
-}
-
-
-
-async function InitialAddToCart() {}
+// async function InitialAddToCart() {
+//   const [cart1] = createCart(productIds);
+//   try {
+//     const cart = await createInitialCart({
+//       newProductids: cart1.productIds,
+//     });
+//   } catch (error) {
+//     console.log("Error creating cart");
+//     throw error;
+//   }
+// }
 
 async function seedBooks() {
   try {
@@ -233,6 +206,7 @@ async function seedBooks() {
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
         bookImage: faker.image.image(100, 150, true),
+        stock: faker.random.numeric(),
         fiction: faker.datatype.boolean(),
       };
 
@@ -294,7 +268,7 @@ async function testDB() {
     await updateBook(bookFields);
     await updateAuthor(authorFields);
     await destroyBook(20);
-    await getBooksByTag('Sleek');
+    await getBooksByTag("Sleek");
   } catch (error) {
     throw error;
   }
@@ -310,8 +284,8 @@ async function rebuildDB() {
     await seedBooks();
     await seedTags();
     await createInitialUsers();
-    await createInitialCart();
-    await InitialAddToCart();
+    await getCartByUserId(4);
+    await seedCartItems();
     await testDB();
   } catch (error) {
     console.log("error during rebuildDB ");
@@ -321,6 +295,4 @@ async function rebuildDB() {
 
 module.exports = {
   rebuildDB,
-  dropTables,
-  createTables,
 };
