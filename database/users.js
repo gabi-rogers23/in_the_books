@@ -17,9 +17,10 @@ async function createUser({ email, password, shippingAddress, phoneNumber, isAdm
   if (hashedPassword) {
       delete user.password
       createCart(user.id);
+      // console.log(user)
       return user;
     }
-    return user;
+    
   } catch (err) {
     console.log('createUser-users.js FAILED', err)
   }

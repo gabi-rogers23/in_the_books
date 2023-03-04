@@ -13,7 +13,7 @@ const {
   updateAuthor,
   createUser,
   getCartByUserId,
-  createCartItem
+  createCartItem, removeFromCart
 } = require("./index");
 
 async function dropTables() {
@@ -264,12 +264,24 @@ async function testDB() {
         "https://en.wikipedia.org/wiki/J._R._R._Tolkien#/media/File:J._R._R._Tolkien,_ca._1925.jpg",
     };
 
+    const Admin = {
+      email: 'gr@gmail.com', 
+      password: 'helloThere',
+      shippingAddress: '1234 Lovely Lane',
+      phoneNumber: '123-456-7891',
+      isAdmin: true
+    }
+
     await getAllBooks();
+    await createUser(Admin);
     await getBookById(20);
+    await createCartItem(6, 7, 3);
+    await createCartItem(6,45,2);
     await updateBook(bookFields);
     await updateAuthor(authorFields);
     await destroyBook(20);
     await getBooksByTag("Sleek");
+    await removeFromCart(26)
   } catch (error) {
     throw error;
   }

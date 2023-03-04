@@ -33,7 +33,7 @@ async function getCartByUserId(userId) {
     } = await client.query(`
               SELECT * FROM cart WHERE "userId"=${userId}
             `);
-    console.log(cart);
+    // console.log(cart);
 
     if (!cart) {
       throw {
@@ -44,7 +44,7 @@ async function getCartByUserId(userId) {
     }
 
     const { rows: cartItems } = await client.query(`
-              SELECT "bookId", title, price, quantity,"authorFirstName", "authorLastName"
+              SELECT ci.id AS "cartItemId",  "bookId", title, price, quantity,"authorFirstName", "authorLastName"
               FROM cart_items ci
               JOIN cart c ON c.id = ci."cartId"
               JOIN books b ON b.id =ci."bookId"
@@ -54,63 +54,24 @@ async function getCartByUserId(userId) {
 
     cart.items = cartItems;
 
-    console.log(cart);
+    // console.log(cart);
   } catch (error) {
     throw error;
   }
 }
 
-//           async function addToCart(userId, newProductId) {
-//             const newCart = await getCartById(userId)
+async function removeFromCart(cartItemId) {
+  try {
 
-//             newCart.productIds.push(newProductId)
-
-//             const newProductIds = newCart.productIds
-
-//    try {
-//      await client.query(`
-//          UPDATE cart
-//          SET "bookId" = '{${newProductIds}}'
-
-//          WHERE "userId"=${userId}
-//          RETURNING *;
-//          `)
-
-//      return newCart
-//    } catch (error) {
-//      throw error;
-//    }
-//  }
-
-//  async function removeFromCart(userId, newProductId) {
-
-//    const newCart = await getCartById(userId)
-
-//    for (let i = 0; i < newCart.productIds.length; i++) {
-
-//      if (newCart.productIds[i] = newProductId) {
-
-//        const newCart = await getCartById(userId)
-//        const newProductIds = newCart.productIds
-//        const index = newProductIds.indexOf(newProductId)
-
-//        newProductIds.splice(index, 1)
-
-//        try {
-//          await client.query(`
-//          UPDATE cart
-//          SET "productIds" = '{${newProductIds}}'
-//          WHERE "userId"=${userId}
-//          RETURNING *;
-//          `)
-
-//          return newCart
-//        } catch (error) {
-//          throw error;
-//        }
-//      }
-//    }
-//  }
+  await client.query(`
+   DELETE FROM cart_items
+   WHERE id=${cartItemId};
+   `)   
+console.log("ID 26 DELETED")
+  } catch (error) {
+    throw error;
+  }
+}
 
 //  async function updateCart({ userId, ...fields }) {
 
@@ -159,6 +120,6 @@ module.exports = {
   getCartByUserId,
   //  destroyCart,
   //  addToCart,
-  //  removeFromCart,
+   removeFromCart,
   //  updateCart
 };
