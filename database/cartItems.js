@@ -12,13 +12,50 @@ async function createCartItem(cartId, bookId, quantity) {
         `,
       [cartId, bookId, quantity]
     );
-    console.log(cartItem)
+    console.log(cartItem, "created!")
     return cartItem
   } catch (error) {
     throw error;
   }
 }
 
+async function updateCartItem(cartItemId, quantity){
+    try {
+      const {
+        rows: [updatedCartItem],
+      } = await client.query(
+        `
+      UPDATE cart_items
+      SET quantity=${quantity}
+      WHERE id=${cartItemId}
+      RETURNING *;
+      `
+      );
+  console.log(updatedCartItem)
+      return updateCartItem;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+
+async function removeCartItem(cartItemId) {
+  try {
+
+  await client.query(`
+   DELETE FROM cart_items
+   WHERE id=${cartItemId};
+   `)   
+// console.log(`ID ${cartItemId} DELETED`)
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 module.exports = {
   createCartItem,
+  updateCartItem,
+  removeCartItem
 };

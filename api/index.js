@@ -7,6 +7,9 @@ router.use("/books", booksRouter);
 const tagsRouter = require("./tags");
 router.use("/tags", tagsRouter);
 
+const cartRouter = require("./cart");
+router.use("/cart", cartRouter);
+
 router.get("/health", async (req, res, next) => {
     res.status(200).send({
       message: "Server is up and healthy"

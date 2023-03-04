@@ -13,7 +13,9 @@ const {
   updateAuthor,
   createUser,
   getCartByUserId,
-  createCartItem, removeFromCart
+  createCartItem,
+  updateCartItem,
+  removeCartItem,
 } = require("./index");
 
 async function dropTables() {
@@ -88,7 +90,7 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             "cartId" INTEGER REFERENCES cart(id),
             "bookId" INTEGER REFERENCES books(id),
-            "quantity" VARCHAR (255) 
+            "quantity" INTEGER 
             );
         `);
     console.log("Finished building tables");
@@ -158,28 +160,16 @@ async function seedCartItems() {
       const randomBookId = Math.floor(Math.random() * 100) + 1;
       const randomUserId = Math.floor(Math.random() * 5) + 1;
       const randomQuantity = Math.floor(Math.random() * 5) + 1;
-      promises.push(createCartItem(randomUserId, randomBookId, randomQuantity))
+      promises.push(createCartItem(randomUserId, randomBookId, randomQuantity));
     }
     const cartItems = await Promise.all(promises);
     // console.log(cartItems)
-    console.log("Finished seeding cart items!")
+    console.log("Finished seeding cart items!");
   } catch (error) {
     console.log("Error seeding cart items!");
     throw error;
   }
 }
-
-// async function InitialAddToCart() {
-//   const [cart1] = createCart(productIds);
-//   try {
-//     const cart = await createInitialCart({
-//       newProductids: cart1.productIds,
-//     });
-//   } catch (error) {
-//     console.log("Error creating cart");
-//     throw error;
-//   }
-// }
 
 async function seedBooks() {
   try {
@@ -265,23 +255,24 @@ async function testDB() {
     };
 
     const Admin = {
-      email: 'gr@gmail.com', 
-      password: 'helloThere',
-      shippingAddress: '1234 Lovely Lane',
-      phoneNumber: '123-456-7891',
-      isAdmin: true
-    }
+      email: "gr@gmail.com",
+      password: "helloThere",
+      shippingAddress: "1234 Lovely Lane",
+      phoneNumber: "123-456-7891",
+      isAdmin: true,
+    };
 
-    await getAllBooks();
     await createUser(Admin);
+    await getAllBooks();
     await getBookById(20);
     await createCartItem(6, 7, 3);
-    await createCartItem(6,45,2);
+    await createCartItem(6, 45, 2);
     await updateBook(bookFields);
     await updateAuthor(authorFields);
     await destroyBook(20);
     await getBooksByTag("Sleek");
-    await removeFromCart(26)
+    await removeCartItem(26);
+    await updateCartItem(27, 4)
   } catch (error) {
     throw error;
   }
