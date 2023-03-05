@@ -1,5 +1,6 @@
 const client  = require('./client');
 const bcrypt = require('bcrypt');
+const { createCart } = require("./dbCart");
 
 // database functions
 // user functions
@@ -12,11 +13,14 @@ async function createUser({ email, password, shippingAddress, phoneNumber, isAdm
     VALUES($1, $2, $3, $4, $5) 
     RETURNING *;
   `, [ email, hashedPassword, shippingAddress, phoneNumber, isAdmin]);
-    if (hashedPassword) {
+   
+  if (hashedPassword) {
       delete user.password
+      createCart(user.id);
+      // console.log(user)
       return user;
     }
-    return user;
+    
   } catch (err) {
     console.log('createUser-users.js FAILED', err)
   }
@@ -89,6 +93,16 @@ async function getUserByEmail(userId) {
 
 }
 
+async function getUserById(userId){
+try{
+  const {rows: [user]} = await client.query(`
+  SELECT * FROM users WHERE id=${userId}
+  `)
+  return user;
+}catch(error){
+  throw error;
+}
+}
 
 
 module.exports = {
@@ -96,5 +110,6 @@ module.exports = {
   updateUser,
   getUser,
   getUserByEmail,
-  getAllUsers
+  getAllUsers,
+  getUserById
 }

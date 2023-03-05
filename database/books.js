@@ -137,6 +137,11 @@ async function destroyBook(id) {
     `);
 
     await client.query(`
+    DELETE FROM cart_items
+    WHERE "bookId" = ${id};
+    `)
+
+    await client.query(`
     DELETE FROM books
     WHERE id=${id};
     `);
