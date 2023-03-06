@@ -64,7 +64,7 @@ const { JWT_SECRET = "neverTell" } = process.env;
           res.status(401);
           next({
             name: "MissingCredentialsError",
-            message: "Please supply both a username and password",
+            message: "Please supply both a email and password",
           });
         }
       
@@ -76,7 +76,7 @@ const { JWT_SECRET = "neverTell" } = process.env;
           } else {
             next({
               name: "IncorrectCredentialsError",
-              message: "Username or password is incorrect.",
+              message: "email or password is incorrect.",
             });
           }
         } catch (error) {
@@ -97,8 +97,8 @@ const { JWT_SECRET = "neverTell" } = process.env;
             }
             const token = auth.slice(7)
             console.log('Token is here', token)
-            const {username} = jwt.verify(token, JWT_SECRET)
-            const gettingUser = await getUserByEmail(username)
+            const {email} = jwt.verify(token, JWT_SECRET)
+            const gettingUser = await getUserByEmail(email)
             console.log('The user is here', gettingUser)
             res.send(gettingUser)
         } catch(error){
