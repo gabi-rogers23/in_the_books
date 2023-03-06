@@ -66,13 +66,27 @@ const { createUser,
         }
       });
       
-      usersRouter.get("/me", requireUser, (req, res, next) => {
-        try {
-          res.send(req.user);
-        } catch (error) {
-          next(error);
+      usersRouter.get('/me', async (req, res, next) => {
+        try{
+            const auth = req.header('Authorization')
+    
+            if(!auth) {
+            res.status(401)
+            next({
+            name:"You must be logged in to perform this action",
+            message:"You must be logged in to perform this action"
+             })
+            }
+            const token = auth.slice(7)
+            console.log('Token is here', token)
+            const {username} = jwt.verify(token, JWT_SECRET)
+            const gettingUser = await getUserByEmail(username)
+            console.log('The user is here', gettingUser)
+            res.send(gettingUser)
+        } catch(error){
+            next(error);
         }
-      });
+    });
       
     
       module.exports = usersRouter;
