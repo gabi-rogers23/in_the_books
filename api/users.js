@@ -8,41 +8,59 @@ const { createUser,
     getUser,
     getUserByEmail,
     getAllUsers } = require("../database/users");
+    
+const SALT_COUNT = 10;
+const { JWT_SECRET = "neverTell" } = process.env;
 
     usersRouter.post("/register", async (req, res, next) => {
-        try {
-          const newUser = req.body;
-          const _user = await getUserByEmail(newUser.username);
-          if (_user) {
+      try {
+        const { email, password } = req.body;
+        const queriedUser = await getUserByEmail(email);
+    
+        if (queriedUser) {
+          res.status(401);
+          next({
+            name: "Error",
+            message: `The E-mail ${email} already exists.`,
+          });
+          return;
+    
+        } else if (password.length < 8) {
+          res.status(401);
+          next({
+            name: "PasswordLengthError",
+            message: "Password Too Short!",
+          });
+          return;
+    
+        } else {
+          const user = await createUser({
+            email,
+            password,
+          });
+          if (!user) {
             next({
-              name: "UserNameExistsError",
-              message: `User ${newUser.username} is already taken.`,
-            });
-            res.status(401);
-          } else if (newUser.password.length < 10) {
-            res.status(401);
-            next({
-              name: "PasswordTooShortError",
-              message: `Password Too Short!`,
+              name: "UserCreationError",
+              message: "There was a problem registering you. Please try again.",
             });
           } else {
-            const user = await createUser(newUser);
-            const token = jwt.sign(user, process.env.JWT_SECRET);
-            res.send({
-              user: user,
-              message: "User created!",
-              token: token,
-            });
+            const token = jwt.sign(
+              { id: user.id, email: user.email },
+              JWT_SECRET,
+              { expiresIn: "1w" }
+            );
+            res.send({ user, message: "you're signed up!", token });
           }
-        } catch (error) {
-          console.log(error, "got here!");
-          next(error);
         }
-      });
+      } catch (error) {
+        next(error);
+      }
+    });
+    
       
       usersRouter.post("/login", async (req, res, next) => {
-        const { username, password } = req.body;
-        if (!username || !password) {
+        const { email, password } = req.body;
+        if (!email || !password) {
           res.status(401);
           next({
             name: "MissingCredentialsError",
@@ -51,7 +69,7 @@ const { createUser,
         }
       
         try {
-          const user = await getUser({ username, password });
+          const user = await getUser({ email, password });
           if (user) {
             const token = jwt.sign(user, process.env.JWT_SECRET);
             res.send({ message: "you're logged in!", token, user });
