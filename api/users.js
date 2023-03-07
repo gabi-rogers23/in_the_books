@@ -6,43 +6,43 @@ const { getUserByEmail, createUser, getUser, getAllUsers } = require("../databas
 
     
 const SALT_COUNT = 10;
-const { JWT_SECRET = "neverTell" } = process.env;
 
     usersRouter.post("/register", async (req, res, next) => {
       try {
-        const { email, password } = req.body;
-        const queriedUser = await getUserByEmail(email);
-    
+        const { username, password } = req.body;
+        const queriedUser = await getUserByEmail(username);
+    // console.log("quaried user", queriedUser)
         if (queriedUser) {
-          res.status(401);
-          next({
+          res.status(401).send({
+            error: "ERROR",
             name: "Error",
-            message: `The E-mail ${email} already exists.`,
+            message: `The E-mail ${username} already exists.`,
           });
-          return;
+        
     
         } else if (password.length < 8) {
-          res.status(401);
-          next({
+          res.status(401).send({
+            error: "ERROR",
             name: "PasswordLengthError",
             message: "Password Too Short!",
           });
-          return;
+          
     
         } else {
           const user = await createUser({
-            email,
+            username,
             password,
           });
           if (!user) {
-            next({
+            res.status(401).send({
+              error: "ERROR",
               name: "UserCreationError",
               message: "There was a problem registering you. Please try again.",
             });
           } else {
             const token = jwt.sign(
               { id: user.id, email: user.email },
-              JWT_SECRET,
+              process.env.JWT_SECRET,
               { expiresIn: "1w" }
             );
             res.send({ user, message: "you're signed up!", token });

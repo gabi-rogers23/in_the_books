@@ -5,7 +5,7 @@ const { createCart } = require("./dbCart");
 // database functions
 // user functions
 async function createUser({
-  email,
+  username,
   password,
   shippingAddress,
   phoneNumber,
@@ -23,7 +23,7 @@ async function createUser({
     VALUES($1, $2, $3, $4, $5) 
     RETURNING *;
   `,
-      [email, hashedPassword, shippingAddress, phoneNumber, isAdmin]
+      [username, hashedPassword, shippingAddress, phoneNumber, isAdmin]
     );
 
     if (hashedPassword) {
@@ -106,7 +106,7 @@ async function getUserByEmail(userEmail) {
     const {
       rows: [user],
     } = await client.query(`
-      SELECT id, email, "isAdmin", password
+      SELECT *
       FROM users
       WHERE email= '${userEmail}';
     `);

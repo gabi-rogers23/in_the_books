@@ -78,8 +78,30 @@ export async function fetchLogIn(userUsername, userPassword) {
     if (data.token) {
       localStorage.setItem("token", data.token);
     }
-
+console.log("Returning from fetchLogIn: ", data)
     return data;
+  }catch(error){
+    throw error;
+  }
+}
+
+export async function registerNewUser(newUserName, newPassword){
+  const sendData =  { username: newUserName, password: newPassword };
+  console.log("arguments", newUserName, newPassword)
+  try{
+    const res =  await fetch(`${BASE_URL}/users/register`,{
+      method: "POST", 
+      headers: getHeaders(),
+      body: JSON.stringify(sendData)
+    })
+    const data = await res.json();
+    console.log("Returning from registerNewUser", data)
+
+    if(data.token){
+      localStorage.setItem("token", data.token);
+    }
+    
+    return data
   }catch(error){
     throw error;
   }
