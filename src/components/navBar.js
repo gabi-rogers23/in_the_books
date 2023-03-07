@@ -45,6 +45,20 @@ function NavBar() {
                 >
                   Shop
                 </NavLink>
+
+                <li  className="nav-item" id="lastChildItem">
+                <NavLink
+                  exact to="/login"
+                  className={({ isActive }) =>
+                    "nav-links" + (isActive ? " activated" : "")
+                  }
+                  onClick={closeMobileMenu}
+                >
+                  Login
+                </NavLink>
+              </li>
+
+                
               </li>
               {/* <li className="nav-item">
                 <NavLink
