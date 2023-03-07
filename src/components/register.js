@@ -1,34 +1,32 @@
 import {React, useState} from "react"
 import { useNavigate } from "react-router-dom";
+import {registerNewUser} from "../api/api"
 
-const Register = ({ setIsLoading, setIsLoggedIn }) => {
+const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [token, setToken] = useState("");
-    const [errorMsg, setErrorMsg] = useState("Please enter username & password");
+    const [shippingAddress, setShippingAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
+
     const handleRegister = async (e) => {
       e.preventDefault();
-      setIsLoading(true);
       try {
-        const register = await fetchRegister(username, password);
+        const register = await registerNewUser(username, password, shippingAddress, phoneNumber);
+        console.log(register)
         if (register.error) {
-          setErrorMsg(register.message);
+          alert(register.message)
         } else {
-          setIsLoggedIn(true);
-          setErrorMsg("");
+          setUsername("");
+          setPassword("");
+          setShippingAddress("");
+          setPhoneNumber("");
           navigate("/");
         }
-        localStorage.setItem("token", register.token);
-        setUsername("");
-        setPassword("");
       } catch (error) {
         console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
+      } 
+
     };
     return (
       <>
@@ -40,12 +38,13 @@ const Register = ({ setIsLoading, setIsLoggedIn }) => {
               Sign up
             </h1>
             <div>
-              <h1 >
-                {errorMsg}
-              </h1>
             </div>
             <label>
               <input
+              type="text"
+              placeholder="Username"
+              autoFocus
+              required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
@@ -53,6 +52,9 @@ const Register = ({ setIsLoading, setIsLoggedIn }) => {
   
             <label >
               <input
+               type="password"
+               placeholder="********"
+               required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
@@ -63,8 +65,6 @@ const Register = ({ setIsLoading, setIsLoggedIn }) => {
             </button>
           </div>
           <div ></div>
-          <video
-          />
         </form>
       </>
     );

@@ -2,63 +2,80 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const usersRouter = express.Router();
 const bcrypt = require("bcrypt");
+const { getUserByEmail, createUser, getUser, getAllUsers } = require("../database")
 
-const { createUser,
-    updateUser,
-    getUser,
-    getUserByEmail,
-    getAllUsers } = require("../database/users");
+    
+const SALT_COUNT = 10;
 
     usersRouter.post("/register", async (req, res, next) => {
-        try {
-          const newUser = req.body;
-          const _user = await getUserByEmail(newUser.username);
-          if (_user) {
-            next({
-              name: "UserNameExistsError",
-              message: `User ${newUser.username} is already taken.`,
-            });
-            res.status(401);
-          } else if (newUser.password.length < 10) {
-            res.status(401);
-            next({
-              name: "PasswordTooShortError",
-              message: `Password Too Short!`,
+      try {
+        const { username, password } = req.body;
+        const queriedUser = await getUserByEmail(username);
+    // console.log("quaried user", queriedUser)
+        if (queriedUser) {
+          res.status(401).send({
+            error: "ERROR",
+            name: "Error",
+            message: `The E-mail ${username} already exists.`,
+          });
+        
+    
+        } else if (password.length < 8) {
+          res.status(401).send({
+            error: "ERROR",
+            name: "PasswordLengthError",
+            message: "Password Too Short!",
+          });
+          
+    
+        } else {
+          const user = await createUser({
+            username,
+            password,
+          });
+          if (!user) {
+            res.status(401).send({
+              error: "ERROR",
+              name: "UserCreationError",
+              message: "There was a problem registering you. Please try again.",
             });
           } else {
-            const user = await createUser(newUser);
-            const token = jwt.sign(user, process.env.JWT_SECRET);
-            res.send({
-              user: user,
-              message: "User created!",
-              token: token,
-            });
+            const token = jwt.sign(
+              { id: user.id, email: user.email },
+              process.env.JWT_SECRET,
+              { expiresIn: "1w" }
+            );
+            res.send({ user, message: "you're signed up!", token });
           }
-        } catch (error) {
-          console.log(error, "got here!");
-          next(error);
         }
-      });
+      } catch (error) {
+        next(error);
+      }
+    });
+    
       
       usersRouter.post("/login", async (req, res, next) => {
         const { username, password } = req.body;
+        console.log(username)
         if (!username || !password) {
-          res.status(401);
-          next({
+          res.status(401).send({
+            error: "ERROR",
             name: "MissingCredentialsError",
-            message: "Please supply both a username and password",
+            message: "Please supply both a email and password",
           });
         }
       
         try {
-          const user = await getUser({ username, password });
+          const user = await getUser(req.body);
+          // console.log("POST user", user)
           if (user) {
             const token = jwt.sign(user, process.env.JWT_SECRET);
-            res.send({ message: "you're logged in!", token, user });
+            res.send({ message: "you're logged in!", token: token, user: user });
           } else {
-            next({
+            res.send({
+              error: "ERROR",
               name: "IncorrectCredentialsError",
-              message: "Username or password is incorrect.",
+              message: "Email or password is incorrect.",
             });
           }
         } catch (error) {
@@ -66,13 +83,27 @@ const { createUser,
         }
       });
       
-      usersRouter.get("/me", requireUser, (req, res, next) => {
-        try {
-          res.send(req.user);
-        } catch (error) {
-          next(error);
+      usersRouter.get('/me', async (req, res, next) => {
+        try{
+            const auth = req.header('Authorization')
+    
+            if(!auth) {
+            res.status(401)
+            next({
+            name:"You must be logged in to perform this action",
+            message:"You must be logged in to perform this action"
+             })
+            }
+            const token = auth.slice(7)
+            console.log('Token is here', token)
+            const {email} = jwt.verify(token, JWT_SECRET)
+            const gettingUser = await getUserByEmail(email)
+            console.log('The user is here', gettingUser)
+            res.send(gettingUser)
+        } catch(error){
+            next(error);
         }
-      });
+    });
       
     
       module.exports = usersRouter;

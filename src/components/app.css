@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -51,16 +50,17 @@
   
   .nav-menu {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items:center;
+    justify-content:center;
     list-style: none;
-    text-align: center;
+    text-align:center;
     justify-content: flex-end;
   }
   
   .nav-item {
     height: 80px;
     border-bottom: 2px solid transparent;
+    margin-right: auto;
   }
   
   .nav-item:hover {
@@ -131,6 +131,10 @@
   
     .nav-item {
       width: 100%;
+    }
+
+    #lastChildItem {
+      margin-right: auto;
     }
   
     .navbar-logo {

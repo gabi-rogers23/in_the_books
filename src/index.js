@@ -7,7 +7,7 @@ import {
   BookTagSearch,
   Homepage,
   Cart,
-  NavBar
+  NavBar, Login, Register
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -22,6 +22,8 @@ const App = () => {
         <Route path="/books/:bookId" element={<BookDetails />} />
         <Route path="/booktag/:tagName" element={<BookTagSearch />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );

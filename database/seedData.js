@@ -291,6 +291,7 @@ async function rebuildDB() {
     await seedCartItems();
     await getCartByUserId(4);
     await testDB();
+    console.log("Finished Seeding Database!");
   } catch (error) {
     console.log("error during rebuildDB ");
     throw error;

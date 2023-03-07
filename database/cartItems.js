@@ -12,7 +12,7 @@ async function createCartItem(cartId, bookId, quantity) {
         `,
       [cartId, bookId, quantity]
     );
-    console.log(cartItem, "created!")
+    // console.log(cartItem, "created!")
     return cartItem
   } catch (error) {
     throw error;
@@ -31,7 +31,7 @@ async function updateCartItem(cartItemId, quantity){
       RETURNING *;
       `
       );
-  console.log(updatedCartItem)
+  // console.log(updatedCartItem)
       return updateCartItem;
     } catch (error) {
       throw error;

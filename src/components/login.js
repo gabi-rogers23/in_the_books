@@ -1,34 +1,28 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchLogIn } from "../api/api";
 
 
-const Login = ({ setIsLoading, setIsLoggedIn }) => {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMsg, setErrorMsg] = useState("Please enter username & password");
     const navigate = useNavigate();
   
     const handleLogin = async (e) => {
       e.preventDefault();
-      setIsLoading(true);
       try {
-        const login = await fetchLogin(username, password);
+        const login = await fetchLogIn(username, password);
         if (login.error) {
-          setErrorMsg(login.message);
+          alert(login.message);
         } else {
-          setIsLoggedIn(true);
-          setErrorMsg("");
+          console.log(localStorage.getItem("token"))
+          setUsername("");
+          setPassword("");
           navigate("/");
         }
-        localStorage.setItem("token", login.token);
-        localStorage.setItem("username", login.user.username);
-        setUsername("");
-        setPassword("");
       } catch (error) {
         console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
+      } 
     };
     return (
       <>
@@ -38,15 +32,11 @@ const Login = ({ setIsLoading, setIsLoggedIn }) => {
           <div>
             <h1>Log In</h1>
             <div>
-              <h1>
-                {errorMsg}
-              </h1>
             </div>
             <label>
               <input
                 type="text"
                 placeholder="Username*"
-                maxLength="10"
                 required
                 autoFocus
                 value={username}
@@ -58,7 +48,6 @@ const Login = ({ setIsLoading, setIsLoggedIn }) => {
               <input
                 type="password"
                 placeholder="********"
-                maxLength="8"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
