@@ -5,3 +5,88 @@
     'GRAD' 0,
     'opsz' 40
   }
+  
+  * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* border: 1px solid red; */
+}
+
+.booksList {
+  display: flex;
+  flex-flow: row wrap;
+  border-bottom: 1px solid gray;
+  width: fit-content;
+  /* border: 1px solid blue; */
+  padding: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.booksMap {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 275px;
+  margin-top: 25px;
+  border-bottom: 1px solid gray;
+  padding: 15px;
+}
+
+.booksImage {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.booksImage button {
+  position: absolute;
+  padding: 16px;
+  background-color: green;
+  border-radius: 16px;
+  bottom: 10px;
+  left: 200px;
+  width: 100px;
+}
+
+.booksWords {
+  margin-left: 15px;
+  font-size: small;
+}
+
+.booksTitle {
+  text-transform: capitalize;
+  text-align: left;
+  font-size: large;
+}
+
+.booksAuthor {
+  margin-bottom: 15px;
+}
+
+.booksButtons {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 5px;
+}
+
+.booksList button {
+  border: none;
+  border-radius: 3px;
+  padding: 0.5rem;
+  text-decoration: none;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-align: center;
+  background-color: black;
+  color: white;
+}

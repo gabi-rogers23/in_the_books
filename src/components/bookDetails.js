@@ -22,8 +22,8 @@ function buttonHandler(e, nav ) {
   }
 
   return (
-    <div>
-        <div><img src={book.bookImage}/></div>
+    <div className="">
+        <div className=""><img src={book.bookImage}/></div>
         <div>
                 <b>Title:</b> {book.title}
               </div>
