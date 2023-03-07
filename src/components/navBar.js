@@ -45,7 +45,7 @@ function NavBar() {
                 >
                   Shop
                 </NavLink>
-
+                  </li>
                 <li  className="nav-item" id="lastChildItem">
                 <NavLink
                   exact to="/login"
@@ -57,20 +57,6 @@ function NavBar() {
                   Login
                 </NavLink>
               </li>
-
-                
-              </li>
-              {/* <li className="nav-item">
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    "nav-links" + (isActive ? " activated" : "")
-                  }
-                  onClick={closeMobileMenu}
-                >
-                  Contact
-                </NavLink>
-              </li> */}
             </ul>
           </div>
         </nav>
@@ -79,13 +65,7 @@ function NavBar() {
   );
 }
 
-    // <header>
-    //     IN THE BOOKS SHOP
-    // <div>
-    // <NavLink to="/" end>Home</NavLink>
-    // <NavLink to="/books">Shop</NavLink>
-    // </div>
-    // </header>
+   
 
 
 
