@@ -46,6 +46,9 @@ router.use("/tags", tagsRouter);
 const cartRouter = require("./cart");
 router.use("/cart", cartRouter);
 
+const usersRouter = require("./users");
+router.use("/users", usersRouter);
+
 router.get("/health", async (req, res, next) => {
     res.status(200).send({
       message: "Server is up and healthy"

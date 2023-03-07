@@ -60,3 +60,27 @@ export async function getCart(userId) {
     throw error;
   }
 }
+
+export async function fetchLogIn(userUsername, userPassword) { 
+  const sendData = {
+    username: userUsername, 
+    password: userPassword
+  }
+
+  try{
+    const res= await fetch(`${BASE_URL}/users/login`, {
+      headers: getHeaders(),
+      method: "POST", 
+      body: JSON.stringify(sendData)
+    });
+
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
+
+    return data;
+  }catch(error){
+    throw error;
+  }
+}

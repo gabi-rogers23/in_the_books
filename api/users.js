@@ -2,12 +2,8 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const usersRouter = express.Router();
 const bcrypt = require("bcrypt");
+const { getUserByEmail, createUser, getUser, getAllUsers } = require("../database")
 
-const { createUser,
-    updateUser,
-    getUser,
-    getUserByEmail,
-    getAllUsers } = require("../database/users");
     
 const SALT_COUNT = 10;
 const { JWT_SECRET = "neverTell" } = process.env;
@@ -59,24 +55,27 @@ const { JWT_SECRET = "neverTell" } = process.env;
     
       
       usersRouter.post("/login", async (req, res, next) => {
-        const { email, password } = req.body;
-        if (!email || !password) {
-          res.status(401);
-          next({
+        const { username, password } = req.body;
+        console.log(username)
+        if (!username || !password) {
+          res.status(401).send({
+            error: "ERROR",
             name: "MissingCredentialsError",
             message: "Please supply both a email and password",
           });
         }
       
         try {
-          const user = await getUser({ email, password });
+          const user = await getUser(req.body);
+          // console.log("POST user", user)
           if (user) {
             const token = jwt.sign(user, process.env.JWT_SECRET);
-            res.send({ message: "you're logged in!", token, user });
+            res.send({ message: "you're logged in!", token: token, user: user });
           } else {
-            next({
+            res.send({
+              error: "ERROR",
               name: "IncorrectCredentialsError",
-              message: "email or password is incorrect.",
+              message: "Email or password is incorrect.",
             });
           }
         } catch (error) {
