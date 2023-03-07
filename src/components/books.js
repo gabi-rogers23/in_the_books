@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAllBooks } from "../api/api";
 
 const Books = () => {
@@ -18,58 +18,45 @@ const Books = () => {
     });
   }, []);
 
-  function buttonHandler(e, nav ) {
+  function buttonHandler(e, nav) {
     e.preventDefault();
     navigate(nav);
   }
 
   return (
-    <div>
-      <h1>SHOP</h1>
-      <div>
+    <div className="container">
+      <h1>SHOP ALL BOOKS</h1>
+      <div className="booksList">
         {allBooks.map((book, i) => {
-            
           return (
             <div
               key={book.id}
-              onMouseEnter={() => setItemIndex(i)}
-              onMouseLeave={() => setItemIndex(null)}
-            >
-              <div>
-                <img src={book.bookImage} width="100" />
+              onMouseEnter={()=> setItemIndex(i)}
+              onMouseLeave={()=> setItemIndex(null)}
+              onClick={(e) => {
+                buttonHandler(e, `/books/${book.id}`);
+              }}
+              className="booksMap">
+              <div className="booksImage">
+                <img src={book.bookImage}/>
+                {itemIndex === i && (<button onClick={((e)=>{
+                  buttonHandler(e, `/books/${book.id}`);
+                })}>+</button>)}
               </div>
-              <div>
-                <b>Title:</b> {book.title}
-              </div>
-              <div>
-                <b>Author:</b> {book.authorFirstName} {book.authorLastName}
-              </div>
-              <div>
-                <b>Price:</b> {book.price}
-              </div>
-              {book.tags.length > 0 && (
+              <div className="booksWords">
                 <div>
-                  <b>Tags:</b>
-                  <ul>
-                    {book.tags.map((tag) => {
-                      return <li key={tag.tagId}>{tag.tag}</li>;
-                    })}
-                  </ul>
+                  <div className="booksTitle">
+                    <b>{book.title}</b>
+                  </div>
+                  <div className="booksAuthor">
+                    By: {book.authorFirstName} {book.authorLastName}
+                  </div>
                 </div>
-              )}
-              {itemIndex === i && (
-                <div>
-                  <button
-                    onClick={(e) => {
-                      buttonHandler(e, `/books/${book.id}`);
-                    }}
-                  >
-                    Details
-                  </button>
-                  <button>Add to Cart</button>
-                </div>
-              )}
-              <br />
+                <div className="booksPrice">${book.price}</div>
+                  <div className="booksButtons">
+                    <button>ADD TO CART</button>
+                  </div>
+              </div>
             </div>
           );
         })}
@@ -78,6 +65,4 @@ const Books = () => {
   );
 };
 
-
 export default Books;
-
