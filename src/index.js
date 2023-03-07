@@ -7,14 +7,15 @@ import {
   BookTagSearch,
   Homepage,
   Cart,
-  NavBar, Login, Register
+  NavBar, Login, Register, Profile
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
+const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
   return (
     <>
-      <NavBar />
+      <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
@@ -22,8 +23,9 @@ const App = () => {
         <Route path="/books/:bookId" element={<BookDetails />} />
         <Route path="/booktag/:tagName" element={<BookTagSearch />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
+        <Route path="/register" element={<Register setLoggedIn={setLoggedIn}/>} />
+        <Route path="/me" element={<Profile  />} />
       </Routes>
     </>
   );
