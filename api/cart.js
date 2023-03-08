@@ -40,7 +40,7 @@ router.post("/", requireUser, async (req, res, next) => {
         req.body.bookId,
         req.body.quantity
       ); 
-      res.send({ cartItem: addedBook, message: "Book Added To Cart!" });
+      res.send({ cartItem: addedBook, message: "Added To Cart!" });
     }
 
   } catch (error) {

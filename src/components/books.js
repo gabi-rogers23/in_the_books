@@ -57,7 +57,7 @@ const Books = () => {
                       book.quantity = 1
                       console.log(book)
                       const add = await addToCart(book);
-                      console.log(add);
+                      alert(add.message)
                     }}
                   >
                     ADD TO CART

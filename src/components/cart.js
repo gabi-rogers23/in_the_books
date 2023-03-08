@@ -34,13 +34,13 @@ const Cart = () => {
         );
       })}
     </div>
-    <button onClick={(e) => {
+    {cart.items.length && <button onClick={(e) => {
         e.preventDefault()
         const cartPromises = cart.items.map((item) => updateCart(item))
         Promise.all(cartPromises)
         .catch(console.log)
         getUserCart()
-    }}>Update Cart</button>
+    }}>Update Cart</button>}
     </div>
   );
 };
