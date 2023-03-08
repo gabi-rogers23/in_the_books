@@ -4,6 +4,8 @@ const {
   getCartByUserId,
   updateCartItem,
   removeCartItem,
+  createCartItem,
+  getCartItem
 } = require("../database");
 const { requireUser } = require("./utils");
 
@@ -11,8 +13,36 @@ const { requireUser } = require("./utils");
 router.get("/", requireUser, async (req, res, next) => {
   try {
     const userCart = await getCartByUserId(req.user.id);
-    // console.log("USER CART", userCart)
+    console.log("USER CART", userCart)
     res.send(userCart);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/", requireUser, async (req, res, next) => {
+  try {
+
+    console.log("REQ BODY:", req.body, "REQ USER:", req.user);
+    const cart = await getCartByUserId(req.user.id);
+    const cartItemTest = await getCartItem(req.body.bookId, cart.cartId);
+    // console.log("CART", cart);
+
+    if (cartItemTest) {
+      cartItemTest.quantity += req.body.quantity;
+      console.log("QUANTITY", cartItemTest.quantity)
+      const updatedCartItem = await updateCartItem(cartItemTest.id, cartItemTest.quantity);
+      console.log("QUANTITY 2", cartItemTest.quantity, updatedCartItem.quantity)
+      res.send(updatedCartItem);
+    } else {
+      const addedBook = await createCartItem(
+        cart.cartId,
+        req.body.bookId,
+        req.body.quantity
+      ); 
+      res.send({ cartItem: addedBook, message: "Book Added To Cart!" });
+    }
+
   } catch (error) {
     next(error);
   }
@@ -29,7 +59,7 @@ router.patch("/", requireUser, async (req, res, next) => {
         req.body.cartItemId,
         req.body.quantity
       );
-    //   console.log("UPDATED CART ITEM", updatedCartItem)
+      //   console.log("UPDATED CART ITEM", updatedCartItem)
       res.send(updatedCartItem);
     }
   } catch (error) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllBooks } from "../api/api";
+import { getAllBooks, addToCart } from "../api/api";
 
 const Books = () => {
   const [allBooks, setAllBooks] = useState([]);
@@ -29,19 +29,16 @@ const Books = () => {
       <div className="booksList">
         {allBooks.map((book, i) => {
           return (
-            <div
-              key={book.id}
-              onMouseEnter={()=> setItemIndex(i)}
-              onMouseLeave={()=> setItemIndex(null)}
-              onClick={(e) => {
-                buttonHandler(e, `/books/${book.id}`);
-              }}
-              className="booksMap">
-              <div className="booksImage">
-                <img src={book.bookImage}/>
-                {itemIndex === i && (<button onClick={((e)=>{
+            <div key={book.id} className="booksMap">
+              <div
+                className="booksImage"
+                onMouseEnter={() => setItemIndex(i)}
+                onMouseLeave={() => setItemIndex(null)}
+                onClick={(e) => {
                   buttonHandler(e, `/books/${book.id}`);
-                })}>+</button>)}
+                }}
+              >
+                <img src={book.bookImage} />
               </div>
               <div className="booksWords">
                 <div>
@@ -53,9 +50,19 @@ const Books = () => {
                   </div>
                 </div>
                 <div className="booksPrice">${book.price}</div>
-                  <div className="booksButtons">
-                    <button>ADD TO CART</button>
-                  </div>
+                <div className="booksButtons">
+                  <button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      book.quantity = 1
+                      console.log(book)
+                      const add = await addToCart(book);
+                      console.log(add);
+                    }}
+                  >
+                    ADD TO CART
+                  </button>
+                </div>
               </div>
             </div>
           );

@@ -151,7 +151,29 @@ export async function fetchUserCart() {
   }
 }
 
-export async function updateCart({cartItemId, quantity}) {
+export async function addToCart({ id, quantity }) {
+  console.log("bookId", id, "quantity", quantity);
+  const sendData = {
+    bookId: id,
+    quantity: quantity,
+  };
+
+  try {
+    const res = await fetch(`${BASE_URL}/cart`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(sendData),
+    });
+
+    const data = await res.json();
+    console.log("ADD CART TO ITEM: ", data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateCart({ cartItemId, quantity }) {
   const sendData = {
     cartItemId: cartItemId,
     quantity: quantity,
@@ -163,7 +185,8 @@ export async function updateCart({cartItemId, quantity}) {
       body: JSON.stringify(sendData),
     });
     const data = await res.json();
-    console.log("UPDATE CART ITEM: ", data)
+    console.log("UPDATE CART ITEM: ", data);
+    return data;
   } catch (error) {
     throw error;
   }
