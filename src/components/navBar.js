@@ -9,7 +9,7 @@ function NavBar({loggedIn, setLoggedIn}) {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-console.log("Token", localStorage.getItem("token"))
+// console.log("Token", localStorage.getItem("token"))
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>

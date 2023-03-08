@@ -160,7 +160,7 @@ async function seedCartItems() {
     console.log("Starting to seed cart items...");
     const promises = [];
 
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 50; i++) {
       const randomBookId = Math.floor(Math.random() * 100) + 1;
       const randomUserId = Math.floor(Math.random() * 5) + 1;
       const randomQuantity = Math.floor(Math.random() * 5) + 1;

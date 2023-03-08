@@ -30,7 +30,7 @@ async function getCartByUserId(userId) {
     const {
       rows: [cart],
     } = await client.query(`
-              SELECT * FROM cart WHERE "userId"=${userId}
+              SELECT id AS "cartId", "userId" FROM cart WHERE "userId"=${userId}
             `);
     // console.log(cart);
 
@@ -43,7 +43,7 @@ async function getCartByUserId(userId) {
     }
 
     const { rows: cartItems } = await client.query(`
-              SELECT ci.id AS "cartItemId",  "bookId", title, price, quantity,"authorFirstName", "authorLastName"
+              SELECT ci.id AS "cartItemId", "bookId", title, price, quantity,"authorFirstName", "authorLastName"
               FROM cart_items ci
               JOIN cart c ON c.id = ci."cartId"
               JOIN books b ON b.id =ci."bookId"
@@ -54,6 +54,7 @@ async function getCartByUserId(userId) {
     cart.items = cartItems;
 
     // console.log(cart);
+    return cart;
   } catch (error) {
     throw error;
   }

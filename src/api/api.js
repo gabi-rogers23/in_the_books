@@ -120,19 +120,51 @@ export async function registerNewUser(
   }
 }
 
-export async function fetchUserProfile(userId){
-  try{
+export async function fetchUserProfile() {
+  try {
     const res = await fetch(`${BASE_URL}/users/me`, {
-      headers : getHeaders(),
-    })
+      headers: getHeaders(),
+    });
 
     if (res.ok) {
       const data = await res.json();
-      console.log("fetch users/me ", data)
+      console.log("fetch users/me ", data);
       return data;
-    } 
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 
-  }catch(error){
-    throw error
+export async function fetchUserCart() {
+  try {
+    const res = await fetch(`${BASE_URL}/cart`, {
+      headers: getHeaders(),
+    });
+
+    const data = await res.json();
+    console.log("fetch /cart ", data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateCart({cartItemId, quantity}) {
+  const sendData = {
+    cartItemId: cartItemId,
+    quantity: quantity,
+  };
+  try {
+    const res = await fetch(`${BASE_URL}/cart`, {
+      method: "PATCH",
+      headers: getHeaders(),
+      body: JSON.stringify(sendData),
+    });
+    const data = await res.json();
+    console.log("UPDATE CART ITEM: ", data)
+  } catch (error) {
+    throw error;
   }
 }
