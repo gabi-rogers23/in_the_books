@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchLogIn } from "../api/api";
 import "./app.css"
 
-
 const Login = ({setLoggedIn}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,11 +27,12 @@ const Login = ({setLoggedIn}) => {
   };
   return (
     <section className="loginForm">
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin}
+            className="form">
         <header>
-          <h1>Log In</h1>
+          <h1 className="loginHeader">Log In</h1>
         </header>
-        <label>
+        <label className="label1">
           <input
             type="text"
             placeholder="Username*"
@@ -42,7 +42,7 @@ const Login = ({setLoggedIn}) => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
-        <label className="mt-3">
+        <label className="label2">
           <input
             type="password"
             placeholder="********"
@@ -51,7 +51,9 @@ const Login = ({setLoggedIn}) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit" 
+                className="button">
+                  Submit</button>
       </form>
     </section>
   );
