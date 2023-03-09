@@ -38,8 +38,8 @@ const Cart = () => {
         e.preventDefault()
         const cartPromises = cart.items.map((item) => updateCart(item))
         const cartItem = Promise.all(cartPromises).catch(console.log)
-        alert("Cart Updated!")
         getUserCart()
+        alert("Cart Updated!")
     }}>Update Cart</button>}
     </div>
   );

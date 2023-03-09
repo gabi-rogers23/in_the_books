@@ -191,3 +191,19 @@ export async function updateCart({ cartItemId, quantity }) {
     throw error;
   }
 }
+
+export async function deleteCartItem(id) {
+  try {
+    console.log(id)
+  const res = await fetch(`${BASE_URL}/cartItem/${id}`, {
+    method: "DELETE",
+    headers: getHeaders(),
+  })
+ const data = await res.json();
+ console.log(data)
+ return data
+
+  }catch(error){
+    throw error;
+  }
+}

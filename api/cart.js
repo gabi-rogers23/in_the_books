@@ -67,4 +67,16 @@ router.patch("/", requireUser, async (req, res, next) => {
   }
 });
 
+router.delete("/:cartItemId", requireUser, async (req, res, next) => {
+  try{
+    console.log("hi")
+    const deletedCartItem = await removeCartItem(req.params.cartItemId)
+
+    res.send({message : "Deleted!"})
+
+  }catch (error){
+    next(error)
+  }
+})
+
 module.exports = router;

@@ -9,6 +9,7 @@ const SALT_COUNT = 10;
     usersRouter.post("/register", async (req, res, next) => {
       try {
         const { email, password, firstName, lastName, shippingAddress, phoneNumber } = req.body;
+      
         const queriedUser = await getUserByEmail(email);
     // console.log("quaried user", queriedUser)
         if (queriedUser) {
@@ -28,13 +29,14 @@ const SALT_COUNT = 10;
           
     
         } else {
+        let isAdmin = false
           const user = await createUser({
             email,
             password,
             firstName,
             lastName,
             shippingAddress,
-            phoneNumber
+            phoneNumber, isAdmin
           });
           if (!user) {
             res.status(401).send({

@@ -5,17 +5,22 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { NavLink } from "react-router-dom";
 
-function NavBar({loggedIn, setLoggedIn}) {
+function NavBar({ loggedIn, setLoggedIn }) {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-// console.log("Token", localStorage.getItem("token"))
+  // console.log("Token", localStorage.getItem("token"))
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <nav className="navbar">
           <div className="navbar-container container">
-            <NavLink to="/" end className="navbar-logo" onClick={closeMobileMenu}>
+            <NavLink
+              to="/"
+              end
+              className="navbar-logo"
+              onClick={closeMobileMenu}
+            >
               <GiBookCover className="navbar-icon" />
               InTheBooks!
             </NavLink>
@@ -25,7 +30,8 @@ function NavBar({loggedIn, setLoggedIn}) {
             <ul className={click ? "nav-menu active" : "nav-menu"}>
               <li className="nav-item">
                 <NavLink
-                  to="/" end
+                  to="/"
+                  end
                   className={({ isActive }) =>
                     "nav-links" + (isActive ? " activated" : "")
                   }
@@ -36,7 +42,7 @@ function NavBar({loggedIn, setLoggedIn}) {
               </li>
               <li className="nav-item">
                 <NavLink
-                  to ="/books"
+                  to="/books"
                   className={({ isActive }) =>
                     "nav-links" + (isActive ? " activated" : "")
                   }
@@ -89,17 +95,30 @@ function NavBar({loggedIn, setLoggedIn}) {
                   </li>
                 </>
               ) : (
-                <li className="nav-item" id="lastChildItem">
-                  <NavLink
-                    to="/login"
-                    className={({ isActive }) =>
-                      "nav-links" + (isActive ? " activated" : "")
-                    }
-                    onClick={closeMobileMenu}
-                  >
-                    Login
-                  </NavLink>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      to="/register"
+                      className={({ isActive }) =>
+                        "nav-links" + (isActive ? " activated" : "")
+                      }
+                      onClick={closeMobileMenu}
+                    >
+                      Register
+                    </NavLink>
+                  </li>
+                  <li className="nav-item" id="lastChildItem">
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) =>
+                        "nav-links" + (isActive ? " activated" : "")
+                      }
+                      onClick={closeMobileMenu}
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                </>
               )}
             </ul>
           </div>
