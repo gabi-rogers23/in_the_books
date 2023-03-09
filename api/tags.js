@@ -6,7 +6,7 @@ const { getTagById } = require("../database");
 router.get("/:tagId", async (req, res, next) => {
     try {
       const tag = await getTagById(req.params.tagId);
-      console.log("ROUTES: ", tag)
+      // console.log("ROUTES: ", tag)
       res.send(tag);
     } catch (error) {
       next(error);

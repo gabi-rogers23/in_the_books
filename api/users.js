@@ -1,22 +1,21 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const usersRouter = express.Router();
-const bcrypt = require("bcrypt");
-const { getUserByEmail, createUser, getUser, getAllUsers } = require("../database")
+const { getUserByEmail, createUser, getUser } = require("../database")
 
     
 const SALT_COUNT = 10;
 
     usersRouter.post("/register", async (req, res, next) => {
       try {
-        const { username, password } = req.body;
-        const queriedUser = await getUserByEmail(username);
+        const { email, password, firstName, lastName, shippingAddress, phoneNumber } = req.body;
+        const queriedUser = await getUserByEmail(email);
     // console.log("quaried user", queriedUser)
         if (queriedUser) {
           res.status(401).send({
             error: "ERROR",
             name: "Error",
-            message: `The E-mail ${username} already exists.`,
+            message: `The E-mail ${email} already exists.`,
           });
         
     
@@ -30,8 +29,12 @@ const SALT_COUNT = 10;
     
         } else {
           const user = await createUser({
-            username,
+            email,
             password,
+            firstName,
+            lastName,
+            shippingAddress,
+            phoneNumber
           });
           if (!user) {
             res.status(401).send({
@@ -45,7 +48,7 @@ const SALT_COUNT = 10;
               process.env.JWT_SECRET,
               { expiresIn: "1w" }
             );
-            res.send({ user, message: "you're signed up!", token });
+            res.send({ user, message: "You've successfully registered!  Thanks!", token });
           }
         }
       } catch (error) {
@@ -55,9 +58,9 @@ const SALT_COUNT = 10;
     
       
       usersRouter.post("/login", async (req, res, next) => {
-        const { username, password } = req.body;
-        console.log(username)
-        if (!username || !password) {
+        const { email, password } = req.body;
+        // console.log(email)
+        if (!email || !password) {
           res.status(401).send({
             error: "ERROR",
             name: "MissingCredentialsError",
@@ -84,26 +87,22 @@ const SALT_COUNT = 10;
       });
       
       usersRouter.get('/me', async (req, res, next) => {
-        try{
-            const auth = req.header('Authorization')
-    
-            if(!auth) {
-            res.status(401)
-            next({
-            name:"You must be logged in to perform this action",
-            message:"You must be logged in to perform this action"
-             })
-            }
-            const token = auth.slice(7)
-            console.log('Token is here', token)
-            const {email} = jwt.verify(token, JWT_SECRET)
-            const gettingUser = await getUserByEmail(email)
-            console.log('The user is here', gettingUser)
-            res.send(gettingUser)
-        } catch(error){
-            next(error);
+        try {
+          const auth = req.headers.authorization;
+          if (auth) {
+            console.log(req.user)
+            res.send(req.user);
+          } else {
+            res.status(401).send({
+              error: "No Token",
+              message: `You must be logged in to perform this action`,
+              name: "No User Token",
+            });
+          }
+        } catch (error) {
+          next(error);
         }
-    });
+      });
       
     
       module.exports = usersRouter;

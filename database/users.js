@@ -5,8 +5,10 @@ const { createCart } = require("./dbCart");
 // database functions
 // user functions
 async function createUser({
-  username,
+  email,
   password,
+  firstName,
+  lastName,
   shippingAddress,
   phoneNumber,
   isAdmin,
@@ -19,11 +21,11 @@ async function createUser({
       rows: [user],
     } = await client.query(
       `
-    INSERT INTO users( email, password, "shippingAddress", "phoneNumber", "isAdmin") 
-    VALUES($1, $2, $3, $4, $5) 
+    INSERT INTO users( email, password, "firstName", "lastName", "shippingAddress", "phoneNumber", "isAdmin") 
+    VALUES($1, $2, $3, $4, $5, $6, $7) 
     RETURNING *;
   `,
-      [username, hashedPassword, shippingAddress, phoneNumber, isAdmin]
+      [email, hashedPassword, firstName, lastName, shippingAddress, phoneNumber, isAdmin]
     );
 
     if (hashedPassword) {
@@ -67,9 +69,9 @@ async function updateUser(id, fields = {}) {
   }
 }
 
-async function getUser({ username, password }) {
+async function getUser({ email, password }) {
   try {
-    const user = await getUserByEmail(username);
+    const user = await getUserByEmail(email);
 // console.log("User from Get User", user)
 if (!user){
   return null
@@ -129,6 +131,7 @@ async function getUserById(userId) {
     } = await client.query(`
   SELECT * FROM users WHERE id=${userId}
   `);
+    delete user.password; 
     return user;
   } catch (error) {
     throw error;
