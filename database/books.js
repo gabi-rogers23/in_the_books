@@ -153,7 +153,7 @@ async function destroyBook(id) {
 async function getBooksByTag(tagName){
   try{
     const { rows: books } = await client.query(`
-    SELECT b.title AS title, b.id AS id,"bookImage",bt."tagId", "authorFirstName","authorLastName", t.name AS "tagName" 
+    SELECT b.title AS title, b.id AS id,"bookImage",bt."tagId", "authorFirstName","authorLastName", t.name AS "tagName", price 
     FROM tags t
     JOIN book_tags bt ON t.id=bt."tagId"
     JOIN books b ON b.id=bt."bookId"

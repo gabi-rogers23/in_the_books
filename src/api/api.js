@@ -43,14 +43,14 @@ export async function getBooksByTag(tagName) {
     console.log(tagName);
     const res = await fetch(`${BASE_URL}/books/bookTag/${tagName}`);
     const data = await res.json();
-    // console.log("GET BOOKS BY TAG NAME SRC/API RETURNING: ", data)
+    console.log("GET BOOKS BY TAG NAME SRC/API RETURNING: ", data)
     return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function getCart(userId) {
+export async function getCart() {
   try {
     const res = await fetch(`${BASE_URL}/cart`, { headers: getHeaders() });
     const data = await res.json();

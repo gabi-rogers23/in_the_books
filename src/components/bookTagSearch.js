@@ -5,7 +5,7 @@ import { getBooksByTag } from "../api/api";
 import { ListBooks } from "./exports"
 
 const BookTagSearch = () => {
-  const [listBooks, setListBooks] = useState([]);
+  const [allBooks, setAllBooks] = useState([]);
 
   const { tagName } = useParams();
 
@@ -13,8 +13,8 @@ const BookTagSearch = () => {
   useEffect(() => {
     Promise.all([getBooksByTag(tagName)]).then(([bookResults]) => {
       try {
-        setListBooks(bookResults);
-        console.log(tagResults)
+        setAllBooks(bookResults);
+        console.log(allBooks)
       } catch (error) {
         console.log(error, " Problem with Search Books By tagName Promises");
       }
@@ -24,7 +24,7 @@ const BookTagSearch = () => {
   return (
     <div>
         
-    <ListBooks allBooks={listBooks} />
+    <ListBooks allBooks={allBooks} />
     </div>
   );
 };

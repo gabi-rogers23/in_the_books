@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 router.get("/:bookId", async  (req, res, next)=>{
   try{
     const book = await getBookById(req.params.bookId)
-    // console.log(book)
+    console.log(book)
     res.send(book);
   }catch(error){
     next(error);
