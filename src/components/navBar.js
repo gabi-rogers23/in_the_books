@@ -39,7 +39,7 @@ function NavBar() {
                 <NavLink
                   to="/books"
                   className={({ isActive }) =>
-                    "nav-links" + (isActive ? " activated" : "")
+                    "nav-links" + (isActive ? "activated" : "")
                   }
                   onClick={closeMobileMenu}
                 >

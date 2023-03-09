@@ -74,7 +74,7 @@ async function createTables() {
         
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
-            email VARCHAR(255),
+            email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255),
             "shippingAddress" VARCHAR(255),
             "phoneNumber" VARCHAR (255),
