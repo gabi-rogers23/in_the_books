@@ -14,7 +14,7 @@ const BookTagSearch = () => {
     Promise.all([getBooksByTag(tagName)]).then(([bookResults]) => {
       try {
         setAllBooks(bookResults);
-        console.log(allBooks)
+        // console.log(allBooks)
       } catch (error) {
         console.log(error, " Problem with Search Books By tagName Promises");
       }

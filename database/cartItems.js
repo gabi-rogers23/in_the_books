@@ -27,7 +27,7 @@ async function getCartItem(bookId, cartId){
     }= await client.query(`
     SELECT * FROM cart_items WHERE "bookId"=${bookId} AND "cartId"=${cartId};
     `)
-    console.log(cartItem)
+    // console.log(cartItem)
 
     return cartItem
   }catch(error){
@@ -37,7 +37,7 @@ async function getCartItem(bookId, cartId){
 
 async function updateCartItem(cartItemId, quantity) {
   try {
-    console.log("quantity in updateCartItem", quantity, cartItemId)
+    // console.log("quantity in updateCartItem", quantity, cartItemId)
     const {
       rows: [updatedCartItem],
     } = await client.query(
@@ -48,7 +48,7 @@ async function updateCartItem(cartItemId, quantity) {
       RETURNING *;
       `
     );
-    console.log("THIS IS WHAT YOU WANT", updatedCartItem);
+    // console.log("updatedCartItem", updatedCartItem);
     return updatedCartItem;
   } catch (error) {
     throw error;
@@ -61,7 +61,7 @@ async function removeCartItem(cartItemId) {
    DELETE FROM cart_items
    WHERE id=${cartItemId};
    `);
-    console.log(`ID ${cartItemId} DELETED`);
+    // console.log(`ID ${cartItemId} DELETED`);
   } catch (error) {
     throw error;
   }

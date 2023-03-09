@@ -40,10 +40,10 @@ export async function getBookById(bookId) {
 
 export async function getBooksByTag(tagName) {
   try {
-    console.log(tagName);
+    // console.log(tagName);
     const res = await fetch(`${BASE_URL}/books/bookTag/${tagName}`);
     const data = await res.json();
-    console.log("GET BOOKS BY TAG NAME SRC/API RETURNING: ", data)
+    // console.log("GET BOOKS BY TAG NAME SRC/API RETURNING: ", data)
     return data;
   } catch (error) {
     throw error;
@@ -54,7 +54,7 @@ export async function getCart() {
   try {
     const res = await fetch(`${BASE_URL}/cart`, { headers: getHeaders() });
     const data = await res.json();
-    console.log("GET CART RETURNING: ", data);
+    // console.log("GET CART RETURNING: ", data);
   } catch (error) {
     throw error;
   }
@@ -77,7 +77,7 @@ export async function fetchLogIn(userEmail, userPassword) {
     if (data.token) {
       localStorage.setItem("token", data.token);
     }
-    console.log("Returning from fetchLogIn: ", data);
+    // console.log("Returning from fetchLogIn: ", data);
     return data;
   } catch (error) {
     throw error;
@@ -100,7 +100,7 @@ export async function registerNewUser(
     shippingAddress: newAddress,
     phoneNumber: newPhoneNumber,
   };
-  console.log("arguments", newEmail, newPassword);
+  // console.log("arguments", newEmail, newPassword);
   try {
     const res = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
@@ -108,7 +108,7 @@ export async function registerNewUser(
       body: JSON.stringify(sendData),
     });
     const data = await res.json();
-    console.log("Returning from registerNewUser", data);
+    // console.log("Returning from registerNewUser", data);
 
     if (data.token) {
       localStorage.setItem("token", data.token);
@@ -128,7 +128,7 @@ export async function fetchUserProfile() {
 
     if (res.ok) {
       const data = await res.json();
-      console.log("fetch users/me ", data);
+      // console.log("fetch users/me ", data);
       return data;
     }
   } catch (error) {
@@ -143,7 +143,7 @@ export async function fetchUserCart() {
     });
 
     const data = await res.json();
-    console.log("fetch /cart ", data);
+    // console.log("fetch /cart ", data);
 
     return data;
   } catch (error) {
@@ -152,7 +152,7 @@ export async function fetchUserCart() {
 }
 
 export async function addToCart({ id, quantity }) {
-  console.log("bookId", id, "quantity", quantity);
+  // console.log("bookId", id, "quantity", quantity);
   const sendData = {
     bookId: id,
     quantity: quantity,
@@ -166,7 +166,7 @@ export async function addToCart({ id, quantity }) {
     });
 
     const data = await res.json();
-    console.log("ADD CART TO ITEM: ", data);
+    // console.log("ADD CART TO ITEM: ", data);
     return data;
   } catch (error) {
     throw error;
@@ -185,7 +185,7 @@ export async function updateCart({ cartItemId, quantity }) {
       body: JSON.stringify(sendData),
     });
     const data = await res.json();
-    console.log("UPDATE CART ITEM: ", data);
+    // console.log("UPDATE CART ITEM: ", data);
     return data;
   } catch (error) {
     throw error;

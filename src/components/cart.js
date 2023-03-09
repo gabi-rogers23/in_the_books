@@ -11,7 +11,7 @@ const Cart = () => {
     fetchUserCart().then((cartResults) => {
       try {
         setCart(cartResults);
-        console.log("UseEffect CART", cartResults);
+        // console.log("UseEffect CART", cartResults);
       } catch (error) {
         console.log(error, "Problem with Cart Promises");
       }
@@ -37,8 +37,8 @@ const Cart = () => {
     {cart.items.length && <button onClick={(e) => {
         e.preventDefault()
         const cartPromises = cart.items.map((item) => updateCart(item))
-        Promise.all(cartPromises)
-        .catch(console.log)
+        const cartItem = Promise.all(cartPromises).catch(console.log)
+        alert("Cart Updated!")
         getUserCart()
     }}>Update Cart</button>}
     </div>

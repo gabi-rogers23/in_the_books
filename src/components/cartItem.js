@@ -22,6 +22,7 @@ const CartItem = (props) => {
       <div>
         {props.item.authorFirstName} {props.item.authorLastName}
       </div>
+      <br/>
     </form>
   );
 };

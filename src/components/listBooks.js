@@ -13,7 +13,11 @@ const ListBooks = ({ allBooks }) => {
 
   return (
     <div className="container">
-     {tagName ? <h1>{`Shop Books marked as ${tagName}`}</h1> : <h1>Shop All Books!</h1>}
+      {tagName ? (
+        <h1>{`Shop Books marked as ${tagName}`}</h1>
+      ) : (
+        <h1>Shop All Books!</h1>
+      )}
       <div className="booksList">
         {allBooks.map((book) => {
           return (
@@ -26,14 +30,14 @@ const ListBooks = ({ allBooks }) => {
               >
                 <img src={book.bookImage} />
               </div>
-              <div
-                className="booksWords"
-                onClick={(e) => {
-                  buttonHandler(e, `/books/${book.id}`);
-                }}
-              >
+              <div className="booksWords">
                 <div>
-                  <div className="booksTitle">
+                  <div
+                    className="booksTitle"
+                    onClick={(e) => {
+                      buttonHandler(e, `/books/${book.id}`);
+                    }}
+                  >
                     <b>{book.title}</b>
                   </div>
                   <div className="booksAuthor">

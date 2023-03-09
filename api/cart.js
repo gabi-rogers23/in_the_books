@@ -13,7 +13,7 @@ const { requireUser } = require("./utils");
 router.get("/", requireUser, async (req, res, next) => {
   try {
     const userCart = await getCartByUserId(req.user.id);
-    console.log("USER CART", userCart)
+    // console.log("USER CART", userCart)
     res.send(userCart);
   } catch (error) {
     next(error);
@@ -23,17 +23,17 @@ router.get("/", requireUser, async (req, res, next) => {
 router.post("/", requireUser, async (req, res, next) => {
   try {
 
-    console.log("REQ BODY:", req.body, "REQ USER:", req.user);
+    // console.log("REQ BODY:", req.body, "REQ USER:", req.user);
     const cart = await getCartByUserId(req.user.id);
     const cartItemTest = await getCartItem(req.body.bookId, cart.cartId);
     // console.log("CART", cart);
 
     if (cartItemTest) {
       cartItemTest.quantity += req.body.quantity;
-      console.log("QUANTITY", cartItemTest.quantity)
+      // console.log("QUANTITY", cartItemTest.quantity)
       const updatedCartItem = await updateCartItem(cartItemTest.id, cartItemTest.quantity);
-      console.log("QUANTITY 2", cartItemTest.quantity, updatedCartItem.quantity)
-      res.send(updatedCartItem);
+      // console.log("QUANTITY 2", cartItemTest.quantity, updatedCartItem.quantity)
+      res.send({cartItem : updatedCartItem, message: "Added To Cart!"});
     } else {
       const addedBook = await createCartItem(
         cart.cartId,

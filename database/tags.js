@@ -62,7 +62,7 @@ async function getTagById(tagId) {
   SELECT * FROM tags
   WHERE tags.id='${tagId}';
   `);
-  console.log(tag)
+  // console.log(tag)
     return tag;
   } catch (error) {
     throw error;
