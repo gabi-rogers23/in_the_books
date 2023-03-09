@@ -1,23 +1,47 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCart } from "../api/api";
+import { fetchUserCart, updateCart } from "../api/api";
+import { CartItem } from "./exports"
 
 const Cart = () => {
-    const [cart, setCart] = useState({});
-    const user = 
-    useEffect(() => {
-        Promise.all([getCart()]).then(([cartResults]) => {
-          try {
-            setCart(cartResults);
-            console.log(cart)
-          } catch (error) {
-            console.log(error, " Problem with Cart Promises");
-          }
-        });
-      }, []);
+  const [cart, setCart] = useState({ items: [] });
 
- return (<div>Hi from cart</div>)
-}
+  const getUserCart = () => {
+    fetchUserCart().then((cartResults) => {
+      try {
+        setCart(cartResults);
+        // console.log("UseEffect CART", cartResults);
+      } catch (error) {
+        console.log(error, "Problem with Cart Promises");
+      }
+    });
+  }
 
+  useEffect(() => {
+    getUserCart()
+  }, []);
+  return (
+    <div>
+    <div>
+      {cart.items.map((item) => {
+        return (
+          <div
+            key={item.cartItemId}
+          >
+            <CartItem item={item} />
+          </div>
+        );
+      })}
+    </div>
+    {cart.items.length && <button onClick={(e) => {
+        e.preventDefault()
+        const cartPromises = cart.items.map((item) => updateCart(item))
+        const cartItem = Promise.all(cartPromises).catch(console.log)
+        alert("Cart Updated!")
+        getUserCart()
+    }}>Update Cart</button>}
+    </div>
+  );
+};
 export default Cart;

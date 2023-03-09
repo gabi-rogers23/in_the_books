@@ -75,9 +75,12 @@ async function createTables() {
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
             email VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255),
-            "shippingAddress" VARCHAR(255),
-            "phoneNumber" VARCHAR (255),
+
+            password VARCHAR(255) NOT NULL,
+            "firstName" VARCHAR(255) NOT NULL,
+            "lastName" VARCHAR(255) NOT NULL,
+            "shippingAddress" VARCHAR(255) NOT NULL,
+            "phoneNumber" VARCHAR (255) NOT NULL,
             "isAdmin" BOOLEAN DEFAULT false
         );
 
@@ -135,9 +138,11 @@ async function createInitialUsers() {
       const user = {
         email: faker.internet.email(),
         password: faker.internet.password(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
         shippingAddress: faker.address.streetAddress(),
         phoneNumber: faker.phone.number(),
-        isAdmin: faker.datatype.boolean(),
+        isAdmin: false
       };
       promises.push(createUser(user));
     }
@@ -156,7 +161,7 @@ async function seedCartItems() {
     console.log("Starting to seed cart items...");
     const promises = [];
 
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 50; i++) {
       const randomBookId = Math.floor(Math.random() * 100) + 1;
       const randomUserId = Math.floor(Math.random() * 5) + 1;
       const randomQuantity = Math.floor(Math.random() * 5) + 1;
@@ -257,6 +262,8 @@ async function testDB() {
     const Admin = {
       email: "gr@gmail.com",
       password: "helloThere",
+      firstName: "Gabrielle",
+      lastName: "Rogers",
       shippingAddress: "1234 Lovely Lane",
       phoneNumber: "123-456-7891",
       isAdmin: true,

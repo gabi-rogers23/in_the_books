@@ -3,7 +3,7 @@ function requireUser(req, res, next) {
       res.send({
         error : "MissingUserError",
         name: "MissingUserError",
-        message: "You must be logged in to perform this action",
+        message: "You must be logged in to perform this action!",
       });
     }
   

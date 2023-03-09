@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchLogIn } from "../api/api";
 
 
-const Login = () => {
+const Login = ({setLoggedIn}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -15,11 +15,12 @@ const Login = () => {
         if (login.error) {
           alert(login.message);
         } else {
-          console.log(localStorage.getItem("token"))
+          // console.log(localStorage.getItem("token"))
           setUsername("");
           setPassword("");
-          navigate("/");
-        }
+          setLoggedIn(localStorage.getItem("token"));
+          navigate("/me");}
+        
       } catch (error) {
         console.log(error);
       } 
