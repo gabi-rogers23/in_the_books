@@ -57,7 +57,7 @@ async function createTables() {
             price FLOAT(2),
             description VARCHAR,
             "bookImage" VARCHAR(255),
-            stock VARCHAR(255),
+            stock INTEGER,
             fiction BOOLEAN DEFAULT false
         );
         
@@ -195,13 +195,13 @@ async function seedBooks() {
           authorBio: faker.lorem.paragraph(),
         });
       }
-
+      
       const randomBook = {
         title: faker.random.words(),
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
         bookImage: faker.image.image(100, 150, true),
-        stock: faker.random.numeric(),
+        stock: faker.random.numeric(2),
         fiction: faker.datatype.boolean(),
       };
 
@@ -209,8 +209,7 @@ async function seedBooks() {
     }
 
     const books = await Promise.all(promises);
-
-    console.log("Books seeded!");
+    console.log("Books seeded!", books);
   } catch (error) {
     console.log("Error in createBooks");
     throw error;
@@ -244,7 +243,7 @@ async function testDB() {
     const bookFields = {
       id: 20,
       description: "This is a test update",
-      title: "Test Title",
+      title: "The Fellowship of the Ring",
       fiction: true,
     };
 

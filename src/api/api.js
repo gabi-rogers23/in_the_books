@@ -174,12 +174,14 @@ export async function addToCart({ id, quantity }) {
 }
 
 export async function updateCart({ cartItemId, quantity }) {
-  const sendData = {
-    cartItemId: cartItemId,
-    quantity: quantity,
-  };
   try {
-    if (quantity > 0) {
+
+    console.log (quantity)
+    if (quantity >= 1) {
+      const sendData = {
+        cartItemId: cartItemId,
+        quantity: quantity,
+      };
       const res = await fetch(`${BASE_URL}/cart`, {
         method: "PATCH",
         headers: getHeaders(),
@@ -189,12 +191,7 @@ export async function updateCart({ cartItemId, quantity }) {
       // console.log("UPDATE CART ITEM: ", data);
       return data;
     } else {
-      const res = await fetch(`${BASE_URL}/cart/${sendData.cartItemId}`, {
-        method: "DELETE",
-        headers: getHeaders(),
-      });
-      const data = await res.json();
-      return data;
+      await deleteCartItem(cartItemId);
     }
   } catch (error) {
     throw error;
@@ -203,13 +200,13 @@ export async function updateCart({ cartItemId, quantity }) {
 
 export async function deleteCartItem(id) {
   try {
-    console.log("DELETE", id);
+    // console.log("DELETE", id);
     const res = await fetch(`${BASE_URL}/cart/${id}`, {
       method: "DELETE",
       headers: getHeaders(),
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     throw error;

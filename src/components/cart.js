@@ -10,7 +10,8 @@ const Cart = () => {
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
       try {
-        setCart(cartResults);
+        setCart(cartResults)
+        setUpdate(false)
         // console.log("UseEffect CART", cartResults);
       } catch (error) {
         console.log(error, "Problem with Cart Promises");
@@ -18,38 +19,37 @@ const Cart = () => {
     });
   }
 
-useEffect(()=>{
-  getUserCart()
-}, [update])
+  useEffect(()=>{
+    getUserCart()
+  }, [update])
 
-  // useEffect(() => {
-  //   const cartPromises = cart.items.map((item) => updateCart(item))
-  //   const cartItem = Promise.all(cartPromises).catch(console.log)
-  //   getUserCart()
-  //   setUpdate(false);
-  // }, [update]);
-
+  const setPrice = () => {
+    try{
+      let totalPrice = 0 
+      cart.items.forEach((item)=>{
+        let itemPrice = item.quantity * item.price
+        totalPrice += itemPrice })
+        return totalPrice.toFixed(2)
+    }catch(error){
+    throw error
+  }}
 
   return (<div>
     {cart.items.length ? (<div>
-      <div>
+      <div className="booksList">
+     
         {cart.items.map((item) => {
           return (
-            <div
-              key={item.cartItemId}
+            <div className="booksMap"
+            key={item.cartItemId}
             >
-              <CartItem item={item} setUpdate={setUpdate}/>
+              {item.quantity > 0 && <CartItem item={item} setUpdate={setUpdate}/>}
             </div>
           );
         })}
       </div>
-      {/* <button onClick={(e) => {
-          e.preventDefault()
-          const cartPromises = cart.items.map((item) => updateCart(item))
-          const cartItem = Promise.all(cartPromises).catch(console.log)
-          getUserCart()
-          alert("Cart Updated!")
-      }}>Update Cart</button> */}
+     
+      <div> Total: {setPrice()} </div>
       </div>) : (<div>Your Cart is Empty! <br/> <a href="./books">Check out all our books!</a></div>)}
     
       </div>);

@@ -6,10 +6,13 @@ const CartItem = (props) => {
   const [quantity, setQuantity] = useState(props.item.quantity);
 
   useEffect(() => {}, [quantity]);
+  console.log(props.item)
+
 
   return (
     <form >
-      <div>{props.item.title}</div>
+      <img className="booksImage" src={props.item.bookImage}/>
+      <div className="booksTitle" >{props.item.title}</div>
       <input
         value={quantity}
         type="number"
@@ -22,7 +25,7 @@ const CartItem = (props) => {
           props.item.quantity = newQuantity;
         }}
         onMouseLeave={async (e) => {
-          //if the quantity changes do this?
+          // if the quantity changes do this?
           e.preventDefault();
           await updateCart(props.item);
           props.setUpdate(true);
