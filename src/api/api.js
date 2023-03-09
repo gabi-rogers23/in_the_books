@@ -138,7 +138,7 @@ export async function fetchUserProfile() {
 
 export async function fetchUserCart() {
   try {
-    const res = await fetch(`${BASE_URL}/cart`, {
+    const res = await fetch(`${BASE_URL}/cart/`, {
       headers: getHeaders(),
     });
 
@@ -179,14 +179,23 @@ export async function updateCart({ cartItemId, quantity }) {
     quantity: quantity,
   };
   try {
-    const res = await fetch(`${BASE_URL}/cart`, {
-      method: "PATCH",
-      headers: getHeaders(),
-      body: JSON.stringify(sendData),
-    });
-    const data = await res.json();
-    // console.log("UPDATE CART ITEM: ", data);
-    return data;
+    if (quantity > 0) {
+      const res = await fetch(`${BASE_URL}/cart`, {
+        method: "PATCH",
+        headers: getHeaders(),
+        body: JSON.stringify(sendData),
+      });
+      const data = await res.json();
+      // console.log("UPDATE CART ITEM: ", data);
+      return data;
+    } else {
+      const res = await fetch(`${BASE_URL}/cart/${sendData.cartItemId}`, {
+        method: "DELETE",
+        headers: getHeaders(),
+      });
+      const data = await res.json();
+      return data;
+    }
   } catch (error) {
     throw error;
   }
@@ -194,16 +203,15 @@ export async function updateCart({ cartItemId, quantity }) {
 
 export async function deleteCartItem(id) {
   try {
-    console.log(id)
-  const res = await fetch(`${BASE_URL}/cartItem/${id}`, {
-    method: "DELETE",
-    headers: getHeaders(),
-  })
- const data = await res.json();
- console.log(data)
- return data
-
-  }catch(error){
+    console.log("DELETE", id);
+    const res = await fetch(`${BASE_URL}/cart/${id}`, {
+      method: "DELETE",
+      headers: getHeaders(),
+    });
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
     throw error;
   }
 }
