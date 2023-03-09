@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllBooks } from "../api/api";
+import "./app.css"
 
 const Books = () => {
   const [allBooks, setAllBooks] = useState([]);
@@ -26,11 +27,11 @@ const Books = () => {
   return (
     <div>
       <h1>SHOP</h1>
-      <div>
+      <div >
         {allBooks.map((book, i) => {
             
           return (
-            <div
+            <div 
               key={book.id}
               onMouseEnter={() => setItemIndex(i)}
               onMouseLeave={() => setItemIndex(null)}
@@ -38,7 +39,7 @@ const Books = () => {
               <div>
                 <img src={book.bookImage} width="100" />
               </div>
-              <div>
+              <div >
                 <b>Title:</b> {book.title}
               </div>
               <div>
