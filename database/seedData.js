@@ -1,5 +1,6 @@
 const { faker } = require("@faker-js/faker");
 const client = require("./client");
+
 const {
   createBook,
   getAllBooks,
@@ -266,6 +267,7 @@ async function testDB() {
       phoneNumber: "123-456-7891",
       isAdmin: true,
     };
+
 
     await createUser(Admin);
     await getAllBooks();

@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     position: sticky;
     top: 0;
     z-index: 999;
@@ -30,8 +30,8 @@
     max-width: 1300px;
     margin-right: auto;
     margin-left: auto;
-    padding-right: 50px;
-    padding-left: 50px;
+    padding-right: 10px;
+    padding-left: 5px;
   }
   
   .navbar-logo {
@@ -39,13 +39,13 @@
     justify-self: start;
     cursor: pointer;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 3rem;
     display: flex;
     align-items: center;
   }
   
   .navbar-icon {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
   
   .nav-menu {
@@ -154,72 +154,92 @@
       cursor: pointer;
     }
   }
-  
+
   .loginForm{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #F2F2F2;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F2F2F2;
+  }
 
-    .form {
-      width: 30%;
-      padding: 50px;
-      background-color: #2b2b2a;
-      border-radius: 10px;
-      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-    }
+  .form {
+    width: 30%;
+    padding: 50px;
+    background-color: #2b2b2a;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
 
-    .loginHeader {
-      font-size: 32px;
-      font-weight: bold;
-      margin-bottom: 30px;
-      color: #ffffff;
-    }
+  .loginHeader {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #ffffff;
+  }
 
-    .label1 {
-      display: block;
-      margin-bottom: 20px;
-      color: #666666;
-    }
+  .label1 {
+    display: block;
+    margin-bottom: 20px;
+    color: #666666;
+  }
 
-    .label2 {
-      display: block;
-      margin-bottom: 20px;
-      color: #666666;
-    }
-    
-    .input[type="text"], input[type="password"] {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #F2F2F2;
-      font-size: 16px;
-      color: #333333;
-    }
-    
-   .input[type="text"]:focus, input[type="password"]:focus {
-      outline: none;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    }
-    
-    .button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ffffff;
-      color: #000000;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-    }
-    
-    .button:hover {
-      background-color: #666666;
-    }
+  .label2 {
+    display: block;
+    margin-bottom: 20px;
+    color: #666666;
+  }
+
+  .input[type="text"], input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    color: #333333;
+  }
+
+ .input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .button:hover {
+    background-color: #666666;
+  }
+
+  .footer {
+    background-color: #1d1d1d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .footer__content {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
