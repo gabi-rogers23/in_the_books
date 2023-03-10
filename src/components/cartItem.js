@@ -35,7 +35,7 @@ const CartItem = (props) => {
         onClick={async (e) => {
           e.preventDefault();
           const del = await deleteCartItem(props.item.cartItemId);
-          props.setUpdate(true);
+          props.setUpdate();
           console.log(del);
         }}
       >

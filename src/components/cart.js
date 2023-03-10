@@ -5,13 +5,11 @@ import { CartItem } from "./exports"
 
 const Cart = () => {
   const [cart, setCart] = useState({ items: [] });
-  const [update, setUpdate] = useState(false)
 
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
       try {
         setCart(cartResults)
-        setUpdate(false)
         // console.log("UseEffect CART", cartResults);
       } catch (error) {
         console.log(error, "Problem with Cart Promises");
@@ -21,7 +19,7 @@ const Cart = () => {
 
   useEffect(()=>{
     getUserCart()
-  }, [update])
+  }, [])
 
   const setPrice = () => {
     try{
@@ -43,13 +41,13 @@ const Cart = () => {
             <div className="booksMap"
             key={item.cartItemId}
             >
-              {item.quantity > 0 && <CartItem item={item} setUpdate={setUpdate}/>}
+              {item.quantity > 0 && <CartItem item={item} setUpdate={getUserCart}/>}
             </div>
           );
         })}
       </div>
      
-      <div> Total: {setPrice()} </div>
+      <div> Total: ${setPrice()} </div>
       </div>) : (<div>Your Cart is Empty! <br/> <a href="./books">Check out all our books!</a></div>)}
     
       </div>);

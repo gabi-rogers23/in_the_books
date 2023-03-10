@@ -144,7 +144,18 @@ export async function fetchUserCart() {
 
     const data = await res.json();
     // console.log("fetch /cart ", data);
+    data.items.sort((itemOne, itemTwo) => {
+      const titleOne = itemOne.title.toUpperCase();
+      const titleTwo = itemTwo.title.toUpperCase();
 
+      if (titleOne < titleTwo) {
+        return -1;
+      } else if (titleOne > titleTwo) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     return data;
   } catch (error) {
     throw error;
@@ -175,8 +186,7 @@ export async function addToCart({ id, quantity }) {
 
 export async function updateCart({ cartItemId, quantity }) {
   try {
-
-    console.log (quantity)
+    console.log(quantity);
     if (quantity >= 1) {
       const sendData = {
         cartItemId: cartItemId,
