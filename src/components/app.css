@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap');
 
 * {
     box-sizing: border-box;
@@ -12,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     position: sticky;
     top: 0;
     z-index: 999;
@@ -30,8 +31,8 @@
     max-width: 1300px;
     margin-right: auto;
     margin-left: auto;
-    padding-right: 10px;
-    padding-left: 5px;
+    padding-right: 50px;
+    padding-left: 50px;
   }
   
   .navbar-logo {
@@ -39,13 +40,13 @@
     justify-self: start;
     cursor: pointer;
     text-decoration: none;
-    font-size: 3rem;
+    font-size: 2rem;
     display: flex;
     align-items: center;
   }
   
   .navbar-icon {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
   }
   
   .nav-menu {
@@ -160,22 +161,31 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #F2F2F2;
+    background-image: url("https://thumbs.gfycat.com/AfraidClearKakarikis-size_restricted.gif");
+    background-size: cover;
+    margin-top: 0%;
+
   }
 
   .form {
-    width: 30%;
-    padding: 50px;
-    background-color: #2b2b2a;
-    border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    width: 25%;
+    padding: 30px;
+    box-shadow: 1px 1px 22px white ;
+    border-radius: 15px;
+    height: 45%;
   }
 
   .loginHeader {
-    font-size: 32px;
+    font-size: 55px;
     font-weight: bold;
     margin-bottom: 30px;
     color: #ffffff;
+    text-align: center;
+    font-family: 'Henny Penny', cursive;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
   }
 
   .label1 {
@@ -190,6 +200,12 @@
     color: #666666;
   }
 
+  #userInput{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
   .input[type="text"], input[type="password"] {
     display: block;
     width: 100%;
@@ -209,21 +225,100 @@
   .button {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     border: none;
     border-radius: 5px;
     background-color: #ffffff;
-    color: #000000;
-    font-size: 16px;
+    color: #ffffff;
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+    font-family: 'Henny Penny', cursive;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
   }
 
   .button:hover {
     background-color: #666666;
   }
 
+  .bookDetails{
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  #bookImage{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    border: 25px black double;
+    padding:20px;
+    background-color: #fff;
+  }
+
+  #bookDes{
+    width: 700px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 5px black solid;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  #bookAuthorImage{
+    margin-left: -800px;
+    border: 15px black double;
+    padding:15px;
+    background-color: #fff;
+  }
+  
+  #authorAbout{
+    width: 500px;
+    margin-top: -155px;
+    padding-bottom: 50px;
+    border: 5px black solid;
+    padding: 15px;
+    margin-bottom: 25px;
+    background-color: #fff;
+  }
+
+  .bookTags{
+    padding-top: 40px;
+    padding-bottom: 45px;
+    justify-items: center;
+  }
+
+  #backButton{
+    padding: 8px;
+   margin-left: 200px;
+   font-size: 25px;
+   border-radius: 15px;
+  }
+
+  #addCartButton{
+    padding: 8px;
+    margin-top: -48px;
+    margin-bottom: 50px;
+   margin-left: -200px;
+   font-size: 25px;
+   border-radius: 15px;
+  }
+
+  #addCartButton:hover{
+    background-color: #666666;
+  }
+
+  #backButton:hover{
+    background-color: #666666;
+  }
   .footer {
     background-color: #1d1d1d;
     color: white;

@@ -34,7 +34,7 @@ const Login = ({setLoggedIn}) => {
             <h1 className="loginHeader">Log In</h1>
           </header>
           <label className="label1">
-            <input
+            <input id="userInput"
               type="text"
               placeholder="Username*"
               required
