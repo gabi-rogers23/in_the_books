@@ -297,7 +297,7 @@ async function rebuildDB() {
     await seedBooks();
     await seedTags();
     await createInitialUsers();
-    await seedCartItems();
+    // await seedCartItems();
     await getCartByUserId(4);
     await testDB();
     console.log("Finished Seeding Database!");

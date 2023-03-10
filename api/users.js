@@ -3,6 +3,8 @@ const express = require("express");
 const usersRouter = express.Router();
 const { getUserByEmail, createUser, getUser } = require("../database")
 
+
+
     
 const SALT_COUNT = 10;
 
@@ -67,7 +69,7 @@ const SALT_COUNT = 10;
             message: "Please supply both a email and password",
           });
         }
-      
+     
         try {
           const user = await getUser(req.body);
           // console.log("POST user", user)

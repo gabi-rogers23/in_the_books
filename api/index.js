@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { getUserById } = require("../database");
 const { JWT_SECRET } = process.env;
 
+
 router.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
