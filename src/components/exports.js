@@ -9,4 +9,5 @@ export { default as Cart } from "./cart";
 export { default as Login } from "./login";
 export { default as Profile } from "./profile";
 export { default as CartItem } from "./cartItem";
-// export {default as Homepage} from "./homepage"
+export { default as Footer } from "./footer"
+

@@ -89,17 +89,23 @@ function NavBar({loggedIn, setLoggedIn}) {
                   </li>
                 </>
               ) : (
-                <li className="nav-item" id="lastChildItem">
-                  <NavLink
-                    to="/login"
-                    className={({ isActive }) =>
-                      "nav-links" + (isActive ? " activated" : "")
-                    }
-                    onClick={closeMobileMenu}
-                  >
-                    Login
-                  </NavLink>
-                </li>
+                <><li className="nav-item" id="lastChildItem">
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")}
+                      onClick={closeMobileMenu}
+                    >
+                      Login
+                    </NavLink>
+                  </li><li className="nav-item">
+                      <NavLink
+                        to="/register"
+                        className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")}
+                        onClick={closeMobileMenu}
+                      >
+                        Register
+                      </NavLink>
+                    </li></>
               )}
             </ul>
           </div>
