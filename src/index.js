@@ -5,7 +5,6 @@ import {
   Books,
   BookDetails,
   BookTagSearch,
-  Homepage,
   Cart,
   NavBar, Login, Register, Profile, Footer
 } from "./components/exports";
