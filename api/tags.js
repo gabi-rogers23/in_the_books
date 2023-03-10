@@ -1,6 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { getTagById } = require("../database");
+const { getTagById, getAllTags } = require("../database");
+
+
+//GET all tags
+
+router.get("/", async (req, res, next)=>{
+  try{
+    const tagsList = await getAllTags();
+    res.send(tagsList);
+  }catch(error){
+    next(error);
+  }
+})
 
 //GET /tags/:tagId
 router.get("/:tagId", async (req, res, next) => {
@@ -12,5 +24,7 @@ router.get("/:tagId", async (req, res, next) => {
       next(error);
     }
   });
+
+  //POST book_tag
   
   module.exports = router;

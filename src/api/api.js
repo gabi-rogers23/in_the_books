@@ -222,3 +222,23 @@ export async function deleteCartItem(id) {
     throw error;
   }
 }
+
+export async function fetchAllTags() {
+  try {
+    const res = await fetch(`${BASE_URL}/tags`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchAllAuthors() {
+  try{
+    const res = await fetch(`${BASE_URL}/authors`);
+    const data = await res.json();
+    return data;
+  }catch(error){
+    return error;
+  }
+}

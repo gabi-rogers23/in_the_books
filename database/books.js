@@ -60,7 +60,7 @@ async function getBookById(bookId) {
     const {
       rows: [book],
     } = await client.query(`
-  SELECT b.id AS id, title, "authorId", price, description, "bookImage", fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
+  SELECT b.id AS id, title, "authorId", price, description, "bookImage", stock, fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
   FROM books b 
   JOIN author a
   ON a.id = b."authorId"

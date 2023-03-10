@@ -54,6 +54,19 @@ async function createBookTag(bookId, tagList) {
   }
 }
 
+async function getAllTags() {
+  try{
+    const {
+      rows: tags
+    } = await client.query(`
+    SELECT * FROM tags;
+    `)
+    return tags
+  }catch(error){
+    throw error;
+  }
+}
+
 async function getTagById(tagId) {
   try {
     const {
@@ -72,5 +85,6 @@ async function getTagById(tagId) {
 module.exports = {
   createTags,
   createBookTag,
-  getTagById
+  getTagById, 
+  getAllTags
 };
