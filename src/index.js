@@ -20,7 +20,7 @@ const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
         <Route path="/books" element={<Books />} />
         <Route path="/books/:bookId" element={<BookDetails />} />
         <Route path="/booktag/:tagName" element={<BookTagSearch />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart />} onLeave={(()=>{console.log("hi")})}/>
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
         <Route path="/register" element={<Register setLoggedIn={setLoggedIn}/>} />
         <Route path="/me" element={<Profile  />} />

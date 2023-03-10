@@ -9,7 +9,7 @@ const Profile = () => {
     fetchUserProfile().then((userResults) => {
       try {
         setUser(userResults);
-        console.log(user);
+        // console.log(user);
       } catch (error) {
         console.log(error, " Problem with getting User");
       }

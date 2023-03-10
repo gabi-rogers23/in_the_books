@@ -50,7 +50,7 @@ const ListBooks = ({ allBooks }) => {
                     onClick={async (e) => {
                       e.preventDefault();
                       book.quantity = 1;
-                      // console.log(book)
+                      console.log(book)
                       const add = await addToCart(book);
                       alert(add.message);
                     }}

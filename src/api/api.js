@@ -138,13 +138,24 @@ export async function fetchUserProfile() {
 
 export async function fetchUserCart() {
   try {
-    const res = await fetch(`${BASE_URL}/cart`, {
+    const res = await fetch(`${BASE_URL}/cart/`, {
       headers: getHeaders(),
     });
 
     const data = await res.json();
     // console.log("fetch /cart ", data);
+    data.items.sort((itemOne, itemTwo) => {
+      const titleOne = itemOne.title.toUpperCase();
+      const titleTwo = itemTwo.title.toUpperCase();
 
+      if (titleOne < titleTwo) {
+        return -1;
+      } else if (titleOne > titleTwo) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     return data;
   } catch (error) {
     throw error;
@@ -174,18 +185,38 @@ export async function addToCart({ id, quantity }) {
 }
 
 export async function updateCart({ cartItemId, quantity }) {
-  const sendData = {
-    cartItemId: cartItemId,
-    quantity: quantity,
-  };
   try {
-    const res = await fetch(`${BASE_URL}/cart`, {
-      method: "PATCH",
+    console.log(quantity);
+    if (quantity >= 1) {
+      const sendData = {
+        cartItemId: cartItemId,
+        quantity: quantity,
+      };
+      const res = await fetch(`${BASE_URL}/cart`, {
+        method: "PATCH",
+        headers: getHeaders(),
+        body: JSON.stringify(sendData),
+      });
+      const data = await res.json();
+      // console.log("UPDATE CART ITEM: ", data);
+      return data;
+    } else {
+      await deleteCartItem(cartItemId);
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteCartItem(id) {
+  try {
+    // console.log("DELETE", id);
+    const res = await fetch(`${BASE_URL}/cart/${id}`, {
+      method: "DELETE",
       headers: getHeaders(),
-      body: JSON.stringify(sendData),
     });
     const data = await res.json();
-    // console.log("UPDATE CART ITEM: ", data);
+    // console.log(data);
     return data;
   } catch (error) {
     throw error;

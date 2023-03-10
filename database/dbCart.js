@@ -42,7 +42,7 @@ async function getCartByUserId(userId) {
     }
 
     const { rows: cartItems } = await client.query(`
-              SELECT ci.id AS "cartItemId", "bookId", title, price, quantity, "authorFirstName", "authorLastName"
+              SELECT ci.id AS "cartItemId", "bookId", title, price, quantity, stock, "bookImage", "authorFirstName", "authorLastName"
               FROM cart_items ci
               JOIN cart c ON c.id = ci."cartId"
               JOIN books b ON b.id =ci."bookId"

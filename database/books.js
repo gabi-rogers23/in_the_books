@@ -2,7 +2,7 @@ const client = require("./client");
 
 async function createBook(
   bookAuthor,
-  { title, price, description, bookImage, fiction }
+  { title, price, description, bookImage, stock, fiction }
 ) {
   try {
     // console.log("author in createbook", author);
@@ -11,11 +11,11 @@ async function createBook(
       rows: [book],
     } = await client.query(
       `
-        INSERT INTO books(title, "authorId", price, description, "bookImage", fiction)
-        VALUES($1, $2, $3, $4, $5, $6)
+        INSERT INTO books(title, "authorId", price, description, "bookImage", stock, fiction)
+        VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
         `,
-      [title, bookAuthor.id, price, description, bookImage, fiction]
+      [title, bookAuthor.id, price, description, bookImage, stock, fiction]
     );
 
     // console.log("CREATE BOOK RETURNING: ", book)
@@ -29,7 +29,7 @@ async function createBook(
 async function getAllBooks() {
   try {
     const { rows: books } = await client.query(`
-    SELECT b.id AS id, title, "authorId", price, description, "bookImage", fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
+    SELECT b.id AS id, title, "authorId", price, description, "bookImage", stock, fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
     FROM books b 
     JOIN author a 
     ON a.id = b."authorId";

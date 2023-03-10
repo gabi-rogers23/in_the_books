@@ -51,20 +51,32 @@ router.post("/", requireUser, async (req, res, next) => {
 router.patch("/", requireUser, async (req, res, next) => {
   try {
     // console.log("PATCH BODY", req.body)
-    if (req.body.quantity == 0) {
-      await removeCartItem(req.body.cartItemId);
-      res.send();
-    } else {
+    // if (req.body.quantity == 0) {
+    //   await removeCartItem(req.body.cartItemId);
+    //   res.send();
+    // } else {
       const updatedCartItem = await updateCartItem(
         req.body.cartItemId,
         req.body.quantity
       );
       //   console.log("UPDATED CART ITEM", updatedCartItem)
       res.send(updatedCartItem);
-    }
+    // }
   } catch (error) {
     next(error);
   }
 });
+
+router.delete("/:cartItemId", requireUser, async (req, res, next) => {
+  try{
+    // console.log("ITEM TO DELETE ", req.params.cartItemId)
+    const deletedCartItem = await removeCartItem(req.params.cartItemId)
+
+    res.send({message : "Deleted!"})
+
+  }catch (error){
+    next(error)
+  }
+})
 
 module.exports = router;

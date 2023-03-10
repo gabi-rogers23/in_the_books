@@ -2,9 +2,8 @@ const client = require("./client");
 
 async function createCartItem(cartId, bookId, quantity) {
   try {
-
     const {
-      rows: [cartItem],
+      rows: [createItem],
     } = await client.query(
       `
         INSERT INTO cart_items ("cartId", "bookId", quantity)
@@ -13,6 +12,13 @@ async function createCartItem(cartId, bookId, quantity) {
         `,
       [cartId, bookId, quantity]
     );
+
+   const { rows: [cartItem]} = await client.query(`
+   SELECT ci.id, ci."cartId", "bookId", quantity, price, stock, "bookImage"
+   FROM cart_items ci
+   JOIN books ON books.id = "bookId"
+   WHERE ci.id = ${createItem.id};
+   `)
     // console.log(cartItem, "created!")
     return cartItem;
   } catch (error) {
@@ -20,17 +26,20 @@ async function createCartItem(cartId, bookId, quantity) {
   }
 }
 
-async function getCartItem(bookId, cartId){
-  try{
+async function getCartItem(bookId, cartId) {
+  try {
     const {
-      rows : [cartItem],
-    }= await client.query(`
-    SELECT * FROM cart_items WHERE "bookId"=${bookId} AND "cartId"=${cartId};
-    `)
+      rows: [cartItem],
+    } = await client.query(`
+    SELECT cart_items.id, "cartId" "bookId", quantity, price, stock, "bookImage" 
+    FROM cart_items 
+    JOIN books ON books.id = "bookId" 
+    WHERE "bookId"=${bookId} AND "cartId"=${cartId};
+    `);
     // console.log(cartItem)
 
-    return cartItem
-  }catch(error){
+    return cartItem;
+  } catch (error) {
     throw error;
   }
 }
@@ -71,5 +80,5 @@ module.exports = {
   createCartItem,
   updateCartItem,
   removeCartItem,
-  getCartItem
+  getCartItem,
 };

@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserCart, updateCart } from "../api/api";
 import { CartItem } from "./exports"
 
@@ -10,7 +9,7 @@ const Cart = () => {
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
       try {
-        setCart(cartResults);
+        setCart(cartResults)
         // console.log("UseEffect CART", cartResults);
       } catch (error) {
         console.log(error, "Problem with Cart Promises");
@@ -18,30 +17,39 @@ const Cart = () => {
     });
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     getUserCart()
-  }, []);
-  return (
-    <div>
-    <div>
-      {cart.items.map((item) => {
-        return (
-          <div
+  }, [])
+
+  const setPrice = () => {
+    try{
+      let totalPrice = 0 
+      cart.items.forEach((item)=>{
+        let itemPrice = item.quantity * item.price
+        totalPrice += itemPrice })
+        return totalPrice.toFixed(2)
+    }catch(error){
+    throw error
+  }}
+
+  return (<div>
+    {cart.items.length ? (<div>
+      <div className="booksList">
+     
+        {cart.items.map((item) => {
+          return (
+            <div className="booksMap"
             key={item.cartItemId}
-          >
-            <CartItem item={item} />
-          </div>
-        );
-      })}
-    </div>
-    {cart.items.length && <button onClick={(e) => {
-        e.preventDefault()
-        const cartPromises = cart.items.map((item) => updateCart(item))
-        const cartItem = Promise.all(cartPromises).catch(console.log)
-        alert("Cart Updated!")
-        getUserCart()
-    }}>Update Cart</button>}
-    </div>
-  );
+            >
+              {item.quantity > 0 && <CartItem item={item} setUpdate={getUserCart}/>}
+            </div>
+          );
+        })}
+      </div>
+     
+      <div> Total: ${setPrice()} </div>
+      </div>) : (<div>Your Cart is Empty! <br/> <a href="./books">Check out all our books!</a></div>)}
+    
+      </div>);
 };
 export default Cart;
