@@ -6,6 +6,7 @@ import { getBookById, fetchAllAuthors } from "../api/api";
 
 const BookForm = () => {
   //Book State
+  const [book, setBook] = useState({});
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -14,8 +15,9 @@ const BookForm = () => {
   const [fiction, setFiction] = useState(false);
   //Author State
   const [authorList, setAuthorList] = useState([]);
-  const [author, setAuthor] = useState("");
-  const [authorId, setAuthorId] = useState({});
+  const [author, setAuthor] = useState({});
+  const [authorId, setAuthorId] = useState("");
+  const [editAuthor, setEditAuthor] = useState(false);
   //Tags State
   const [bookTags, setBookTags] = useState([]);
 
@@ -24,30 +26,29 @@ const BookForm = () => {
   const [bookToSend, setBookToSend] = useState({});
 
   useEffect(() => {
-      fetchAllAuthors().then((authors) => {
-        setAuthorList(authors)});
+    fetchAllAuthors().then((authors) => {
+      setAuthorList(authors);
+    });
     if (bookId === "new") {
-        return
+      return;
     } else {
-      getBookById(bookId).then(
-        (book) => {
-          try {
-            setTitle(book.title);
-            setPrice(book.price);
-            setDescription(book.description);
-            setImage(book.bookImage);
-            setStock(book.stock);
-            setFiction(book.fiction);
-            setAuthorId(book.authorId);
-            
-          } catch (error) {
-            console.error("Uh oh! Problems with Promises");
-          }
+      getBookById(bookId).then((book) => {
+        try {
+          setBook(book);
+          setTitle(book.title);
+          setPrice(book.price);
+          setDescription(book.description);
+          setImage(book.bookImage);
+          setStock(book.stock);
+          setFiction(book.fiction);
+          setAuthorId(book.authorId);
+        } catch (error) {
+          console.error("Uh oh! Problems with Promises");
         }
-      );
-      }
+      });
+    }
   }, []);
-
+console.log("authorId ", authorId)
   return (
     <div>
       <h3>Book Information</h3>
@@ -127,48 +128,86 @@ const BookForm = () => {
           ></input>
         </div>
       </form>
-
       <div>
-        <h3>Author</h3>
-        {/* Need a drop down menu with existing tags + option for new tags.  Only show form if newTag is selected  */}
-        <fieldset>
-          <label>Author</label>
-          {/* <span>{author}</span> */}
-          <select
-            value={author.id}
-            // label={} 
-            onChange={(e) => {
-              e.preventDefault();
-              setAuthor(e.target.value);
-            }}
-          >
-            <option>New Author</option>
-            {authorList.map((author) => {
-                        console.log(author.authorFirstName + " " + author.authorLastName)
-              return (
-                <option 
-                value={author.id} 
-                key={author.id}
-                label={author.authorFirstName + " " + author.authorLastName}>
-                </option>
-              );
-            })}
-          </select>
+        <h3>Author: </h3>
+        <div>
+          Name: {book.authorFirstName} {book.authorLastName}
+        </div>
+        <div>Date Of Birth: {book.dateOfBirth}</div>
+        <div>Birth Place: {book.birthPlace}</div>
+        {editAuthor ? (
           <button
             onClick={(e) => {
               e.preventDefault();
+              setEditAuthor(false);
             }}
           >
-            Add
+            Cancel
           </button>
-        </fieldset>
+        ) : (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setEditAuthor(true);
+            }}
+          >
+            Edit Author
+          </button>
+        )}
       </div>
+      {editAuthor && (
+        <div>
+          {/* Need a drop down menu with existing tags + option for new tags.  Only show form if newTag is selected  */}
+          <fieldset>
+            <label>Select Author: </label>
+            <select
+              value={authorId}
+              defaultValue={book.authorId}
+              onChange={(e) => {
+                e.preventDefault();
+                setAuthorId(e.target.value);
+                book.authorId = e.target.value === "New Author" ? null : e.target.value
+              }}
+            >
+              <option
+                onClick={(e) => {
+                  e.preventDefault();
+                  setAuthorId("new");
+                }}
+              >
+                New Author
+              </option>
+              {authorList.map((author) => {
+                // console.log(author.authorFirstName + " " + author.authorLastName);
+                return (
+                  <option
+                
+                    value={author.id}
+                    key={author.id}
+                    label={
+                      author.authorLastName +
+                      ", " +
+                      author.authorFirstName +
+                      " | Date of Birth: " +
+                      author.dateOfBirth +
+                      " | Birth Place: " +
+                      author.birthPlace
+                    }
+                  ></option>
+                );
+              })}
 
-      <AuthorForm
-        bookToSend={bookToSend}
-        authorId={authorId}
-        setAuthorId={setAuthorId}
-      />
+            </select>
+          </fieldset>
+        </div>
+      )}
+      {authorId === "New Author" && (
+        <AuthorForm
+          bookToSend={bookToSend}
+          authorId={authorId}
+          setAuthorId={setAuthorId}
+        />
+      )}
       {/* <BookTagForm /> */}
       {/* Need a drop down menu with existing authors + option for new author.  Only show form if newAuthor is selected  */}
     </div>

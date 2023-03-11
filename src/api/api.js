@@ -14,6 +14,8 @@ export function getHeaders() {
   return headers;
 }
 
+
+
 export async function getAllBooks() {
   try {
     const res = await fetch(`${BASE_URL}/books`);
@@ -186,7 +188,7 @@ export async function addToCart({ id, quantity }) {
 
 export async function updateCart({ cartItemId, quantity }) {
   try {
-    console.log(quantity);
+    // console.log(quantity);
     if (quantity >= 1) {
       const sendData = {
         cartItemId: cartItemId,
@@ -237,8 +239,23 @@ export async function fetchAllAuthors() {
   try{
     const res = await fetch(`${BASE_URL}/authors`);
     const data = await res.json();
+    
+    data.sort((itemOne, itemTwo) => {
+      const titleOne = itemOne.authorLastName.toUpperCase();
+      const titleTwo = itemTwo.authorLastName.toUpperCase();
+      
+      if (titleOne < titleTwo) {
+        return -1;
+      } else if (titleOne > titleTwo) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    console.log("alpha ", data)
     return data;
-  }catch(error){
+}catch(error){
+
     return error;
   }
 }

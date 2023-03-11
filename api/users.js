@@ -94,7 +94,7 @@ const SALT_COUNT = 10;
         try {
           const auth = req.headers.authorization;
           if (auth) {
-            console.log(req.user)
+            // console.log(req.user)
             res.send(req.user);
           } else {
             res.status(401).send({

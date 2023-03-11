@@ -38,7 +38,7 @@ async function getAllAuthors() {
     } = await client.query(`
     SELECT * FROM author;
     `)
-    console.log(authors)
+    // console.log(authors)
     return authors;
   }catch(error){
     throw error;
