@@ -46,6 +46,8 @@
 .booksImage {
   display: flex;
   flex-flow: column nowrap;
+  height: 150px;
+  width: 100px;
 }
 
 .booksImage button {

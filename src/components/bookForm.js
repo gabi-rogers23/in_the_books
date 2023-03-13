@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BookTagForm, AuthorForm } from "./exports";
-import { getBookById } from "../api/api";
+import { getBookById, updateBook, createNewBook } from "../api/api";
 
 const BookForm = () => {
-  //Book State
+  //Book Form State
   const [book, setBook] = useState({});
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -13,16 +13,16 @@ const BookForm = () => {
   const [image, setImage] = useState("");
   const [stock, setStock] = useState("");
   const [fiction, setFiction] = useState(false);
-  
 
-  //Tags State
-  const [bookTags, setBookTags] = useState([]);
+  const [bookToSend] = useState({});
 
+  const navigate = useNavigate()
   const { bookId } = useParams();
 
-  const [bookToSend, setBookToSend] = useState({});
-
   useEffect(() => {
+    if (bookId == "new") {
+      setBook(null);
+    } else {
       getBookById(bookId).then((book) => {
         try {
           setBook(book);
@@ -36,7 +36,8 @@ const BookForm = () => {
           console.error("Uh oh! Problems with Promises");
         }
       });
-    }, []);
+    }
+  }, []);
 
   return (
     <div>
@@ -117,15 +118,31 @@ const BookForm = () => {
         </div>
       </form>
       <div>
-        <h3>Author: </h3>
+        <AuthorForm book={book} bookToSend={bookToSend} />
       </div>
-      
-        <AuthorForm
-          book={book}
-          bookToSend={bookToSend}
-        />
+
       {/* <BookTagForm /> */}
-      {/* Need a drop down menu with existing authors + option for new author.  Only show form if newAuthor is selected  */}
+      <button
+        onClick={async (e) => {
+          e.preventDefault();
+          // console.log(bookToSend)
+          const book = await createNewBook(bookToSend);
+          if(book.error){
+            alert(book.error)
+          } else {
+            setTitle("");
+            setPrice("");
+            setDescription("");
+            setImage("");
+            setStock("");
+            setFiction(false);
+            alert("Book Created!")
+            navigate("/me")
+          }
+        }}
+      >
+        Create New Book!
+      </button>
     </div>
   );
 };

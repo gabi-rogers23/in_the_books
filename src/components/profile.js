@@ -4,6 +4,7 @@ import { fetchUserProfile } from "../api/api";
 
 const Profile = () => {
   const [user, setUser] = useState({});
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchUserProfile().then((userResults) => {
@@ -33,7 +34,14 @@ const Profile = () => {
           <div>
             <h3>Admin Access</h3>
             <h4>What would you like to do today?</h4>
-            <button>Add Book</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/bookForm/new");
+              }}
+            >
+              Add Book
+            </button>
             <button>Update Book</button>
             <button>Delete Book</button>
             <button>View Users</button>

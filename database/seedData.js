@@ -44,22 +44,22 @@ async function createTables() {
     await client.query(`
         CREATE TABLE author (
             id SERIAL PRIMARY KEY,
-            "authorFirstName" VARCHAR(255),
-            "authorLastName" VARCHAR(255),
-            "dateOfBirth" VARCHAR(255),
-            "birthPlace" VARCHAR(255),
+            "authorFirstName" VARCHAR(255) NOT NULL,
+            "authorLastName" VARCHAR(255) NOT NULL,
+            "dateOfBirth" VARCHAR(255) NOT NULL,
+            "birthPlace" VARCHAR(255) NOT NULL,
             "authorImage" VARCHAR(255),
             "authorBio" VARCHAR
         );
         CREATE TABLE books (
             id SERIAL PRIMARY KEY,
-            title VARCHAR(255),
+            title VARCHAR(255 NOT NULL,
             "authorId" INTEGER REFERENCES author(id),
-            price FLOAT(2),
+            price FLOAT(2) NOT NULL,
             description VARCHAR,
             "bookImage" VARCHAR(255),
-            stock INTEGER,
-            fiction BOOLEAN DEFAULT false
+            stock INTEGER NOT NULL,
+            fiction BOOLEAN DEFAULT false NOT NULL
         );
         
         CREATE TABLE tags (
@@ -206,7 +206,7 @@ async function seedBooks() {
         fiction: faker.datatype.boolean(),
       };
 
-      promises.push(createBook(author, randomBook));
+      promises.push(createBook(author.id, randomBook));
     }
 
     const books = await Promise.all(promises);

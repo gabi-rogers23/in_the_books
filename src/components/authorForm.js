@@ -7,8 +7,8 @@ const AuthorForm = (props) => {
   const [authorList, setAuthorList] = useState([]);
   const [newAuthor, setNewAuthor] = useState({});
   //dropdown state
-  const [newAuthorId, setNewAuthorId] = useState("");
-  const [edit, setEdit] = useState(false)
+  const [authorId, setAuthorId] = useState("");
+  const [edit, setEdit] = useState(false);
   //form state
   const [authorFirstName, setAuthorFirstName] = useState("");
   const [authorLastName, setAuthorLastName] = useState("");
@@ -17,47 +17,49 @@ const AuthorForm = (props) => {
   const [authorImage, setAuthorImage] = useState("");
   const [authorBio, setAuthorBio] = useState("");
 
-  useEffect(() => {
+  function refreshAuthors() {
     fetchAllAuthors().then((authors) => {
       setAuthorList(authors);
-      console.log("author useEffect 1")
+      console.log("author useEffect 1");
     });
+  }
+
+  useEffect(() => {
+    refreshAuthors();
   }, []);
 
-  useEffect(()=>{
-    setNewAuthorId(props.book.authorId);
-    console.log("author useEffect 2")
-  },[props.book])
+  useEffect(() => {
+    if (props.book === null) {
+      return;
+    } else {
+      setAuthorId(props.book.authorId);
+      console.log("author useEffect 2");
+    }
+  }, [props.book]);
 
-console.log(edit)
   return (
     <div>
       {!edit ? (
         <div>
           <fieldset>
-            <label> Current: </label>
+            <label> Select Author: </label>
             <select
-              value={newAuthorId}
-              defaultValue={props.book.authorId}
+              value={authorId}
+              defaultValue={props.book ? props.book.authorId : "--"}
               onChange={(e) => {
                 e.preventDefault();
-                setNewAuthorId(
-                  e.target.value === "New Author" ? "" : e.target.value
+                const newAuthorId = e.target.value
+                setAuthorId(
+                  newAuthorId === "New Author"
+                    ? setEdit(true)
+                    : newAuthorId
                 );
-                setEdit(true)
-                // if (props.book.authorId !== newAuthorId) {
-                //   props.bookToSend.authorId = newAuthorId;
-                // checks if the author needs to be updated}
+                  props.bookToSend.authorId = newAuthorId;
+                  console.log(props.bookToSend.authorId)
               }}
             >
-              <option
-                onClick={(e) => {
-                  e.preventDefault();
-                  setNewAuthorId("new");
-                }}
-              >
-                New Author
-              </option>
+              <option value={"--"} label="--"></option>
+              <option value={"New Author"} label="New Author"></option>
               {authorList.map((author) => {
                 return (
                   <option
@@ -154,17 +156,30 @@ console.log(edit)
             ></input>
             <br />
             <button
-            onClick={(async (e)=>{
-              e.preventDefault();
-              console.log(newAuthor)
-              const updatedAuthor = await createAuthor(newAuthor)
-              console.log(updatedAuthor)
-            })}>Enter</button>
-
+              onClick={async (e) => {
+                e.preventDefault();
+                console.log(newAuthor);
+                const updatedAuthor = await createAuthor(newAuthor);
+                console.log(updatedAuthor);
+                if (updatedAuthor.error) {
+                  alert(updatedAuthor.error);
+                } else {
+                  setEdit(false);
+                  setAuthorFirstName("")
+                  setAuthorLastName("")
+                  setDateOfBirth("")
+                  setAuthorImage("")
+                  setAuthorBio("")
+                  refreshAuthors();
+                }
+              }}
+            >
+              Add Author
+            </button>
             <button
               onClick={(e) => {
                 e.preventDefault();
-                setEdit(false)
+                setEdit(false);
               }}
             >
               Cancel

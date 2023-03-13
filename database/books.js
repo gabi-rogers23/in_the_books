@@ -1,11 +1,11 @@
 const client = require("./client");
 
 async function createBook(
-  bookAuthor,
+  author,
   { title, price, description, bookImage, stock, fiction }
 ) {
   try {
-    // console.log("author in createbook", author);
+    console.log("author in createbook", author);
 
     const {
       rows: [book],
@@ -15,7 +15,7 @@ async function createBook(
         VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
         `,
-      [title, bookAuthor.id, price, description, bookImage, stock, fiction]
+      [title, author.id, price, description, bookImage, stock, fiction]
     );
 
     // console.log("CREATE BOOK RETURNING: ", book)

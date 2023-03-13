@@ -14,9 +14,9 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", requireUser, async (req, res, next)=>{
-  // console.log(req.user)
-if(req.user.isAdmin){
-  try{
+  if(req.user.isAdmin){
+    try{
+    // console.log(req.body)
     const author = await createAuthor(req.body)
     res.send(author)
   }catch(error){
