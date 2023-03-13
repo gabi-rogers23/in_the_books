@@ -14,8 +14,6 @@ export function getHeaders() {
   return headers;
 }
 
-
-
 export async function getAllBooks() {
   try {
     const res = await fetch(`${BASE_URL}/books`);
@@ -236,14 +234,14 @@ export async function fetchAllTags() {
 }
 
 export async function fetchAllAuthors() {
-  try{
+  try {
     const res = await fetch(`${BASE_URL}/authors`);
     const data = await res.json();
-    
+
     data.sort((itemOne, itemTwo) => {
       const titleOne = itemOne.authorLastName.toUpperCase();
       const titleTwo = itemTwo.authorLastName.toUpperCase();
-      
+
       if (titleOne < titleTwo) {
         return -1;
       } else if (titleOne > titleTwo) {
@@ -252,10 +250,24 @@ export async function fetchAllAuthors() {
         return 0;
       }
     });
-    console.log("alpha ", data)
+    // console.log("alpha ", data)
     return data;
-}catch(error){
+  } catch (error) {
+    throw error;
+  }
+}
 
-    return error;
+export async function createAuthor(author) {
+  console.log(author)
+  try {
+    const res = await fetch(`${BASE_URL}/authors`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(author),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
   }
 }

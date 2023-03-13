@@ -1,6 +1,7 @@
 const express = require("express");
-const { getAllAuthors } = require("../database");
+const { getAllAuthors, createAuthor } = require("../database");
 const router = express.Router();
+const { requireUser } = require("./utils");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -12,5 +13,21 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
+router.post("/", requireUser, async (req, res, next)=>{
+  // console.log(req.user)
+if(req.user.isAdmin){
+  try{
+    const author = await createAuthor(req.body)
+    res.send(author)
+  }catch(error){
+    next(error)
+  }
+}else{
+  res.status(403).send({
+    error: "403 Forbidden",
+    message: `${req.user.email} is not an Admin!`,
+    name: "Admin Error"
+  })
+}
+})
 module.exports = router;
