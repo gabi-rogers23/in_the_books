@@ -273,6 +273,7 @@ export async function createAuthor(author) {
 }
 
 export async function updateBook(book) {
+  console.log(book)
   try {
     const res = await fetch(`${BASE_URL}/books/${book.id}`, {
       method: "PATCH",
@@ -287,12 +288,26 @@ export async function updateBook(book) {
 }
 
 export async function createNewBook(book) {
-  console.log(book)
+  // console.log(book)
   try {
     const res = await fetch(`${BASE_URL}/books`, {
       method: "POST",
       headers: getHeaders(),
       body: JSON.stringify(book),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteBook(bookId) {
+  console.log(bookId)
+  try {
+    const res = await fetch(`${BASE_URL}/books/${bookId}`, {
+      method: "DELETE",
+      headers: getHeaders(),
     });
     const data = await res.json();
     return data;

@@ -86,6 +86,7 @@ const AuthorForm = (props) => {
           <div>
             Author First Name
             <input
+            required
               value={authorFirstName}
               onChange={(e) => {
                 e.preventDefault();
@@ -98,6 +99,7 @@ const AuthorForm = (props) => {
           <div>
             Author Last Name
             <input
+            required
               value={authorLastName}
               onChange={(e) => {
                 e.preventDefault();
@@ -110,6 +112,7 @@ const AuthorForm = (props) => {
           <div>
             Date Of Birth
             <input
+            required
               value={dateOfBirth}
               onChange={(e) => {
                 e.preventDefault();
@@ -122,6 +125,7 @@ const AuthorForm = (props) => {
           <div>
             Birth Place
             <input
+            required
               value={birthPlace}
               onChange={(e) => {
                 e.preventDefault();
@@ -162,7 +166,7 @@ const AuthorForm = (props) => {
                 const updatedAuthor = await createAuthor(newAuthor);
                 console.log(updatedAuthor);
                 if (updatedAuthor.error) {
-                  alert(updatedAuthor.error);
+                  alert(updatedAuthor.message);
                 } else {
                   setEdit(false);
                   setAuthorFirstName("")

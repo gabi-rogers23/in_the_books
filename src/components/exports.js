@@ -13,3 +13,4 @@ export { default as BookForm } from "./bookForm";
 export { default as AuthorForm } from "./authorForm";
 export { default as BookTagForm } from "./bookTagForm";
 export { default as Footer } from "./footer";
+export { default as Search } from "./search";

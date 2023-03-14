@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUserProfile } from "../api/api";
+import { Search } from "./exports"
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const navigate = useNavigate()
+  const [update, setUpdate] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserProfile().then((userResults) => {
@@ -42,10 +44,9 @@ const Profile = () => {
             >
               Add Book
             </button>
-            <button>Update Book</button>
-            <button>Delete Book</button>
+            {setUpdate ? <div><div>Search Books to Edit or Delete</div> <Search /> </div>:<>
             <button>View Users</button>
-            <button>Make New Admin</button>
+            <button>Make New Admin</button></>}
           </div>
         )}
       </div>

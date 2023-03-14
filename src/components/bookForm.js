@@ -16,7 +16,7 @@ const BookForm = () => {
 
   const [bookToSend] = useState({});
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { bookId } = useParams();
 
   useEffect(() => {
@@ -46,6 +46,7 @@ const BookForm = () => {
         <div>
           Title
           <input
+            required
             value={title}
             onChange={(e) => {
               e.preventDefault();
@@ -58,6 +59,7 @@ const BookForm = () => {
         <div>
           Price $
           <input
+            required
             value={price}
             onChange={(e) => {
               e.preventDefault();
@@ -70,6 +72,7 @@ const BookForm = () => {
         <div>
           Description
           <input
+            required
             value={description}
             onChange={(e) => {
               e.preventDefault();
@@ -94,6 +97,7 @@ const BookForm = () => {
         <div>
           Stock
           <input
+            required
             value={stock}
             onChange={(e) => {
               e.preventDefault();
@@ -106,6 +110,7 @@ const BookForm = () => {
         <div>
           Fiction
           <input
+            required
             type="checkbox"
             checked={fiction}
             onChange={(e) => {
@@ -122,26 +127,52 @@ const BookForm = () => {
       </div>
 
       {/* <BookTagForm /> */}
+      {bookId != "new" ? (
+        <button
+          onClick={async (e) => {
+            e.preventDefault();
+            bookToSend.id = bookId
+            const updatedBook = await updateBook(bookToSend)
+            if(updatedBook.error){
+              alert(updatedBook.message)
+            }else{
+              alert("Book Updated!")
+              navigate("/me")
+            }
+          }}
+        >
+          Update Book
+        </button>
+      ) : (
+        <button
+          onClick={async (e) => {
+            e.preventDefault();
+            // console.log(bookToSend)
+            const book = await createNewBook(bookToSend);
+            if (book.error) {
+              alert(book.error);
+            } else {
+              setTitle("");
+              setPrice("");
+              setDescription("");
+              setImage("");
+              setStock("");
+              setFiction(false);
+              alert("Book Created!");
+              navigate("/me");
+            }
+          }}
+        >
+          Create New Book!
+        </button>
+      )}
       <button
-        onClick={async (e) => {
+        onClick={(e) => {
           e.preventDefault();
-          // console.log(bookToSend)
-          const book = await createNewBook(bookToSend);
-          if(book.error){
-            alert(book.error)
-          } else {
-            setTitle("");
-            setPrice("");
-            setDescription("");
-            setImage("");
-            setStock("");
-            setFiction(false);
-            alert("Book Created!")
-            navigate("/me")
-          }
+          navigate(-1);
         }}
       >
-        Create New Book!
+        Cancel
       </button>
     </div>
   );

@@ -104,6 +104,12 @@ async function updateBook({ id, ...fields }) {
     if (Object.hasOwn(fields, "fiction")) {
       updateFields.fiction = fields.fiction;
     }
+    if (Object.hasOwn(fields, "stock")) {
+      updateFields.stock = fields.stock;
+    }
+    if (Object.hasOwn(fields, "authorId")) {
+      updateFields.authorId = fields.authorId;
+    }
 
     const setString = Object.keys(updateFields)
       .map((key, i) => `"${key}"=$${i + 1}`)
@@ -145,6 +151,8 @@ async function destroyBook(id) {
     DELETE FROM books
     WHERE id=${id};
     `);
+
+    return 
   } catch (error) {
     throw error;
   }

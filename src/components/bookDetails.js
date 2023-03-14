@@ -63,7 +63,7 @@ const BookDetails = () => {
           })}
         </div>
       )}
-      <button id="backButton" onClick={(e) => buttonHandler(e, "/books")}>
+      <button id="backButton" onClick={(e) => buttonHandler(e, -1)}>
         Back
       </button>
       <button id="addCartButton">Add to Cart</button>
