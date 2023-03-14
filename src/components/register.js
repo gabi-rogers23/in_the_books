@@ -42,12 +42,12 @@ const Register = ({setLoggedIn}) => {
   };
   return (
     <>
-      <form onSubmit={handleRegister}>
-        <div>
-          <h1>Sign up!</h1>
+      <form id="registerForm" onSubmit={handleRegister}>
+        <div class="signUp">
+          <h1 id="signUpHeader">Sign up!</h1>
           <div></div>
-          <label>
-            <input
+          <label class="inputsRegister">
+            <input id="email"
               type="email"
               placeholder="email"
               autoFocus
@@ -58,7 +58,7 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input
+            <input id="password"
               type="password"
               placeholder="********"
               required
@@ -68,7 +68,7 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input
+            <input id="firstName"
               type="text"
               placeholder="First Name"
               required
@@ -78,7 +78,7 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input
+            <input id="lastName"
               type="text"
               placeholder="Last Name"
               required
@@ -88,7 +88,7 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input
+            <input id="address"
               type="text"
               placeholder="Address"
               required
@@ -98,7 +98,7 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input
+            <input id="phoneNumber"
               type="tel"
               placeholder="Phone Number"
               required
@@ -107,7 +107,7 @@ const Register = ({setLoggedIn}) => {
             ></input>
           </label>
 
-          <button>Register</button>
+          <button id="registerButton">Register</button>
         </div>
         <div></div>
       </form>
