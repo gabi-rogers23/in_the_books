@@ -32,13 +32,14 @@ const Cart = () => {
     throw error
   }}
 
-  return (<div>
+  return (
+  <div>
     {cart.items.length ? (<div>
-      <div className="booksList">
+      <div className="booksListCart">
      
         {cart.items.map((item) => {
           return (
-            <div className="booksMap"
+            <div className="booksMapCart"
             key={item.cartItemId}
             >
               {item.quantity > 0 && <CartItem item={item} setUpdate={getUserCart}/>}
@@ -47,9 +48,10 @@ const Cart = () => {
         })}
       </div>
      
-      <div> Total: ${setPrice()} </div>
-      </div>) : (<div>Your Cart is Empty! <br/> <a href="./books">Check out all our books!</a></div>)}
+      <div className="cartTotal"> Total: ${setPrice()} </div>
+      </div>) : (<div className="cartEmpty">Your Cart is Empty! <br/> <a href="./books">Check out all our books!</a></div>)}
     
-      </div>);
+      </div>
+    );
 };
 export default Cart;
