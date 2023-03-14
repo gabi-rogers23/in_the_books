@@ -43,10 +43,10 @@ const Register = ({setLoggedIn}) => {
   return (
     <>
       <form id="registerForm" onSubmit={handleRegister}>
-        <div class="signUp">
+        <div className="signUp">
           <h1 id="signUpHeader">Sign up!</h1>
           <div></div>
-          <label class="inputsRegister">
+          <label className="inputsRegister">
             <input id="email"
               type="email"
               placeholder="email"

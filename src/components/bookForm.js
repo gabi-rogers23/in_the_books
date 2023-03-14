@@ -126,7 +126,7 @@ const BookForm = () => {
         <AuthorForm book={book} bookToSend={bookToSend} />
       </div>
 
-      {/* <BookTagForm /> */}
+      <BookTagForm book={book}/>
       {bookId != "new" ? (
         <button
           onClick={async (e) => {

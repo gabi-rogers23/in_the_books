@@ -1,11 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { fetchAllAuthors, createAuthor } from "../api/api";
 
 const AuthorForm = (props) => {
   const [authorList, setAuthorList] = useState([]);
-  const [newAuthor, setNewAuthor] = useState({});
+  const [newAuthor] = useState({});
   //dropdown state
   const [authorId, setAuthorId] = useState("");
   const [edit, setEdit] = useState(false);
@@ -20,7 +19,6 @@ const AuthorForm = (props) => {
   function refreshAuthors() {
     fetchAllAuthors().then((authors) => {
       setAuthorList(authors);
-      console.log("author useEffect 1");
     });
   }
 
@@ -33,7 +31,6 @@ const AuthorForm = (props) => {
       return;
     } else {
       setAuthorId(props.book.authorId);
-      console.log("author useEffect 2");
     }
   }, [props.book]);
 
@@ -55,7 +52,7 @@ const AuthorForm = (props) => {
                     : newAuthorId
                 );
                   props.bookToSend.authorId = newAuthorId;
-                  console.log(props.bookToSend.authorId)
+                  // console.log(props.bookToSend.authorId)
               }}
             >
               <option value={"--"} label="--"></option>

@@ -26,7 +26,7 @@ const BookDetails = () => {
   }
 
   return (
-    <div class="bookDetails">
+    <div className="bookDetails">
       <div id="bookImage" width="300px">
         <img width="200px" src={book.bookImage} />
       </div>
@@ -48,7 +48,7 @@ const BookDetails = () => {
         About {book.authorFirstName} {book.authorLastName}: {book.authorBio}
       </div>
       {book.tags.length > 0 && (
-        <div class="bookTags">
+        <div className="bookTags">
           <b id="tags">Tags:</b>
           {book.tags.map((tag) => {
             return (

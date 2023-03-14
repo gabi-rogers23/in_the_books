@@ -223,15 +223,6 @@ export async function deleteCartItem(id) {
   }
 }
 
-export async function fetchAllTags() {
-  try {
-    const res = await fetch(`${BASE_URL}/tags`);
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
 
 export async function fetchAllAuthors() {
   try {
@@ -312,6 +303,29 @@ export async function deleteBook(bookId) {
     const data = await res.json();
     return data;
   } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchAllTags() {
+  try {
+    const res = await fetch(`${BASE_URL}/tags`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+} 
+
+export async function createNewBookTag(bookId, tagId) {
+  try{
+    const res = await fetch(`${BASE_URL}/tags/${bookId}/${tagId}`,{
+    method: "POST",
+    headers: getHeaders()})
+
+    const data = await res.json();
+    return data
+  }catch (error){
     throw error;
   }
 }

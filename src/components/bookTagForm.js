@@ -1,52 +1,49 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchAllTags } from "../api/api";
+import { fetchAllTags, createNewBookTag } from "../api/api";
+import TagSelector from "./tagSelector";
 
-const BookTagForm = () => {
-    const [tagList, setTagList] = useState([])
-    const [tag, setTag] = useState("")
-    const [bookTags, setBookTags] = useState([])
+const BookTagForm = (props) => {
+  const [tagList, setTagList] = useState([]);
+  const [tagId, setTagId] = useState({});
+  const [tagArray] = useState([]);
 
-    useEffect(() => {
-        fetchAllTags().then(
-          (allTagsResults) => {
-            try {
-              console.log(allTagsResults)
-              setTagList(allTagsResults)
-            } catch (err) {
-              console.error("Uh oh! Problems with Promises");
-            }
-          }
-        );
-      }, []);
+  useEffect(() => {
+    fetchAllTags().then((allTagsResults) => {
+      try {
+        console.log(allTagsResults);
+        const selectedBookTags = props.book.tags.map((tag)=>parseInt(tag.tagId))
+        allTagsResults.forEach((tag)=>{
+          tag.isSelected = selectedBookTags.includes(parseInt(tag.id))
+        })
+        setTagList(allTagsResults);
+      } catch (error) {
+        console.error("Uh oh! Problems with Promises");
+      }
+    });
+  }, []);
 
-
+  console.log(props.book);
   return (
     <div>
-        <h3>Book Tags!</h3>
-        {/* Need a drop down menu with existing tags + option for new tags.  Only show form if newTag is selected  */}
-        <fieldset>
-        <label>
-          Tags
-        </label>
-        <span>{bookTags}</span>
-        <select
-          value={tag}
-          onChange={(e) => { 
-            e.preventDefault();
-            setTag(e.target.value)
-           }}
-        >
+      <h3>Book Tags!</h3>
+      <form>
+        <label>Tags</label>
+
           {tagList.map((tag) => {
-            return (<option value={tag.name} key={tag.id}>{tag.name}</option>)
+            return (
+              <TagSelector tag={tag}/>
+            );
           })}
-        </select>
+
         <button
-        onClick={(e)=>{
+          onClick={async (e) => {
             e.preventDefault();
-            
-        }}>Add</button>
-      </fieldset>
+          }}
+        >
+          Add
+        </button>
+      </form>
     </div>
   );
 };
