@@ -159,20 +159,21 @@
   }
 
   .form {
-  display: block;
-  margin: auto;
-  width: 40%;
-  padding: 10px;
-  border-radius: 15px;
-  height: 50%;
-  background-color: #000;
-  margin-top: 10%;
-  padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    padding: 40px;
+    border-radius: 15px;
+    background-color: #000000;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
+    margin: 10% auto;
   }
   
   .loginHeader {
     font-size: 36px;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     margin: 0;
     margin-bottom: 20px;
     text-align: center;
@@ -180,45 +181,35 @@
   
   .label1,
   .label2 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
-
-  #userInput{
-    display: block;
-    margin: auto;
-    width: 80%;
-    padding: 10px;
+  
+  .input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    border: none;
-  }
-  .input[type="text"], input[type="password"] {
-    display: block;
-    margin: auto;
-    width: 80%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ffffff;
+    background-color: #f8f8f8;
     font-size: 16px;
-    color: #000000;
+    color: #333;
+    margin-bottom: 20px;
   }
   
   input[type="text"]::placeholder,
   input[type="password"]::placeholder {
-    color: #666;
+    color: #999;
   }
   
   .button {
     display: block;
-    width: 100%;
-    background-color: #6e6d6b;
+    width: 50%;
+    background-color: #6c6d6d;
     color: white;
-    margin: auto;
-    width: 80%;
-    padding: 5px;
+    margin: 20px 0 0 0;
+    padding: 15px;
     border: none;
     border-radius: 5px;
-    padding: 10px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -302,13 +293,13 @@
   #backButton:hover{
     background-color: #666666;
   }
+
   .footer {
     background-color: #1d1d1d;
     color: white;
     display: flex;
     justify-content: center;
     padding: 1rem;
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -599,8 +590,9 @@
     font-size: 1rem;
     font-weight: 700;
     padding: 10px;
+    margin-left: 20px;
     transition: all 0.3s ease-in-out;
-    width: 100%;
+    width: 10%;
   }
   
   .booksMapCart button:hover {
@@ -613,7 +605,7 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
     padding: 20px;
-    text-align: right;
+    text-align: center;
   }
   
   .cartTotal h2 {
@@ -623,7 +615,7 @@
   }
   
   .cartTotal span {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 500;
   }
   
@@ -648,78 +640,64 @@
   }
 
   
+
+  #registerForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #141414;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
   
-=======
-#registerForm{
-  display: block;
-  margin: auto;
-  width: 40%;
-  padding: 10px;
-  border-radius: 15px;
-  height: 50%;
-  background-color: #000;
-  margin-top: 10%;
-  padding-bottom: 40px;
-
-}
-
   #signUpHeader{
-    font-size: 55px;
+    font-size: 48px;
     font-weight: bold;
     margin-bottom: 30px;
-    color: #ffffff;
+    color: #faf8f8;
     text-align: center;
-    text-shadow: -1px 1px 2px #000,
-				  1px 1px 2px #000,
-				  1px -1px 0 #000,
-				  -1px -1px 0 #000;
+    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
-
-  #email{
-    margin: auto;
+  
+  input[type="email"], input[type="password"], input[type="text"], input[type="tel"]{
     display: block;
-    height:30px;
-    width: 80%;
-    padding:20px;
+    height: 40px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
-    background-color: #F2F2F2;
+    border-radius: 10px;
+    background-color: #fcfbfb;
     font-size: 16px;
     margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
   }
-  #password, #firstName, #lastName, #address, #phoneNumber{
-    margin: auto;
+  
+  #registerButton{
     display: block;
-    height:30px;
-    width: 80%;
-    padding:20px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
-    background-color: #F2F2F2;
-    font-size: 16px;
-    margin-top: 15px;
-  }
-#registerButton{
-    display: block;
-    margin: auto;
-    width: 80%;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ffffff;
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: bold;
+    border-radius: 10px;
+    background-color: #6c6d6d;
+    color: #fff;
+    font-size: 24px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-    text-shadow: -1px 1px 2px #000,
-				  1px 1px 2px #000,
-				  1px -1px 0 #000,
-				  -1px -1px 0 #000;
     margin-top: 40px;
+    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
-
+  
   #registerButton:hover {
-    background-color: #666666;
+    background-color: #09bef0;
   }
+ 
+  
+  
 
