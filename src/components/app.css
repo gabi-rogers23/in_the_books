@@ -158,22 +158,16 @@
     }
   }
 
-  .loginForm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #ffffff;
-  }
-  
   .form {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(0, 0, 0);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
+  display: block;
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+  border-radius: 15px;
+  height: 50%;
+  background-color: #000;
+  margin-top: 10%;
+  padding-bottom: 40px;
   }
   
   .loginHeader {
@@ -188,11 +182,19 @@
   .label2 {
     margin-bottom: 20px;
   }
-  
-  input[type="text"],
-  input[type="password"] {
+
+  #userInput{
     display: block;
-    width: 100%;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  .input[type="text"], input[type="password"] {
+    display: block;
+    margin: auto;
+    width: 80%;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -211,6 +213,9 @@
     width: 100%;
     background-color: #6e6d6b;
     color: white;
+    margin: auto;
+    width: 80%;
+    padding: 5px;
     border: none;
     border-radius: 5px;
     padding: 10px;
@@ -644,3 +649,77 @@
 
   
   
+=======
+#registerForm{
+  display: block;
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+  border-radius: 15px;
+  height: 50%;
+  background-color: #000;
+  margin-top: 10%;
+  padding-bottom: 40px;
+
+}
+
+  #signUpHeader{
+    font-size: 55px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
+  }
+
+  #email{
+    margin: auto;
+    display: block;
+    height:30px;
+    width: 80%;
+    padding:20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  #password, #firstName, #lastName, #address, #phoneNumber{
+    margin: auto;
+    display: block;
+    height:30px;
+    width: 80%;
+    padding:20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    margin-top: 15px;
+  }
+#registerButton{
+    display: block;
+    margin: auto;
+    width: 80%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-shadow: -1px 1px 2px #000,
+				  1px 1px 2px #000,
+				  1px -1px 0 #000,
+				  -1px -1px 0 #000;
+    margin-top: 40px;
+  }
+
+  #registerButton:hover {
+    background-color: #666666;
+  }
+
