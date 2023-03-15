@@ -2,11 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const TagSelector = (props) => {
-const [tagSelected, setTagSelected] = useState(props.tag.isSelected ? true : false)
+const [tagSelected, setTagSelected] = useState(props.tag.isSelected)
 
 useEffect(() => {
-    // console.log(props.tag)
-  }, []);
+    setTagSelected(props.tag.isSelected)
+  }, [props.tag.isSelected]);
 
     return(<div key={props.tag.id}>{props.tag.name}<input type="checkbox" checked={tagSelected} 
     onChange={(e) => {

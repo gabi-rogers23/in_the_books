@@ -1,33 +1,34 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { fetchAllTags, updateBookTag } from "../api/api";
 import TagSelector from "./tagSelector";
 
 const BookTagForm = (props) => {
   const [tagList, setTagList] = useState([]);
+  let tags = useRef([])
+
+  const setupTagList = () => {
+    const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
+    let newTags = tags.current.map((tag) => {
+      tag.isSelected = selectedBookTags.includes(tag.id);
+      return tag
+    });
+    setTagList(newTags)
+    console.log("CurrentTags", tags.current)
+}
 
   useEffect(() => {
-    setTagList([])
-    fetchAllTags().then((allTagsResults) => {
-      try {
-        console.log(allTagsResults);
+    // console.log("BOOK TAGS UPDATED")
+    setupTagList()
+  }, [props.book.tags])
 
-        if (props.book.tags.length){
-          console.log("from if")
-          const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
-          allTagsResults.forEach((tag) => {
-            tag.isSelected = selectedBookTags.includes(tag.id);
-          });
-          setTagList(allTagsResults);
-        }else{
-          console.log("from else")
-          setTagList(allTagsResults)
-        }
-      } catch (error) {
-        console.error("Uh oh! Problems with Promises", error);
-      }
-    });
-  }, [props.book.tags]);
+  useEffect(() => {
+    fetchAllTags().then((newTagList) => {
+      tags.current = newTagList
+      // console.log("CURRENT TAGS UPDATED")
+      setupTagList()
+    }).catch(console.log)
+  }, []);
 
   // console.log(props.book);
   return (

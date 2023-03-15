@@ -311,6 +311,18 @@ export async function fetchAllTags() {
   try {
     const res = await fetch(`${BASE_URL}/tags`);
     const data = await res.json();
+    data.sort((itemOne, itemTwo) => {
+      const titleOne = itemOne.name.toUpperCase();
+      const titleTwo = itemTwo.name.toUpperCase();
+
+      if (titleOne < titleTwo) {
+        return -1;
+      } else if (titleOne > titleTwo) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     return data;
   } catch (error) {
     throw error;
