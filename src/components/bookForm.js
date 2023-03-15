@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BookTagForm, AuthorForm } from "./exports";
 import { getBookById, updateBook, createNewBook } from "../api/api";
@@ -14,7 +14,7 @@ const BookForm = () => {
   const [stock, setStock] = useState("");
   const [fiction, setFiction] = useState(false);
 
-  const [bookToSend] = useState({});
+  let bookToSend = useRef({});
 
 
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ const BookForm = () => {
               e.preventDefault();
               const title = e.target.value;
               setTitle(title);
-              bookToSend.title = title;
+              bookToSend.current.title = title;
             }}
           ></input>
         </div>
@@ -64,7 +64,7 @@ const BookForm = () => {
               e.preventDefault();
               const price = e.target.value;
               setPrice(price);
-              bookToSend.price = price;
+              bookToSend.current.price = price;
             }}
           ></input>
         </div>
@@ -77,7 +77,7 @@ const BookForm = () => {
               e.preventDefault();
               const des = e.target.value;
               setDescription(des);
-              bookToSend.description = des;
+              bookToSend.current.description = des;
             }}
           ></input>
         </div>
@@ -89,7 +89,7 @@ const BookForm = () => {
               e.preventDefault();
               const pic = e.target.value;
               setImage(pic);
-              bookToSend.bookImage = pic;
+              bookToSend.current.bookImage = pic;
             }}
           ></input>
         </div>
@@ -102,7 +102,7 @@ const BookForm = () => {
               e.preventDefault();
               const stock = e.target.value;
               setStock(stock);
-              bookToSend.stock = stock;
+              bookToSend.current.stock = stock;
             }}
           ></input>
         </div>
@@ -116,7 +116,7 @@ const BookForm = () => {
               const fic = e.target.checked;
               console.log(fic);
               setFiction(fic);
-              bookToSend.fiction = fic;
+              bookToSend.current.fiction = fic;
             }}
           ></input>
         </div>
@@ -125,13 +125,14 @@ const BookForm = () => {
         <AuthorForm book={book} bookToSend={bookToSend} />
       </div>
 
-      <BookTagForm book={book}/>
+      <BookTagForm book={book} bookToSend={bookToSend}/>
       {bookId != "new" ? (
         <button
           onClick={async (e) => {
             e.preventDefault();
-            bookToSend.id = bookId
-            const updatedBook = await updateBook(bookToSend)
+            bookToSend.current.id = bookId
+            // console.log("BOOK TO SEND", bookToSend.current)
+            const updatedBook = await updateBook(bookToSend.current)
             if(updatedBook.error){
               alert(updatedBook.message)
             }else{
@@ -146,8 +147,8 @@ const BookForm = () => {
         <button
           onClick={async (e) => {
             e.preventDefault();
-            // console.log(bookToSend)
-            const book = await createNewBook(bookToSend);
+            // console.log(bookToSend.current)
+            const book = await createNewBook(bookToSend.current);
             if (book.error) {
               alert(book.error);
             } else {

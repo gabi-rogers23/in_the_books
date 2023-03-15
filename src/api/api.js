@@ -264,6 +264,7 @@ export async function createAuthor(author) {
 }
 
 export async function updateBook(book) {
+  book.tags = book.tags.filter((tag) => tag.isSelected)
   console.log(book)
   try {
     const res = await fetch(`${BASE_URL}/books/${book.id}`, {

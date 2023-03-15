@@ -20,6 +20,7 @@ const BookTagForm = (props) => {
   useEffect(() => {
     // console.log("BOOK TAGS UPDATED")
     setupTagList()
+    props.bookToSend.current.tags = tags.current
   }, [props.book.tags])
 
   useEffect(() => {
@@ -41,14 +42,7 @@ const BookTagForm = (props) => {
           return <TagSelector tag={tag} key={tag.id}/>;
         })}
 
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            await updateBookTag()
-          }}
-        >
-          Update Tags
-        </button><button>New Tag</button>
+        <button>New Tag</button>
       </form>
     </div>
   );
