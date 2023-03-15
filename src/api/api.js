@@ -272,7 +272,12 @@ export async function updateBook(book) {
       headers: getHeaders(),
       body: JSON.stringify(book),
     });
-    const data = await res.json();
+    const tagsResponse = await fetch(`${BASE_URL}/tags/${book.id}`, {
+      method: "PATCH",
+      headers: getHeaders(),
+      body: JSON.stringify(book)
+    })
+    const data = await tagsResponse.json();
     return data;
   } catch (error) {
     throw error;

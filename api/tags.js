@@ -25,12 +25,19 @@ router.get("/:tagId", async (req, res, next) => {
     }
   });
 
-router.post("/:bookId", requireUser, async (req, res, next) => {
+router.patch("/:bookId", requireUser, async (req, res, next) => {
   // console.log(req.params.bookId)
   if(req.user.isAdmin){
   try{
-    await addBookTag(req.params.bookId, req.body.tags)
+    console.log("DELETING")
+    await deleteAllBookTags(req.params.bookId)
+    console.log("DELETED")
+    console.log("CREATING", req.body.tags)
+    const tagNames = req.body.tags.map((tag) => tag.name)
+    await createBookTag(req.params.bookId, tagNames)
+    console.log("CREATED", req.body)
     const book = await getBookById(req.params.bookId)
+    console.log("BOOK", book)
     res.send(book)
   }catch(error){
     next(error)
