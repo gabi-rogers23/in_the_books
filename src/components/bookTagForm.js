@@ -1,48 +1,53 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchAllTags, createNewBookTag } from "../api/api";
+import { fetchAllTags, updateBookTag } from "../api/api";
 import TagSelector from "./tagSelector";
 
 const BookTagForm = (props) => {
   const [tagList, setTagList] = useState([]);
-  const [tagId, setTagId] = useState({});
-  const [tagArray] = useState([]);
 
   useEffect(() => {
+    setTagList([])
     fetchAllTags().then((allTagsResults) => {
       try {
         console.log(allTagsResults);
-        const selectedBookTags = props.book.tags.map((tag)=>parseInt(tag.tagId))
-        allTagsResults.forEach((tag)=>{
-          tag.isSelected = selectedBookTags.includes(parseInt(tag.id))
-        })
-        setTagList(allTagsResults);
+
+        if (props.book.tags.length){
+          console.log("from if")
+          const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
+          allTagsResults.forEach((tag) => {
+            tag.isSelected = selectedBookTags.includes(tag.id);
+          });
+          setTagList(allTagsResults);
+        }else{
+          console.log("from else")
+          setTagList(allTagsResults)
+        }
       } catch (error) {
-        console.error("Uh oh! Problems with Promises");
+        console.error("Uh oh! Problems with Promises", error);
       }
     });
-  }, []);
+  }, [props.book.tags]);
 
-  console.log(props.book);
+  // console.log(props.book);
   return (
     <div>
       <h3>Book Tags!</h3>
       <form>
         <label>Tags</label>
 
-          {tagList.map((tag) => {
-            return (
-              <TagSelector tag={tag}/>
-            );
-          })}
+        {tagList.map((tag) => {
+          return <TagSelector tag={tag} key={tag.id}/>;
+        })}
 
         <button
           onClick={async (e) => {
             e.preventDefault();
+            await updateBookTag()
           }}
         >
-          Add
-        </button>
+          Update Tags
+        </button><button>New Tag</button>
       </form>
     </div>
   );

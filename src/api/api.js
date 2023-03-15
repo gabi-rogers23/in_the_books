@@ -317,14 +317,27 @@ export async function fetchAllTags() {
   }
 } 
 
-export async function createNewBookTag(bookId, tagId) {
+export async function updateBookTag(bookId, tags) {
   try{
-    const res = await fetch(`${BASE_URL}/tags/${bookId}/${tagId}`,{
-    method: "POST",
-    headers: getHeaders()})
+//delete all tags where bookId = book.id
+const deleteRes = await fetch(`${BASE_URL}/tags/${bookId}`, {
+  method: "DELETE",
+  headers: getHeaders(),
+});
+const deleteData = await deleteRes.json();
 
-    const data = await res.json();
-    return data
+if(deleteData.error){
+  return
+}else{
+  //create new tags from tag array
+ const createRes = await fetch(`${BASE_URL}/tags/${bookId}`, {
+    method: "POST",
+    headers: getHeaders(),
+    body: JSON.stringify(tags)
+  })
+  const createData = await createRes.json()
+  return createData
+}
   }catch (error){
     throw error;
   }

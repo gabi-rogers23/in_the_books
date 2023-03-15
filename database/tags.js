@@ -82,25 +82,37 @@ async function getTagById(tagId) {
   }
 }
 
-async function addBookTag(bookId, tagId){
+async function deleteAllBookTags(bookId){
   try{
     const {
-      rows : [bookTag]
+      rows : tags
     } = await client.query(`
-    INSERT INTO book_tags("bookId", "tagId")
-    VALUES ($1, $2)
-    ON CONFLICT ("bookId", "tagId") DO NOTHING
-    RETURNING *;
-    `, [bookId, tagId])
+    DELETE FROM book_tags 
+    WHERE "bookId"=${bookId};`)
   }catch(error){
-    throw error
+    throw error;
   }
 }
+
+// async function addBookTag(bookId, tagId){
+//   try{
+//     const {
+//       rows : [bookTag]
+//     } = await client.query(`
+//     INSERT INTO book_tags("bookId", "tagId")
+//     VALUES ($1, $2)
+//     ON CONFLICT ("bookId", "tagId") DO NOTHING
+//     RETURNING *;
+//     `, [bookId, tagId])
+//   }catch(error){
+//     throw error
+//   }
+// }
 
 module.exports = {
   createTags,
   createBookTag,
   getTagById, 
   getAllTags,
-  addBookTag
+  deleteAllBookTags
 };

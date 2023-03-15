@@ -18,6 +18,7 @@ const Search = () => {
       try {
         console.log(allBooksResults);
         setAllBooks(allBooksResults);
+        setBooksToDisplay(allBooksResults)
       } catch (error) {
         console.error("Uh oh! Problems with Promises");
       }
@@ -33,15 +34,10 @@ const Search = () => {
             e.preventDefault();
             // console.log(e.target.value);
             setSearchTerm(e.target.value);
+
             if (e.target.value.length === 0) {
               setBooksToDisplay(allBooks);
-            }
-          }}
-        ></input>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            if (searchTerm.length) {
+            }else{
               const lowercasedSearchTerm = searchTerm.toLowerCase();
 
               const filteredBooks = allBooks.filter((book) => {
@@ -58,21 +54,21 @@ const Search = () => {
                     .includes(lowercasedSearchTerm)
                 );
               });
-              if (filteredBooks.length) {
-                setBooksToDisplay(filteredBooks);
-                console.log(booksToDisplay);
-              } else {
-                alert("No books match your search.");
-                setBooksToDisplay("");
-              }
+              setBooksToDisplay(filteredBooks)
             }
+          }}
+        ></input>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+  
           }}
         >
           Search
         </button>
       </form>
 
-      {booksToDisplay.length ? (
+      {booksToDisplay ? (
         <div>
           {booksToDisplay.map((book) => {
             return (
@@ -113,7 +109,7 @@ const Search = () => {
                         e.preventDefault();
                         const deletedBook = await deleteBook(book.id);
                         setSearchTerm("");
-                        setBooksToDisplay([]);
+                        setBooksToDisplay(allBooks);
                       }}
                     >
                       Delete

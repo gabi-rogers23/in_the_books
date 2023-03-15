@@ -6,7 +6,7 @@ import { getBookById, updateBook, createNewBook } from "../api/api";
 
 const BookForm = () => {
   //Book Form State
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState({ tags: [] });
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -16,13 +16,12 @@ const BookForm = () => {
 
   const [bookToSend] = useState({});
 
+
   const navigate = useNavigate();
   const { bookId } = useParams();
 
   useEffect(() => {
-    if (bookId == "new") {
-      setBook(null);
-    } else {
+    if (bookId != "new") {
       getBookById(bookId).then((book) => {
         try {
           setBook(book);
