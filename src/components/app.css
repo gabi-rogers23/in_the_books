@@ -526,7 +526,7 @@
     border-radius: 5px;
     font-size: 12.20px;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
     background-color: #6d6d6d;
     border: none;
     cursor: pointer;
@@ -622,9 +622,10 @@
   .cartEmpty {
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: #19191a;
     margin-top: 20px;
-    padding: 20px;
+    padding: 100px;
+    margin-bottom: 800px;
     text-align: center;
   }
   

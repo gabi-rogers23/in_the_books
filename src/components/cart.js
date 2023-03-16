@@ -5,12 +5,13 @@ import { CartItem } from "./exports"
 
 const Cart = () => {
   const [cart, setCart] = useState({ items: [] });
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
       try {
         setCart(cartResults)
-        // console.log("UseEffect CART", cartResults);
+        setIsEmpty(cartResults.items.length === 0); // set isEmpty state
       } catch (error) {
         console.log(error, "Problem with Cart Promises");
       }
@@ -33,25 +34,30 @@ const Cart = () => {
   }}
 
   return (
-  <div>
-    {cart.items.length ? (<div>
-      <div className="booksListCart">
-     
-        {cart.items.map((item) => {
-          return (
-            <div className="booksMapCart"
-            key={item.cartItemId}
-            >
-              {item.quantity > 0 && <CartItem item={item} setUpdate={getUserCart}/>}
-            </div>
-          );
-        })}
-      </div>
-     
-      <div className="cartTotal"> Total: ${setPrice()} </div>
-      </div>) : (<div className="cartEmpty">Your Cart is Empty! <br/> <a href="./books">Check out all our books!</a></div>)}
-    
-      </div>
-    );
+    <div>
+      {cart.items.length ? (
+        <div>
+          <div className="booksListCart">
+            {cart.items.map((item) => {
+              return (
+                <div className="booksMapCart"
+                  key={item.cartItemId}
+                >
+                  {item.quantity > 0 && <CartItem item={item} setUpdate={getUserCart}/>}
+                </div>
+              );
+            })}
+          </div>
+          <div className="cartTotal"> Total: ${setPrice()} </div>
+        </div>
+      ) : (
+        <div className="cartEmpty">
+          Your Cart is Empty! <br/> 
+          <a href="./books">Check out all our books!</a>
+        </div>
+      )}
+    </div>
+  );
 };
+
 export default Cart;
