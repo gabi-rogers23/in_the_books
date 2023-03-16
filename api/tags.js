@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getTagById, getAllTags, createBookTag, deleteAllBookTags, getBookById } = require("../database");
+const { getTagById, getAllTags, createBookTag, deleteAllBookTags, getBookById, addNewTag } = require("../database");
 const { requireUser } = require("./utils");
 
 //GET all tags
@@ -51,11 +51,12 @@ router.patch("/:bookId", requireUser, async (req, res, next) => {
 }
 })
 
-router.delete("/:bookId", requireUser, async(req, res, next)=>{
+router.post("/", requireUser, async(req, res, next)=>{
+  console.log("Post tags", req.body.tag)
   if(req.user.isAdmin){
     try{
-      const deleteAll = await deleteAllBookTags(req.params.bookId);
-      res.send("Tags Deleted.")
+      const addTag = await addNewTag(req.body.tag)
+      res.send(addTag)
     }catch(error){
       next(error)
     }

@@ -169,7 +169,7 @@ const BookForm = () => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          navigate(-1);
+          navigate("/me");
         }}
       >
         Cancel
