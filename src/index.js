@@ -25,8 +25,8 @@ const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
         <Route path="/register" element={<Register setLoggedIn={setLoggedIn}/>} />
         <Route path="/me" element={<Profile  />} />
         <Route path="/bookForm/:bookId" element={<BookForm />} />
-        <Route path="/footer" element={<Footer />} />
       </Routes>
+      <Footer />
     </>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBookById, addToCart } from "../api/api";
+import "./app.css"
 
 const BookDetails = () => {
   const [book, setBook] = useState({ tags: [] });
@@ -26,47 +27,33 @@ const BookDetails = () => {
   }
 
   return (
-    <div className="bookDetails">
-      <div id="bookImage" width="300px">
-        <img width="200px" src={book.bookImage} />
-      </div>
-      <div id="bookTitle">
-        <b>Title:</b> {book.title}
-      </div>
-      <div id="bookPrice">
-        <b>Price:</b> {book.price}
-      </div>
-      <div id="bookAuthor">
-        <b>Author:</b> {book.authorFirstName} {book.authorLastName}
-      </div>
-      <div id="bookDes">{book.description}</div>
-      <p />
-      <div id="bookAuthorImage">
-        <img src={book.authorImage} />
-      </div>
-      <div id="authorAbout">
-        About {book.authorFirstName} {book.authorLastName}: {book.authorBio}
-      </div>
-      {book.tags.length > 0 && (
-        <div className="bookTags">
-          <b id="tags">Tags:</b>
-          {book.tags.map((tag) => {
-            return (
-              <div
-                id="tagInputs"
-                key={tag.tagId}
-                onClick={(e) => buttonHandler(e, `/booktag/${tag.tag}`)}
-              >
-                {tag.tag}{" "}
-              </div>
-            );
-          })}
+    <div class="bookDetails">
+      <div class="bookImage"><img src={book.bookImage} alt={book.title} /></div>
+      <div class="bookInfo">
+        <h1 class="bookTitle">{book.title}</h1>
+        <div class="bookAuthor">
+          <span>By</span>
+          <span>{book.authorFirstName} {book.authorLastName}</span>
         </div>
-      )}
-      <button id="backButton" onClick={(e) => buttonHandler(e, -1)}>
-        Back
-      </button>
-      <button id="addCartButton">Add to Cart</button>
+        <div class="bookPrice">${book.price}</div>
+        <div class="bookDescription">{book.description}</div>
+        <div class="bookTags">
+          {book.tags.map((tag) => (
+            <span class="tag" key={tag.tagId}>{tag.tag}</span>
+          ))}
+        </div>
+        <div class="bookActions">
+          <button class="backButton" onClick={(e) => buttonHandler(e, "/books")}>Back</button>
+          <button class="addCartButton">Add to Cart</button>
+        </div>
+      </div>
+      <div class="authorInfo">
+        <div class="authorImage"><img src={book.authorImage} alt={`${book.authorFirstName} ${book.authorLastName}`} /></div>
+        <div class="authorBio">
+          <h2>About the author:</h2>
+          <p>{book.authorBio}</p>
+        </div>
+      </div>
     </div>
   );
 };

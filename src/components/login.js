@@ -36,7 +36,7 @@ const Login = ({setLoggedIn}) => {
           <label className="label1">
             <input id="userInput"
               type="text"
-              placeholder="Username*"
+              placeholder="Username"
               required
               autoFocus
               value={username}
@@ -46,7 +46,7 @@ const Login = ({setLoggedIn}) => {
           <label className="label2">
             <input
               type="password"
-              placeholder="********"
+              placeholder="Password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
