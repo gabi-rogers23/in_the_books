@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchUserProfile } from "../api/api";
 import { Search } from "./exports"
 import "./app.css"
