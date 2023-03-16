@@ -336,7 +336,7 @@ export async function fetchAllTags() {
 } 
 
 export async function createNewTag(tag){
-  console.log(tag)
+  // console.log(tag)
   try{
     const res = await fetch(`${BASE_URL}/tags`, {
       method: "POST",
@@ -351,3 +351,15 @@ export async function createNewTag(tag){
   }
 }
 
+export async function checkoutCart(cartId){
+  try{
+    const res = await fetch(`${BASE_URL}/cart/checkout/${cartId}`,{
+      method: "DELETE",
+      headers: getHeaders(),
+    })
+    const data = await res.json();
+    return data;
+  }catch(error){
+    throw error;
+  }
+}

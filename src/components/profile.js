@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { fetchUserProfile } from "../api/api";
 import { Search } from "./exports"
 import "./app.css"
@@ -49,9 +50,9 @@ const Profile = () => {
             >
               Add Book
              </button>
-             {setUpdate ? <div><div>Search Books to Edit or Delete</div> <Search /> </div>:<>
+             <br/>
+             <div><div>Search Books to Edit or Delete</div> <p/><Search /> </div>
              <button>View Users</button>
-             <button>Make New Admin</button></>}
            </div>
          </div>
        )}
