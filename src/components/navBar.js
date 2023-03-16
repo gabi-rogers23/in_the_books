@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./app.css";
 import { GiBookCover } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";

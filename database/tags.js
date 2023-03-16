@@ -54,6 +54,17 @@ async function createBookTag(bookId, tagList) {
   }
 }
 
+async function getAllTags() {
+  try {
+    const { rows: tags } = await client.query(`
+    SELECT * FROM tags;
+    `);
+    return tags;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getTagById(tagId) {
   try {
     const {
@@ -62,8 +73,34 @@ async function getTagById(tagId) {
   SELECT * FROM tags
   WHERE tags.id='${tagId}';
   `);
-  // console.log(tag)
+    // console.log(tag)
     return tag;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deleteAllBookTags(bookId) {
+  try {
+    const { rows: tags } = await client.query(`
+    DELETE FROM book_tags 
+    WHERE "bookId"=${bookId};`);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function addNewTag(tag) {
+  try {
+    const {
+      rows: [newTag],
+    } = await client.query(`
+    INSERT INTO tags(name)
+    VALUES($1)
+    RETURNING *;
+    `, [tag]);
+    console.log(newTag)
+    return newTag;
   } catch (error) {
     throw error;
   }
@@ -72,5 +109,8 @@ async function getTagById(tagId) {
 module.exports = {
   createTags,
   createBookTag,
-  getTagById
+  getTagById,
+  getAllTags,
+  deleteAllBookTags,
+  addNewTag
 };

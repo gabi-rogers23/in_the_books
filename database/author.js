@@ -31,6 +31,20 @@ async function createAuthor({
   }
 }
 
+async function getAllAuthors() {
+  try{
+    const {
+      rows : authors
+    } = await client.query(`
+    SELECT * FROM author;
+    `)
+    // console.log(authors)
+    return authors;
+  }catch(error){
+    throw error;
+  }
+}
+
 async function getAuthorById(authorId) {
   try {
     const {
@@ -90,6 +104,7 @@ async function updateAuthor({ id, ...fields }) {
 
 module.exports = {
   createAuthor,
+  getAllAuthors,
   getAuthorById,
   updateAuthor,
 };

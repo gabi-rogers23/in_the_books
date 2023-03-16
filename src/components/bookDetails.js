@@ -11,7 +11,11 @@ const BookDetails = () => {
 
   useEffect(() => {
     getBookById(bookId).then((book) => {
-      setBook(book);
+      try {
+        setBook(book);
+      } catch (error) {
+        throw error;
+      }
       // console.log(book)
     });
   }, []);

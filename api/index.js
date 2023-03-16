@@ -50,6 +50,9 @@ router.use("/cart", cartRouter);
 const usersRouter = require("./users");
 router.use("/users", usersRouter);
 
+const authorsRouter = require("./authors");
+router.use("/authors", authorsRouter)
+
 router.get("/health", async (req, res, next) => {
     res.status(200).send({
       message: "Server is up and healthy"

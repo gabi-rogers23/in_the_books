@@ -6,7 +6,7 @@ import {
   BookDetails,
   BookTagSearch,
   Cart,
-  NavBar, Login, Register, Profile, Footer
+  NavBar, Login, Register, Profile, Footer, BookForm
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -24,6 +24,7 @@ const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
         <Route path="/register" element={<Register setLoggedIn={setLoggedIn}/>} />
         <Route path="/me" element={<Profile  />} />
+        <Route path="/bookForm/:bookId" element={<BookForm />} />
       </Routes>
       <Footer />
     </>

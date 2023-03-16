@@ -1,11 +1,11 @@
 const client = require("./client");
 
 async function createBook(
-  bookAuthor,
+  author,
   { title, price, description, bookImage, stock, fiction }
 ) {
   try {
-    // console.log("author in createbook", author);
+    console.log("author in createbook", author);
 
     const {
       rows: [book],
@@ -15,7 +15,7 @@ async function createBook(
         VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
         `,
-      [title, bookAuthor.id, price, description, bookImage, stock, fiction]
+      [title, author.id, price, description, bookImage, stock, fiction]
     );
 
     // console.log("CREATE BOOK RETURNING: ", book)
@@ -60,7 +60,7 @@ async function getBookById(bookId) {
     const {
       rows: [book],
     } = await client.query(`
-  SELECT b.id AS id, title, "authorId", price, description, "bookImage", fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
+  SELECT b.id AS id, title, "authorId", price, description, "bookImage", stock, fiction, "authorFirstName", "authorLastName", "dateOfBirth", "birthPlace", "authorImage", "authorBio"
   FROM books b 
   JOIN author a
   ON a.id = b."authorId"
@@ -104,6 +104,15 @@ async function updateBook({ id, ...fields }) {
     if (Object.hasOwn(fields, "fiction")) {
       updateFields.fiction = fields.fiction;
     }
+    if (Object.hasOwn(fields, "stock")) {
+      updateFields.stock = fields.stock;
+    }
+    if (Object.hasOwn(fields, "authorId")) {
+      updateFields.authorId = fields.authorId;
+    }
+    if (Object.keys(updateFields).length === 0) {
+      return await getBookById(id);
+    }
 
     const setString = Object.keys(updateFields)
       .map((key, i) => `"${key}"=$${i + 1}`)
@@ -145,6 +154,8 @@ async function destroyBook(id) {
     DELETE FROM books
     WHERE id=${id};
     `);
+
+    return 
   } catch (error) {
     throw error;
   }

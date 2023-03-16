@@ -186,7 +186,7 @@ export async function addToCart({ id, quantity }) {
 
 export async function updateCart({ cartItemId, quantity }) {
   try {
-    console.log(quantity);
+    // console.log(quantity);
     if (quantity >= 1) {
       const sendData = {
         cartItemId: cartItemId,
@@ -222,3 +222,132 @@ export async function deleteCartItem(id) {
     throw error;
   }
 }
+
+
+export async function fetchAllAuthors() {
+  try {
+    const res = await fetch(`${BASE_URL}/authors`);
+    const data = await res.json();
+
+    data.sort((itemOne, itemTwo) => {
+      const titleOne = itemOne.authorLastName.toUpperCase();
+      const titleTwo = itemTwo.authorLastName.toUpperCase();
+
+      if (titleOne < titleTwo) {
+        return -1;
+      } else if (titleOne > titleTwo) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    // console.log("alpha ", data)
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createAuthor(author) {
+  // console.log(author)
+  try {
+    const res = await fetch(`${BASE_URL}/authors`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(author),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateBook(book) {
+  book.tags = book.tags.filter((tag) => tag.isSelected)
+  console.log(book)
+  try {
+    const res = await fetch(`${BASE_URL}/books/${book.id}`, {
+      method: "PATCH",
+      headers: getHeaders(),
+      body: JSON.stringify(book),
+    });
+    const tagsResponse = await fetch(`${BASE_URL}/tags/${book.id}`, {
+      method: "PATCH",
+      headers: getHeaders(),
+      body: JSON.stringify(book)
+    })
+    const data = await tagsResponse.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createNewBook(book) {
+  // console.log(book)
+  try {
+    const res = await fetch(`${BASE_URL}/books`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(book),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteBook(bookId) {
+  console.log(bookId)
+  try {
+    const res = await fetch(`${BASE_URL}/books/${bookId}`, {
+      method: "DELETE",
+      headers: getHeaders(),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchAllTags() {
+  try {
+    const res = await fetch(`${BASE_URL}/tags`);
+    const data = await res.json();
+    data.sort((itemOne, itemTwo) => {
+      const titleOne = itemOne.name.toUpperCase();
+      const titleTwo = itemTwo.name.toUpperCase();
+
+      if (titleOne < titleTwo) {
+        return -1;
+      } else if (titleOne > titleTwo) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+} 
+
+export async function createNewTag(tag){
+  console.log(tag)
+  try{
+    const res = await fetch(`${BASE_URL}/tags`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(tag)
+    })
+
+    const data = await res.json()
+    return data
+  }catch(error){
+    throw error;
+  }
+}
+
