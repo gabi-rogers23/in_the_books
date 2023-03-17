@@ -76,9 +76,25 @@ async function removeCartItem(cartItemId) {
   }
 }
 
+async function deleteAllCartItems(cartId){
+  try{
+
+  const { rows: cartItems} = await client.query(`
+  DELETE FROM cart_items
+  WHERE "cartId" =${cartId};
+  `)
+
+return cartId;
+
+  }catch(error){
+    throw error;
+  }
+}
+
 module.exports = {
   createCartItem,
   updateCartItem,
   removeCartItem,
   getCartItem,
+  deleteAllCartItems
 };

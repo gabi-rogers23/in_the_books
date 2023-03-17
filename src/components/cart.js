@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchUserCart, updateCart } from "../api/api";
+import { fetchUserCart, checkoutCart } from "../api/api";
 import { CartItem } from "./exports"
 
 const Cart = () => {
   const [cart, setCart] = useState({ items: [] });
   const [isEmpty, setIsEmpty] = useState(false);
-
+console.log(cart)
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
       try {
@@ -49,6 +49,14 @@ const Cart = () => {
             })}
           </div>
           <div className="cartTotal"> Total: ${setPrice()} </div>
+          <button onClick={(async (e)=>{
+            e.preventDefault();
+            const checkout = await checkoutCart(cart.cartId)
+            if(checkout == cart.cartId){
+              alert("You've successfully checked out!")
+              await getUserCart()
+            }
+          })}>Checkout</button>
         </div>
       ) : (
         <div className="cartEmpty">

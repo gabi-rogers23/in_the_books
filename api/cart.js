@@ -5,7 +5,8 @@ const {
   updateCartItem,
   removeCartItem,
   createCartItem,
-  getCartItem
+  getCartItem,
+  deleteAllCartItems
 } = require("../database");
 const { requireUser } = require("./utils");
 
@@ -92,6 +93,16 @@ router.delete("/:cartItemId", requireUser, async (req, res, next) => {
     res.send({message : "Deleted!"})
 
   }catch (error){
+    next(error)
+  }
+})
+
+router.delete("/checkout/:cartId", requireUser, async (req, res, next)=>{
+  console.log(req.params.cartId)
+  try{
+    const deleteAll = await deleteAllCartItems(req.params.cartId);
+    res.send(deleteAll)
+  }catch(error){
     next(error)
   }
 })
