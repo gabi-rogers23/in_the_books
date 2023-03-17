@@ -138,7 +138,7 @@ export async function fetchUserProfile() {
 
 export async function fetchUserCart(userId) {
   try {
-    const res = null;
+    let res = null;
     if (userId) {
       res = await fetch(`${BASE_URL}/cart/${userId}`
       , {

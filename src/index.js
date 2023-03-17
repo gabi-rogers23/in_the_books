@@ -6,7 +6,7 @@ import {
   BookDetails,
   BookTagSearch,
   Cart,
-  NavBar, Login, Register, Profile, Footer, BookForm, ViewUsers
+  NavBar, Login, Register, Profile, Footer, BookForm, ViewUsers, ViewUserCart
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -26,6 +26,7 @@ const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
         <Route path="/me" element={<Profile  />} />
         <Route path="/bookForm/:bookId" element={<BookForm />} />
         <Route path="/me/viewUsers" element={<ViewUsers />} />
+        <Route path="/me/viewUsers/:userId" element={<ViewUserCart />} />
       </Routes>
       <Footer />
     </>

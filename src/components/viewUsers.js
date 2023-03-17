@@ -6,8 +6,8 @@ const ViewUsers = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [usersToDisplay, setUsersToDisplay] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [click, setClick] = useState(false);
-  const [userCart, setUserCart] = useState({});
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     Promise.all([getAllUsers()]).then(([allUsersResults]) => {
@@ -58,26 +58,18 @@ const ViewUsers = () => {
                   {user.email}
                 </div>
                 <div>phone: {user.phoneNumber}</div>
-                <button
-                  onClick={(async (e) => {
-                    e.preventDefault();
-                    console.log("click")
-                    const cartItems = await fetchUserCart(user.id)
-                    setUserCart(cartItems)
-                    setClick(true);
-                  })}
-                >
-                  User Cart
-                </button>
-                <p/>
+                  <button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      navigate(`/me/viewUsers/${user.id}`)
+                    }}
+                  >
+                    User Cart
+                  </button>
+                <p />
               </div>
             );
           })}
-          {click && <div>{userCart.items.map((item)=>{<>
-            <div>{item.title}</div>
-            <div>{item.price}</div>
-            </>
-          })}</div>}
         </div>
       )}
     </div>

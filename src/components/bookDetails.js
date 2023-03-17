@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getBookById, addToCart } from "../api/api";
+import { getBookById } from "../api/api";
 import "./app.css"
 
 const BookDetails = () => {
