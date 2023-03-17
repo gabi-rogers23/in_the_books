@@ -39,7 +39,7 @@ const BookDetails = () => {
         <div class="bookDescription">{book.description}</div>
         <div class="bookTags">
           {book.tags.map((tag) => (
-            <span class="tag" key={tag.tagId}>{tag.tag}</span>
+            <span class="tag" key={tag.tagId} onClick={((e)=> buttonHandler(e, `/booktag/${tag.tag}`))}>{tag.tag}</span>
           ))}
         </div>
         <div class="bookActions">

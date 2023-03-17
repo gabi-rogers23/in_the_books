@@ -18,7 +18,7 @@ const ViewUserCart = () => {
       }
     });
   }, []);
-  console.log(cart.items)
+  // console.log(cart.items)
   return (
     <div>
       {cart.items.map((item) => {
@@ -27,7 +27,11 @@ const ViewUserCart = () => {
             <h4>{item.title}</h4>
             <div>Price: ${item.price}</div>
             <div>Quantity: {item.quantity}</div>
-            <button
+
+          </div>
+        );
+      })}
+                  <button
               onClick={(e) => {
                 e.preventDefault;
                 navigate("/me/viewUsers");
@@ -35,9 +39,6 @@ const ViewUserCart = () => {
             >
               Back
             </button>
-          </div>
-        );
-      })}
     </div>
   );
 };

@@ -12,7 +12,7 @@ const ViewUsers = () => {
   useEffect(() => {
     Promise.all([getAllUsers()]).then(([allUsersResults]) => {
       try {
-        console.log(allUsersResults);
+        // console.log(allUsersResults);
         setAllUsers(allUsersResults);
       } catch (error) {
         console.error("Uh oh! Problems with Promises");

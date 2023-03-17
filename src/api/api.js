@@ -272,7 +272,7 @@ export async function createAuthor(author) {
 
 export async function updateBook(book) {
   book.tags = book.tags.filter((tag) => tag.isSelected);
-  console.log(book);
+  // console.log(book);
   try {
     const res = await fetch(`${BASE_URL}/books/${book.id}`, {
       method: "PATCH",
@@ -307,7 +307,7 @@ export async function createNewBook(book) {
 }
 
 export async function deleteBook(bookId) {
-  console.log(bookId);
+  // console.log(bookId);
   try {
     const res = await fetch(`${BASE_URL}/books/${bookId}`, {
       method: "DELETE",

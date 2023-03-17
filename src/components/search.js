@@ -16,7 +16,7 @@ const Search = () => {
   useEffect(() => {
     Promise.all([getAllBooks()]).then(([allBooksResults]) => {
       try {
-        console.log(allBooksResults);
+        // console.log(allBooksResults);
         setAllBooks(allBooksResults);
         setBooksToDisplay(allBooksResults)
       } catch (error) {

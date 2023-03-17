@@ -37,7 +37,7 @@ router.patch("/:bookId", requireUser, async (req, res, next) => {
     await createBookTag(req.params.bookId, tagNames)
     console.log("CREATED", req.body)
     const book = await getBookById(req.params.bookId)
-    console.log("BOOK", book)
+    // console.log("BOOK", book)
     res.send(book)
   }catch(error){
     next(error)
@@ -52,7 +52,7 @@ router.patch("/:bookId", requireUser, async (req, res, next) => {
 })
 
 router.post("/", requireUser, async(req, res, next)=>{
-  console.log("Post tags", req.body.tag)
+  // console.log("Post tags", req.body.tag)
   if(req.user.isAdmin){
     try{
       const addTag = await addNewTag(req.body.tag)
