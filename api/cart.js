@@ -20,6 +20,23 @@ router.get("/", requireUser, async (req, res, next) => {
   }
 });
 
+router.get("/:userId", requireUser, async (req, res, next) => {
+  if(req.user.isAdmin){
+  try {
+    const userCart = await getCartByUserId(req.params.userId);
+    // console.log("USER CART", userCart)
+    res.send(userCart);
+  } catch (error) {
+    next(error);
+  }} else{
+    res.status(403).send({
+      error: "403 Forbidden",
+      message: `${req.user.email} is not an Admin!`,
+      name: "Admin Error"
+    })
+  }
+});
+
 router.post("/", requireUser, async (req, res, next) => {
   try {
 

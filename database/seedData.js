@@ -201,7 +201,7 @@ async function seedBooks() {
         title: faker.random.words(),
         price: faker.finance.amount(),
         description: faker.lorem.paragraph(),
-        bookImage: faker.image.image(200, 250, true),
+        bookImage: faker.image.image(400, 550, true),
         stock: faker.random.numeric(2),
         fiction: faker.datatype.boolean(),
       };
@@ -210,7 +210,7 @@ async function seedBooks() {
     }
 
     const books = await Promise.all(promises);
-    console.log("Books seeded!", books);
+    console.log("Books seeded!");
   } catch (error) {
     console.log("Error in createBooks");
     throw error;

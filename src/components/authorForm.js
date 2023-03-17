@@ -159,9 +159,9 @@ const AuthorForm = (props) => {
             <button
               onClick={async (e) => {
                 e.preventDefault();
-                console.log(newAuthor);
+                // console.log(newAuthor);
                 const updatedAuthor = await createAuthor(newAuthor);
-                console.log(updatedAuthor);
+                // console.log(updatedAuthor);
                 if (updatedAuthor.error) {
                   alert(updatedAuthor.message);
                 } else {

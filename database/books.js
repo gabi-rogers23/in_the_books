@@ -5,7 +5,7 @@ async function createBook(
   { title, price, description, bookImage, stock, fiction }
 ) {
   try {
-    console.log("author in createbook", author);
+    // console.log("author in createbook", author);
 
     const {
       rows: [book],
@@ -74,10 +74,11 @@ JOIN books b ON b.id=bt."bookId"
 JOIN tags t ON t.id=bt."tagId"
 WHERE b.id = ${bookId};  
 `);
-    if(book){
-      book.tags = tags;
-    }
-    
+
+
+if(book){
+    book.tags = tags;
+}
 
     // console.log("Book" , book)
 

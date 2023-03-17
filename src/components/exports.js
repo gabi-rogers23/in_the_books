@@ -15,3 +15,5 @@ export { default as BookTagForm } from "./bookTagForm";
 export { default as Footer } from "./footer";
 export { default as Search } from "./search";
 export { default as TagSelector } from "./tagSelector";
+export { default as ViewUsers } from "./viewUsers";
+export { default as ViewUserCart } from "./viewUserCart";

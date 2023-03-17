@@ -12,7 +12,7 @@ const BookTagForm = (props) => {
   tags.forEach((tag) => {
     tag.isSelected = selectedBookTags.includes(tag.id);
   });
-  console.log("CurrentTags", tags);
+  // console.log("CurrentTags", tags);
 
   props.bookToSend.current.tags = tags;
 

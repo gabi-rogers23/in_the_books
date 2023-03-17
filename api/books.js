@@ -74,7 +74,7 @@ router.patch("/:bookId", requireUser, async (req, res, next)=>{
 })
 
 router.delete("/:bookId", requireUser, async (req, res, next)=>{
-  console.log(req.params.bookId)
+  // console.log(req.params.bookId)
   if(req.user.isAdmin){
     try{
       const deleteBook = await destroyBook(req.params.bookId)

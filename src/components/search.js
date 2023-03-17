@@ -16,7 +16,7 @@ const Search = () => {
   useEffect(() => {
     Promise.all([getAllBooks()]).then(([allBooksResults]) => {
       try {
-        console.log(allBooksResults);
+        // console.log(allBooksResults);
         setAllBooks(allBooksResults);
         setBooksToDisplay(allBooksResults)
       } catch (error) {
@@ -69,22 +69,22 @@ const Search = () => {
       </form>
 
       {booksToDisplay ? (
-        <div>
+        <div className="booksList">
           {booksToDisplay.map((book) => {
             return (
               <div key={book.id} className="booksMap">
                 <div
-                  className="booksImage"
+                  className=""
                   onClick={(e) => {
                     buttonHandler(e, `/books/${book.id}`);
                   }}
                 >
                   <img src={book.bookImage} />
                 </div>
-                <div className="booksWords">
+                <div className="">
                   <div>
                     <div
-                      className="booksTitle"
+                      className=""
                       onClick={(e) => {
                         buttonHandler(e, `/books/${book.id}`);
                       }}
