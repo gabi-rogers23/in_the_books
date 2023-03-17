@@ -44,7 +44,7 @@
 }
 
 .booksImage img {
-  max-width: 100%;
+  max-width: 40%;
   height: auto;
   display: block;
   margin-left: auto;
@@ -64,6 +64,7 @@
   margin-bottom: 10px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-transform: capitalize;
 }
 
 .booksTitle:hover {

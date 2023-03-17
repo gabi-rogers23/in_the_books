@@ -6,7 +6,7 @@ const CartItem = (props) => {
   const [quantity, setQuantity] = useState(props.item.quantity);
 
   useEffect(() => {}, [quantity]);
-  console.log(props.item)
+  // console.log(props.item)
 
 
   return (

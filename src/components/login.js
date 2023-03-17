@@ -23,7 +23,7 @@ const Login = ({setLoggedIn}) => {
         navigate("/me");}
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } 
     };
     return (
