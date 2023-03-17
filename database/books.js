@@ -75,9 +75,11 @@ JOIN tags t ON t.id=bt."tagId"
 WHERE b.id = ${bookId};  
 `);
 
+
 if(book){
     book.tags = tags;
 }
+
     // console.log("Book" , book)
 
     return book;

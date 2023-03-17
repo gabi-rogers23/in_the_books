@@ -2,7 +2,7 @@ export const BASE_URL = "http://localhost:3000/api";
 
 export function getHeaders() {
   let headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   };
   const currentToken = localStorage.getItem("token");
   // console.log("CURRENT TOKEN IN GET HEADERS:, ", currentToken);

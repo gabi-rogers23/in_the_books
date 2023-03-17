@@ -205,7 +205,7 @@ async function seedBooks() {
         stock: faker.random.numeric(2),
         fiction: faker.datatype.boolean(),
       };
-      
+
       promises.push(createBook(author, randomBook));
     }
 
