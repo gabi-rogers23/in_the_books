@@ -53,7 +53,7 @@ async function createTables() {
         );
         CREATE TABLE books (
             id SERIAL PRIMARY KEY,
-            title VARCHAR(255 NOT NULL,
+            title VARCHAR(255) NOT NULL,
             "authorId" INTEGER REFERENCES author(id),
             price FLOAT(2) NOT NULL,
             description VARCHAR,
@@ -206,7 +206,7 @@ async function seedBooks() {
         fiction: faker.datatype.boolean(),
       };
 
-      promises.push(createBook(author.id, randomBook));
+      promises.push(createBook(author, randomBook));
     }
 
     const books = await Promise.all(promises);
@@ -295,7 +295,7 @@ async function rebuildDB() {
     await seedBooks();
     await seedTags();
     await createInitialUsers();
-    // await seedCartItems();
+    await seedCartItems();
     await getCartByUserId(4);
     await testDB();
     console.log("Finished Seeding Database!");

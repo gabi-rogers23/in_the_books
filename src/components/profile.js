@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchUserProfile } from "../api/api";
 import { Search } from "./exports"
 import "./app.css"
+import { useNavigate } from "react-router";
 
 const Profile = () => {
   const [user, setUser] = useState({});
