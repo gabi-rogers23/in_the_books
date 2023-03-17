@@ -371,7 +371,7 @@ export async function checkoutCart(cartId){
   }catch(error){
   throw error;
   }
-
+}
 
 export async function getAllUsers() {
   try {
