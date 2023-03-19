@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllBooks().then((data) => {
-      setBooks(data.slice(0, 6)); 
+      setBooks(data.slice(0, 4)); 
     });
   }, []);
 

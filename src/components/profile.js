@@ -50,12 +50,14 @@ const Profile = () => {
               }}
             >
               Add Book
-             </button>
-             <br/>
-             <div><div>Search Books to Edit or Delete</div> <p/><Search /> </div>
-             <button>View Users</button>
-           </div>
-         </div>
+            </button>
+            <div className="searchBooks">
+              <div className="searchBooksLabel">Search Books to Edit or Delete</div>
+              <Search />
+            </div>
+            <button className="viewUsersButton">View Users</button>
+          </div>
+        </div>
        )}
      </div>
    </div>
