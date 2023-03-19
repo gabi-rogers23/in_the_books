@@ -550,6 +550,23 @@ input[type="password"]::placeholder {
   margin-right: 10px;
 }
 
+.searchBooks {
+  margin-bottom: 10px;
+}
+
+.searchBooksLabel {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.viewUsersButton {
+  background-color: #7c454b;
+}
+
+.viewUsersButton:hover {
+  background-color: #e72e40;
+}
+
 .booksMapCart {
   background-color: #fff;
   border-radius: 5px;
