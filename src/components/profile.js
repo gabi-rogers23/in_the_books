@@ -37,7 +37,7 @@ const Profile = () => {
         <div className="profileDetail-item">
           <span className="profileDetail-label">Phone:</span> {user.phoneNumber}
         </div>
-        {user.isAdmin && (
+        {user.isAdmin && (<>
            <div className="adminAccess">
            <h3>Admin Access</h3>
            <h4>What would you like to do today?</h4>
@@ -57,12 +57,12 @@ const Profile = () => {
               }}>View Users</button>
           </div>
         </div>
-       )}
-     </div>
             <div className="searchBooks">
               
               <Search />
             </div>
+            </>)}
+     </div>
 
    </div>
  );
