@@ -18,7 +18,6 @@ const Search = () => {
       try {
         // console.log(allBooksResults);
         setAllBooks(allBooksResults);
-        setBooksToDisplay(allBooksResults)
       } catch (error) {
         console.error("Uh oh! Problems with Promises");
       }
@@ -26,9 +25,13 @@ const Search = () => {
   }, []);
 
   return (
-    <div>
+    <div className="searchContainer">
+      
       <form className="search">
+      <div className="searchBooksLabel">Search Books to Edit or Delete</div>
         <input
+        type="search"
+        placeholder="Search by Title, Author, or Description"
           value={searchTerm}
           onChange={(e) => {
             e.preventDefault();
@@ -36,10 +39,9 @@ const Search = () => {
             setSearchTerm(e.target.value);
 
             if (e.target.value.length === 0) {
-              setBooksToDisplay(allBooks);
+              setBooksToDisplay([]);
             }else{
               const lowercasedSearchTerm = searchTerm.toLowerCase();
-
               const filteredBooks = allBooks.filter((book) => {
                 return (
                   book.title.toLowerCase().includes(lowercasedSearchTerm) ||
@@ -55,36 +57,27 @@ const Search = () => {
                 );
               });
               setBooksToDisplay(filteredBooks)
+              console.log(booksToDisplay)
             }
           }}
         ></input>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-  
-          }}
-        >
-          Search
-        </button>
       </form>
 
-      {booksToDisplay ? (
-        <div className="booksList">
+        <div className="searchMap">
           {booksToDisplay.map((book) => {
             return (
-              <div key={book.id} className="booksMap">
+              <div key={book.id} className="searchBook">
                 <div
-                  className=""
+                  className="booksImage"
                   onClick={(e) => {
                     buttonHandler(e, `/books/${book.id}`);
                   }}
                 >
                   <img src={book.bookImage} />
                 </div>
-                <div className="">
+                <div>
                   <div>
                     <div
-                      className=""
                       onClick={(e) => {
                         buttonHandler(e, `/books/${book.id}`);
                       }}
@@ -96,7 +89,7 @@ const Search = () => {
                     </div>
                   </div>
                   <div className="booksPrice">${book.price}</div>
-                  <div className="booksButtons">
+                  <div className="searchButtons">
                     <button
                       onClick={async (e) => {
                         buttonHandler(e, `/bookForm/${book.id}`);
@@ -120,9 +113,6 @@ const Search = () => {
             );
           })}
         </div>
-      ) : (
-        ""
-      )}
     </div>
   );
 };

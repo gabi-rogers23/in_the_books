@@ -14,6 +14,7 @@ export function getHeaders() {
   return headers;
 }
 
+
 export async function getAllBooks() {
   try {
     const res = await fetch(`${BASE_URL}/books`);

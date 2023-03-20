@@ -303,7 +303,7 @@ input[type="password"]::placeholder {
   bottom: 0;
   width: 100%;
   text-align: center;
-  position: sticky;
+  position: fixed;
 }
 
 .footer__content {
@@ -374,6 +374,7 @@ input[type="password"]::placeholder {
   border-radius: 5px;
   font-size: 14px;
   color: #333;
+  cursor: pointer;
 }
 
 .bookActions {
@@ -476,15 +477,15 @@ input[type="password"]::placeholder {
 
 .profile {
   max-width: 800px;
-  margin: 0 auto;
   padding: 50px;
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: 75px;
+  margin-bottom: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  /* transform: translate(-50%, -50%); */
 }
 
 .profileGreeting {
@@ -513,17 +514,22 @@ input[type="password"]::placeholder {
 
 .adminAccess {
   margin-top: 30px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .adminButtons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   margin-right: 10px;
+  padding: 5px;
 }
 
 .adminButtons button {
-  padding: 8px 0px 10px;
+  padding: 10px;
   border-radius: 5px;
   font-size: 12.2px;
   font-weight: bold;
@@ -548,6 +554,51 @@ input[type="password"]::placeholder {
 
 .adminButtons button:first-child {
   margin-right: 10px;
+}
+
+.searchContainer {
+  display: absolute;
+  text-align: center;
+  overflow: auto;
+}
+
+.searchContainer img {
+  width: 350px;
+}
+
+.searchMap {
+  height: 500px;
+  margin-top: 50px;
+  overflow: auto;
+}
+
+.searchBook {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  border-bottom: 1px solid lightgray;
+  margin-right: 10px;
+}
+
+.searchButtons button {
+  background-color: #242321;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.searchButtons button:hover {
+  background-color: #09bef0;
+  transform: translateY(-2px);
 }
 
 .searchBooks {
@@ -716,4 +767,34 @@ input[type="tel"] {
 
 #registerButton:hover {
   background-color: #09bef0;
+}
+
+.viewUserCart {
+  margin-bottom: 75px;
+}
+
+.usersCartMap {
+  margin: 15px;
+  padding: 10px;
+  text-transform: capitalize;
+}
+
+.bookForm div {
+  padding: 5px;
+  margin: 5px;
+}
+
+.bookForm input {
+  width: 500px;
+  margin-left: 15px;
+  height: fit-content;
+}
+
+.bookFormContainer {
+  margin-bottom: 75px;
+}
+
+.tagSelectorMap {
+  margin-left: 15px;
+  padding: 8px;
 }

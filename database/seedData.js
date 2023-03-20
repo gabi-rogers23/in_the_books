@@ -196,10 +196,10 @@ async function seedBooks() {
           authorBio: faker.lorem.paragraph(),
         });
       }
-      
+  
       const randomBook = {
         title: faker.random.words(),
-        price: faker.finance.amount(),
+        price: faker.finance.amount(15, 200, 2),
         description: faker.lorem.paragraph(),
         bookImage: faker.image.image(400, 550, true),
         stock: faker.random.numeric(2),

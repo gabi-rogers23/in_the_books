@@ -9,19 +9,20 @@ const TagSelector = (props) => {
   }, [props.tag.isSelected]);
 
   return (
-    <div key={props.tag.id}>
-      {props.tag.name}
-      <input
-        type="checkbox"
-        checked={tagSelected}
-        onChange={(e) => {
-          const tag = e.target.checked;
-          // console.log(tag);
-          setTagSelected(tag);
-          props.tag.isSelected = tag;
-        }}
-      ></input>
-    </div>
+      <div className="tagSelectorMap" key={props.tag.id}>
+        <label for={props.tag.name}>{props.tag.name}</label>
+        <input
+          type="checkbox"
+          checked={tagSelected}
+          name={props.tag.name}
+          onChange={(e) => {
+            const tag = e.target.checked;
+            // console.log(tag);
+            setTagSelected(tag);
+            props.tag.isSelected = tag;
+          }}
+        ></input>
+      </div>
   );
 };
 

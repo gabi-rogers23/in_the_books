@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../api/api";
-// const [itemIndex, setItemIndex] = useState(null);
+import { formatter } from "../index"
+
 
 const ListBooks = ({ allBooks }) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const ListBooks = ({ allBooks }) => {
   return (
     <div className="container">
       {tagName ? (
-        <h1>{`Shop Books marked as ${tagName}`}</h1>
+       <h1>{`Shop Books marked as ${tagName}`}</h1>
       ) : (
         <h1>Shop All Books!</h1>
       )}
@@ -44,7 +45,7 @@ const ListBooks = ({ allBooks }) => {
                     By: {book.authorFirstName} {book.authorLastName}
                   </div>
                 </div>
-                <div className="booksPrice">${book.price}</div>
+                <div className="booksPrice">${formatter.format(book.price)}</div>
                 <div className="booksButtons">
                   <button
                     onClick={async (e) => {

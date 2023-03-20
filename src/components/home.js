@@ -116,7 +116,7 @@ const Home = () => {
           <img src={book.bookImage} style={imageStyle} />
       <div>
           <h3 style={titleStyle}>{book.title}</h3>
-          <p style={authorStyle}>By {book.author}</p>
+          <p style={authorStyle}>By {book.authorFirstName} {book.authorLastName}</p>
           <p style={priceStyle}>${book.price}</p>
       </div>
     </div>

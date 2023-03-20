@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { fetchAllTags, createNewTag } from "../api/api";
-import { NewTagForm, TagSelector } from "./exports";
+import { TagSelector } from "./exports";
 
 const BookTagForm = (props) => {
   const [tags, setTags] = useState([]);
@@ -45,7 +45,7 @@ const BookTagForm = (props) => {
     onClick={async (e) => {
       e.preventDefault();
       const tagReturned = await createNewTag({ tag: newTag });
-      console.log("Tag Created", tagReturned)
+      // console.log("Tag Created", tagReturned)
       alert("Tag Created!");
       setTags([...tags, tagReturned]);
       setNewTag("");

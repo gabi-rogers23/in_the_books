@@ -39,9 +39,9 @@ const BookForm = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bookFormContainer">
       <h3>Book Information:</h3>
-      <form>
+      <form className="bookForm">
         <div>
           Title
           <input
@@ -70,7 +70,7 @@ const BookForm = () => {
         </div>
         <div>
           Description
-          <input
+          <input className="descriptionInput"
             required
             value={description}
             onChange={(e) => {

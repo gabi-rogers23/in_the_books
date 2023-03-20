@@ -20,11 +20,11 @@ const ViewUserCart = () => {
   }, []);
   // console.log(cart.items)
   return (
-    <div>
+    <div className="viewUserCart">
       {cart.items.map((item) => {
         return (
-          <div key={item.cartItemId}>
-            <h4>{item.title}</h4>
+          <div className="usersCartMap" key={item.cartItemId}>
+            <h4>*{item.title}</h4>
             <div>Price: ${item.price}</div>
             <div>Quantity: {item.quantity}</div>
 

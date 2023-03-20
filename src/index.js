@@ -10,6 +10,11 @@ import {
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+export const formatter = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 const App = () => {
 const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
   return (

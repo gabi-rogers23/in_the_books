@@ -7,7 +7,6 @@ import "./app.css"
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,15 +50,20 @@ const Profile = () => {
             >
               Add Book
             </button>
-            <div className="searchBooks">
-              <div className="searchBooksLabel">Search Books to Edit or Delete</div>
-              <Search />
-            </div>
-            <button className="viewUsersButton">View Users</button>
+            <button className="viewUsersButton"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/me/viewUsers");
+              }}>View Users</button>
           </div>
         </div>
        )}
      </div>
+            <div className="searchBooks">
+              
+              <Search />
+            </div>
+
    </div>
  );
 };

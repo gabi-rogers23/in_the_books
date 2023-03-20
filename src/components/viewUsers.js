@@ -25,6 +25,7 @@ const ViewUsers = () => {
       <form>
         <h3>Search Users</h3>
         <input
+          type="search"
           placeholder="Search by Email or Phone Number"
           value={searchTerm}
           onChange={(e) => {
