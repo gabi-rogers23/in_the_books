@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { fetchAllAuthors, createAuthor } from "../api/api";
+import { useSnackbar } from "notistack";
 
 const AuthorForm = (props) => {
   const [authorList, setAuthorList] = useState([]);
@@ -15,6 +16,8 @@ const AuthorForm = (props) => {
   const [birthPlace, setBirthPlace] = useState("");
   const [authorImage, setAuthorImage] = useState("");
   const [authorBio, setAuthorBio] = useState("");
+
+  const {enqueueSnackbar} = useSnackbar()
 
   function refreshAuthors() {
     fetchAllAuthors().then((authors) => {
@@ -163,7 +166,7 @@ const AuthorForm = (props) => {
                 const updatedAuthor = await createAuthor(newAuthor);
                 // console.log(updatedAuthor);
                 if (updatedAuthor.error) {
-                  alert(updatedAuthor.message);
+                  enqueueSnackbar(updatedAuthor.message, {variant:'error'});
                 } else {
                   setEdit(false);
                   setAuthorFirstName("")
