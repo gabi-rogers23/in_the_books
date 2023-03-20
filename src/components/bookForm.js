@@ -126,7 +126,7 @@ const BookForm = () => {
       </div>
 
       <BookTagForm book={book} bookToSend={bookToSend}/>
-      {bookId != "new" ? (
+      <div className="bookFormButtons">{bookId != "new" ? (
         <button
           onClick={async (e) => {
             e.preventDefault();
@@ -173,7 +173,7 @@ const BookForm = () => {
         }}
       >
         Cancel
-      </button>
+      </button></div>
     </div>
   );
 };

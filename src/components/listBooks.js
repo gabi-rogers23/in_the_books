@@ -56,7 +56,9 @@ const ListBooks = ({ allBooks }) => {
                       alert(add.message);
                     }}
                   >
-                    ADD TO CART
+                    <span class="material-symbols-outlined">
+add
+</span>Add to Cart
                   </button>
                 </div>
               </div>

@@ -57,13 +57,13 @@ const Profile = () => {
               }}>View Users</button>
           </div>
         </div>
-            <div className="searchBooks">
-              
-              <Search />
-            </div>
-            </>)}
-     </div>
 
+
+      </>)}
+     </div>
+     {user.isAdmin && <div className="searchBooks">
+        <Search />
+      </div>}
    </div>
  );
 };

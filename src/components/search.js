@@ -26,12 +26,11 @@ const Search = () => {
 
   return (
     <div className="searchContainer">
-      
-      <form className="search">
-      <div className="searchBooksLabel">Search Books to Edit or Delete</div>
+      <form>
+        <div className="searchBooksLabel">Search Books to Edit or Delete</div>
         <input
-        type="search"
-        placeholder="Search by Title, Author, or Description"
+          type="search"
+          placeholder="Search by Title, Author, or Description"
           value={searchTerm}
           onChange={(e) => {
             e.preventDefault();
@@ -40,7 +39,7 @@ const Search = () => {
 
             if (e.target.value.length === 0) {
               setBooksToDisplay([]);
-            }else{
+            } else {
               const lowercasedSearchTerm = searchTerm.toLowerCase();
               const filteredBooks = allBooks.filter((book) => {
                 return (
@@ -56,63 +55,63 @@ const Search = () => {
                     .includes(lowercasedSearchTerm)
                 );
               });
-              setBooksToDisplay(filteredBooks)
-              console.log(booksToDisplay)
+              setBooksToDisplay(filteredBooks);
+              console.log(booksToDisplay);
             }
           }}
         ></input>
       </form>
 
-        <div className="searchMap">
-          {booksToDisplay.map((book) => {
-            return (
-              <div key={book.id} className="searchBook">
-                <div
-                  className="booksImage"
-                  onClick={(e) => {
-                    buttonHandler(e, `/books/${book.id}`);
-                  }}
-                >
-                  <img src={book.bookImage} />
-                </div>
+      <div className="searchMap">
+        {booksToDisplay.map((book) => {
+          return (
+            <div key={book.id} className="searchBook">
+              <div
+                className="booksImage"
+                onClick={(e) => {
+                  buttonHandler(e, `/books/${book.id}`);
+                }}
+              >
+                <img src={book.bookImage} />
+              </div>
+              <div>
                 <div>
-                  <div>
-                    <div
-                      onClick={(e) => {
-                        buttonHandler(e, `/books/${book.id}`);
-                      }}
-                    >
-                      <b>{book.title}</b>
-                    </div>
-                    <div className="booksAuthor">
-                      By: {book.authorFirstName} {book.authorLastName}
-                    </div>
+                  <div
+                    onClick={(e) => {
+                      buttonHandler(e, `/books/${book.id}`);
+                    }}
+                  >
+                    <b>{book.title}</b>
                   </div>
-                  <div className="booksPrice">${book.price}</div>
-                  <div className="searchButtons">
-                    <button
-                      onClick={async (e) => {
-                        buttonHandler(e, `/bookForm/${book.id}`);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={async (e) => {
-                        e.preventDefault();
-                        const deletedBook = await deleteBook(book.id);
-                        setSearchTerm("");
-                        setBooksToDisplay(allBooks);
-                      }}
-                    >
-                      Delete
-                    </button>
+                  <div className="booksAuthor">
+                    By: {book.authorFirstName} {book.authorLastName}
                   </div>
+                </div>
+                <div className="booksPrice">${book.price}</div>
+                <div className="searchButtons">
+                  <button
+                    onClick={async (e) => {
+                      buttonHandler(e, `/bookForm/${book.id}`);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      const deletedBook = await deleteBook(book.id);
+                      setSearchTerm("");
+                      setBooksToDisplay(allBooks);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

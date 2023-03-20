@@ -61,6 +61,7 @@ const ViewUsers = () => {
                   </div>
                   <div><b>Phone:  </b> {user.phoneNumber}</div>
                 </div>
+                <div className="adminButtons">
                 <button
                   className="userButton"
                   onClick={async (e) => {
@@ -69,7 +70,7 @@ const ViewUsers = () => {
                   }}
                 >
                   User Cart
-                </button>
+                </button></div>
               </div>
             );
           })}

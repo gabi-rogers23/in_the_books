@@ -34,7 +34,7 @@ console.log(cart)
   }}
 
   return (
-    <div>
+    <div className="cartContainer">
       {cart.items.length ? (
         <div>
           <div className="booksListCart">
@@ -49,14 +49,15 @@ console.log(cart)
             })}
           </div>
           <div className="cartTotal"> Total: ${setPrice()} </div>
-          <button onClick={(async (e)=>{
+          <div className="booksButtons">
+            <button onClick={(async (e)=>{
             e.preventDefault();
             const checkout = await checkoutCart(cart.cartId)
             if(checkout == cart.cartId){
               alert("You've successfully checked out!")
               await getUserCart()
             }
-          })}>Checkout</button>
+          })}>Checkout</button></div>
         </div>
       ) : (
         <div className="cartEmpty">
