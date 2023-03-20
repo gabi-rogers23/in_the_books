@@ -7,7 +7,7 @@ const ViewUsers = () => {
   const [usersToDisplay, setUsersToDisplay] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     Promise.all([getAllUsers()]).then(([allUsersResults]) => {
@@ -21,7 +21,7 @@ const ViewUsers = () => {
   }, []);
 
   return (
-    <div>
+    <div className="viewUsersContainer">
       <form>
         <h3>Search Users</h3>
         <input
@@ -53,21 +53,23 @@ const ViewUsers = () => {
         <div>
           {usersToDisplay.map((user) => {
             return (
-              <div key={user.id}>
+              <div key={user.id} className="usersMap">
                 <div>
-                  <b>User:</b>
-                  {user.email}
+                  <div>
+                    <b>Email: </b>
+                    {user.email}
+                  </div>
+                  <div><b>Phone:  </b> {user.phoneNumber}</div>
                 </div>
-                <div>phone: {user.phoneNumber}</div>
-                  <button
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      navigate(`/me/viewUsers/${user.id}`)
-                    }}
-                  >
-                    User Cart
-                  </button>
-                <p />
+                <button
+                  className="userButton"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate(`/me/viewUsers/${user.id}`);
+                  }}
+                >
+                  User Cart
+                </button>
               </div>
             );
           })}

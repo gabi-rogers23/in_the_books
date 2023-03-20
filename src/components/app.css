@@ -798,3 +798,43 @@ input[type="tel"] {
   margin-left: 15px;
   padding: 8px;
 }
+
+.viewUsersContainer {
+  margin-bottom: 75px;
+  padding: 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewUsersContainer h3 {
+  text-align: center;
+  font-size: 2rem;
+  width: 500px;
+  border-bottom: 2px double lightgray;
+}
+
+.viewUsersContainer input {
+  width: 500px;
+}
+
+.usersMap {
+  margin: 15px;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.userButton {
+  border: none;
+  border-radius: 10px;
+  background-color: black;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px;
+  margin: 10px;
+  align-self: flex-end;
+}
