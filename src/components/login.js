@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchLogIn } from "../api/api";
 import "./app.css"
+import { useSnackbar } from "notistack";
 
 
 const Login = ({setLoggedIn}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {enqueueSnackbar} = useSnackbar()
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const login = await fetchLogIn(username, password);
       if (login.error) {
-        alert(login.message);
+        enqueueSnackbar(login.message, {variant:'error'});
       } else {
         // console.log(localStorage.getItem("token"))
         setUsername("");

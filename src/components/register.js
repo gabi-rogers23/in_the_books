@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerNewUser } from "../api/api";
+import { useSnackbar } from "notistack";
+
 
 const Register = ({setLoggedIn}) => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,8 @@ const Register = ({setLoggedIn}) => {
   const [shippingAddress, setShippingAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
+
+  const {enqueueSnackbar} = useSnackbar()
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -24,9 +28,9 @@ const Register = ({setLoggedIn}) => {
       );
       // console.log(register);
       if (register.error) {
-        alert(register.message);
+        enqueueSnackbar(register.message, {variant:'error'});
       } else {
-        alert(register.message)
+        enqueueSnackbar(register.message, {variant:'success'});
         setEmail("");
         setPassword("");
         setFirstName("");

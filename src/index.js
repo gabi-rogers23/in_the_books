@@ -9,6 +9,7 @@ import {
   NavBar, Login, Register, Profile, Footer, BookForm, ViewUsers, ViewUserCart
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SnackbarProvider } from 'notistack'
 
 export const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
@@ -43,6 +44,8 @@ const root = createRoot(container);
 
 root.render(
   <BrowserRouter>
+  <SnackbarProvider autoHideDuration={1000}>
     <App />
+  </SnackbarProvider>
   </BrowserRouter>
 );

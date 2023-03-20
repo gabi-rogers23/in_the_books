@@ -2,11 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { fetchAllTags, createNewTag } from "../api/api";
 import { TagSelector } from "./exports";
+import { useSnackbar } from "notistack";
 
 const BookTagForm = (props) => {
   const [tags, setTags] = useState([]);
   const [click, setClick] = useState(false);
   const [newTag, setNewTag] = useState("");
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
   tags.forEach((tag) => {
@@ -46,7 +49,7 @@ const BookTagForm = (props) => {
       e.preventDefault();
       const tagReturned = await createNewTag({ tag: newTag });
       // console.log("Tag Created", tagReturned)
-      alert("Tag Created!");
+      enqueueSnackbar("Tag Created!", {variant:'success'});
       setTags([...tags, tagReturned]);
       setNewTag("");
       setClick(false);

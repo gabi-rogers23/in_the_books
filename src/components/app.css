@@ -902,3 +902,6 @@ input[type="tel"] {
 .authorFormButtons button{
   margin-left: 10px;
 }
+.cartContainer {
+  margin-bottom: 75px;
+}
