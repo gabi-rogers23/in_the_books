@@ -70,9 +70,8 @@ const Home = () => {
     padding: "20px",
     border: "1px solid #cccccc",
     backgroundColor: "#ffffff",
-
   };
-  
+
   const imageStyle = {
     width: "150px",
     height: "200px",
@@ -104,27 +103,50 @@ const Home = () => {
           We offer a wide selection of books for all ages and interests. Browse
           our collection today!
         </p>
-        <button style={buttonStyle} onClick={handleShopClick} className="shopButton">
+        <button
+          style={buttonStyle}
+          onClick={handleShopClick}
+          className="shopButton"
+        >
           Shop Now
         </button>
       </div>
       <div>
-        <h2 style={{ textAlign: "center", fontSize: "2rem", margin: "40px 0", color:"#ffffff", textShadow: "1px 1px 2px rgba(0,0,0,0.5)"}}>Featured Books</h2>
-        <div style={{display: "flex", justifyContent: "space-between", flexWrap: "wrap", padding: "0 40px",}}>
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "2rem",
+            margin: "40px 0",
+            color: "#ffffff",
+            textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+          }}
+        >
+          Featured Books
+        </h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            padding: "0 40px",
+          }}
+        >
           {books.map((book) => (
-      <div style={bookStyle} key={book.id}>
-          <img src={book.bookImage} style={imageStyle} />
-      <div>
-          <h3 style={titleStyle}>{book.title}</h3>
-          <p style={authorStyle}>By {book.authorFirstName} {book.authorLastName}</p>
-          <p style={priceStyle}>${book.price}</p>
+            <div style={bookStyle} key={book.id}>
+              <img src={book.bookImage} style={imageStyle} />
+              <div>
+                <h3 style={titleStyle}>{book.title}</h3>
+                <p style={authorStyle}>
+                  By {book.authorFirstName} {book.authorLastName}
+                </p>
+                <p style={priceStyle}>${book.price}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-))}
-    </div>
-    </div>
-</div>
-);
+  );
 };
 
 export default Home;

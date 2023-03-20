@@ -9,6 +9,23 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 
+button {
+  display: block;
+  background-color: #6c6d6d;
+  color: white;
+  margin: 10px 0 0 0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #09bef0;
+}
+
 .navbar {
   background: #19191a;
   height: 80px;
@@ -485,7 +502,10 @@ input[type="password"]::placeholder {
   margin-bottom: 75px;
   margin-left: auto;
   margin-right: auto;
-  /* transform: translate(-50%, -50%); */
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  border: 1px solid blue;
 }
 
 .profileGreeting {
@@ -495,7 +515,7 @@ input[type="password"]::placeholder {
 
 .profileDetails {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 2fr;
   grid-gap: 20px;
   margin-bottom: 20px;
 }
@@ -582,6 +602,14 @@ input[type="password"]::placeholder {
   margin-right: 10px;
 }
 
+.searchButtons{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .searchButtons button {
   background-color: #242321;
   border: none;
@@ -602,7 +630,11 @@ input[type="password"]::placeholder {
 }
 
 .searchBooks {
-  margin-bottom: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
 }
 
 .searchBooksLabel {
@@ -626,6 +658,17 @@ input[type="password"]::placeholder {
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+}
+
+.cartItemContainer{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cartItemContainer img {
+  width: 300px;
 }
 
 .booksMapCart:hover {
@@ -770,13 +813,25 @@ input[type="tel"] {
 }
 
 .viewUserCart {
+  margin-top: 15px;
   margin-bottom: 75px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .usersCartMap {
   margin: 15px;
   padding: 10px;
   text-transform: capitalize;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  border: 1px dashed lightgray;
+  text-align: center;
 }
 
 .bookForm div {
@@ -790,8 +845,15 @@ input[type="tel"] {
   height: fit-content;
 }
 
-.bookFormContainer, .bookDetails {
+
+.bookDetails, .cartContainer {
   margin-bottom: 75px;
+}
+
+.bookFormContainer{
+  margin-top: 15px;
+  margin-bottom: 75px;
+  margin-left: 25px;
 }
 
 .tagSelectorMap {
@@ -799,6 +861,58 @@ input[type="tel"] {
   padding: 8px;
 }
 
+.viewUsersContainer {
+  margin-bottom: 75px;
+  padding: 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewUsersContainer h3 {
+  text-align: center;
+  font-size: 2rem;
+  width: 500px;
+  border-bottom: 2px double lightgray;
+}
+
+.viewUsersContainer input {
+  width: 500px;
+}
+
+.usersMap {
+  margin: 15px;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.userButton {
+  align-self: flex-end;
+}
+
+.cartItemValue {
+  width: 50px;
+}
+
+.bookFormButtons {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.authorFormButtons {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+.authorFormButtons button{
+  margin-left: 10px;
+}
 .cartContainer {
   margin-bottom: 75px;
 }

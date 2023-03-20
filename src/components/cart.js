@@ -54,14 +54,15 @@ const {enqueueSnackbar} = useSnackbar()
             })}
           </div>
           <div className="cartTotal"> Total: ${setPrice()} </div>
-          <button onClick={(async (e)=>{
+          <div className="booksButtons">
+            <button onClick={(async (e)=>{
             e.preventDefault();
             const checkout = await checkoutCart(cart.cartId)
             if(checkout == cart.cartId){
               enqueueSnackbar("You've successfully checked out!", {variant:'success'})
               await getUserCart()
             }
-          })}>Checkout</button>
+          })}>Checkout</button></div>
         </div>
       ) : (
         <div className="cartEmpty">

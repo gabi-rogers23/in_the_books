@@ -58,7 +58,9 @@ const ListBooks = ({ allBooks }) => {
                      enqueueSnackbar(add.message, {variant: 'success'})
                     }}
                   >
-                    ADD TO CART
+                    <span class="material-symbols-outlined">
+add
+</span>Add to Cart
                   </button>
                 </div>
               </div>

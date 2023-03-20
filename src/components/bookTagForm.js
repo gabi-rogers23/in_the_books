@@ -61,14 +61,14 @@ const BookTagForm = (props) => {
 </div>
 
       ) : (
-        <button
+       <div className="authorFormButtons"> <button
           onClick={(e) => {
             e.preventDefault();
             setClick(true);
           }}
         >
           New Tag
-        </button>
+        </button> </div>
       )}
     </div>
   );

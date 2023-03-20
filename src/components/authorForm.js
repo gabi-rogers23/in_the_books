@@ -38,7 +38,7 @@ const AuthorForm = (props) => {
   }, [props.book]);
 
   return (
-    <div>
+    <div className="authorFormContainer">
       {!edit ? (
         <div>
           <fieldset>
@@ -81,7 +81,7 @@ const AuthorForm = (props) => {
           </fieldset>
         </div>
       ) : (
-        <form>
+        <form className="bookForm"> 
           <h3>Add New Author</h3>
           <div>
             Author First Name
@@ -158,7 +158,7 @@ const AuthorForm = (props) => {
                 newAuthor.authorBio = bio;
               }}
             ></input>
-            <br />
+            <div className="authorFormButtons">
             <button
               onClick={async (e) => {
                 e.preventDefault();
@@ -187,7 +187,7 @@ const AuthorForm = (props) => {
               }}
             >
               Cancel
-            </button>
+            </button></div>
           </div>
         </form>
       )}
