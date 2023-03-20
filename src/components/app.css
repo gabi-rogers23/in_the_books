@@ -790,7 +790,7 @@ input[type="tel"] {
   height: fit-content;
 }
 
-.bookFormContainer {
+.bookFormContainer, .bookDetails {
   margin-bottom: 75px;
 }
 
