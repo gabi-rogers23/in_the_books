@@ -798,3 +798,7 @@ input[type="tel"] {
   margin-left: 15px;
   padding: 8px;
 }
+
+.cartContainer {
+  margin-bottom: 75px;
+}

@@ -2,11 +2,13 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../api/api";
 import { formatter } from "../index"
-
+import { useSnackbar } from "notistack";
 
 const ListBooks = ({ allBooks }) => {
   const navigate = useNavigate();
   const { tagName } = useParams();
+  const {enqueueSnackbar} = useSnackbar()
+
   function buttonHandler(e, nav) {
     e.preventDefault();
     navigate(nav);
@@ -53,7 +55,7 @@ const ListBooks = ({ allBooks }) => {
                       book.quantity = 1;
                       // console.log(book)
                       const add = await addToCart(book);
-                      alert(add.message);
+                     enqueueSnackbar(add.message, {variant: 'success'})
                     }}
                   >
                     ADD TO CART

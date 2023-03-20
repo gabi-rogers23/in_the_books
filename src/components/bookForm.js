@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BookTagForm, AuthorForm } from "./exports";
 import { getBookById, updateBook, createNewBook } from "../api/api";
+import { useSnackbar } from "notistack";
 
 const BookForm = () => {
   //Book Form State
@@ -15,6 +16,7 @@ const BookForm = () => {
   const [fiction, setFiction] = useState(false);
 
   let bookToSend = useRef({});
+  const {enqueueSnackbar} = useSnackbar()
 
 
   const navigate = useNavigate();
@@ -134,9 +136,9 @@ const BookForm = () => {
             // console.log("BOOK TO SEND", bookToSend.current)
             const updatedBook = await updateBook(bookToSend.current)
             if(updatedBook.error){
-              alert(updatedBook.message)
+              enqueueSnackbar(updatedBook.message, {variant:'error'});
             }else{
-              alert("Book Updated!")
+              enqueueSnackbar("Book Updated!", {variant:'success'});
               navigate("/me")
             }
           }}
@@ -150,7 +152,7 @@ const BookForm = () => {
             // console.log(bookToSend.current)
             const book = await createNewBook(bookToSend.current);
             if (book.error) {
-              alert(book.error);
+              enqueueSnackbar(book.error, {variant:'error'});
             } else {
               setTitle("");
               setPrice("");
@@ -158,7 +160,7 @@ const BookForm = () => {
               setImage("");
               setStock("");
               setFiction(false);
-              alert("Book Created!");
+              enqueueSnackbar("Book Created!", {variant:'success'});
               navigate("/me");
             }
           }}

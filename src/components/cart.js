@@ -2,11 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { fetchUserCart, checkoutCart } from "../api/api";
 import { CartItem } from "./exports"
+import { useSnackbar } from "notistack";
+
 
 const Cart = () => {
   const [cart, setCart] = useState({ items: [] });
   const [isEmpty, setIsEmpty] = useState(false);
-console.log(cart)
+// console.log(cart)
+
+const {enqueueSnackbar} = useSnackbar()
+
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
       try {
@@ -34,7 +39,7 @@ console.log(cart)
   }}
 
   return (
-    <div>
+    <div className="cartContainer">
       {cart.items.length ? (
         <div>
           <div className="booksListCart">
@@ -53,7 +58,7 @@ console.log(cart)
             e.preventDefault();
             const checkout = await checkoutCart(cart.cartId)
             if(checkout == cart.cartId){
-              alert("You've successfully checked out!")
+              enqueueSnackbar("You've successfully checked out!", {variant:'success'})
               await getUserCart()
             }
           })}>Checkout</button>
