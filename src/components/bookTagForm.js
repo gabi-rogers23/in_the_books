@@ -9,7 +9,7 @@ const BookTagForm = (props) => {
   const [click, setClick] = useState(false);
   const [newTag, setNewTag] = useState("");
 
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
   tags.forEach((tag) => {
@@ -33,42 +33,43 @@ const BookTagForm = (props) => {
         })}
       </form>
       {click ? (
-
-<div>
-<form>
-  <input
-    required
-    value={newTag}
-    onChange={(e) => {
-      e.preventDefault();
-      setNewTag(e.target.value);
-    }}
-  ></input>
-  <button
-    onClick={async (e) => {
-      e.preventDefault();
-      const tagReturned = await createNewTag({ tag: newTag });
-      // console.log("Tag Created", tagReturned)
-      enqueueSnackbar("Tag Created!", {variant:'success'});
-      setTags([...tags, tagReturned]);
-      setNewTag("");
-      setClick(false);
-    }}
-  >
-    Add Tag!
-  </button>
-</form>
-</div>
-
+        <div>
+          <form>
+            <input
+              required
+              value={newTag}
+              onChange={(e) => {
+                e.preventDefault();
+                setNewTag(e.target.value);
+              }}
+            ></input>
+            <button
+              onClick={async (e) => {
+                e.preventDefault();
+                const tagReturned = await createNewTag({ tag: newTag });
+                // console.log("Tag Created", tagReturned)
+                enqueueSnackbar("Tag Created!", { variant: "success" });
+                setTags([...tags, tagReturned]);
+                setNewTag("");
+                setClick(false);
+              }}
+            >
+              Add Tag!
+            </button>
+          </form>
+        </div>
       ) : (
-       <div className="authorFormButtons"> <button
-          onClick={(e) => {
-            e.preventDefault();
-            setClick(true);
-          }}
-        >
-          New Tag
-        </button> </div>
+        <div className="authorFormButtons">
+          {" "}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setClick(true);
+            }}
+          >
+            New Tag
+          </button>{" "}
+        </div>
       )}
     </div>
   );

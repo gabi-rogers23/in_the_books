@@ -25,7 +25,15 @@ async function createUser({
     VALUES($1, $2, $3, $4, $5, $6, $7) 
     RETURNING *;
   `,
-      [email, hashedPassword, firstName, lastName, shippingAddress, phoneNumber, isAdmin]
+      [
+        email,
+        hashedPassword,
+        firstName,
+        lastName,
+        shippingAddress,
+        phoneNumber,
+        isAdmin,
+      ]
     );
 
     if (hashedPassword) {
@@ -72,10 +80,10 @@ async function updateUser(id, fields = {}) {
 async function getUser({ email, password }) {
   try {
     const user = await getUserByEmail(email);
-// console.log("User from Get User", user)
-if (!user){
-  return null
-}
+    // console.log("User from Get User", user)
+    if (!user) {
+      return null;
+    }
 
     const hashedPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashedPassword);
@@ -114,11 +122,11 @@ async function getUserByEmail(userEmail) {
     `);
     // console.log("User in getUserByEmail", user);
 
-if (!user){
-  return null;
-}else{
-return user }
-
+    if (!user) {
+      return null;
+    } else {
+      return user;
+    }
   } catch (error) {
     throw error;
   }
@@ -131,7 +139,7 @@ async function getUserById(userId) {
     } = await client.query(`
   SELECT * FROM users WHERE id=${userId}
   `);
-    delete user.password; 
+    delete user.password;
     return user;
   } catch (error) {
     throw error;

@@ -14,7 +14,7 @@ const CartItem = (props) => {
       <img className="booksImage" src={props.item.bookImage} />
       <div className="booksTitle">{props.item.title}</div>
       <input
-      className="cartItemValue"
+        className="cartItemValue"
         value={quantity}
         type="number"
         min={0}
@@ -34,7 +34,7 @@ const CartItem = (props) => {
 
       <div>${formatter.format(props.item.price)}</div>
       <div>
-       By: {props.item.authorFirstName} {props.item.authorLastName}
+        By: {props.item.authorFirstName} {props.item.authorLastName}
       </div>
       <button
         onClick={async (e) => {

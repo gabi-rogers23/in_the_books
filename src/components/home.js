@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllBooks().then((data) => {
-      setBooks(data.slice(0, 4)); 
+      setBooks(data.slice(0, 4));
     });
   }, []);
 
@@ -70,7 +70,7 @@ const Home = () => {
     padding: "20px",
     border: "1px solid #cccccc",
     backgroundColor: "#ffffff",
-    width: "400px"
+    width: "400px",
   };
 
   const imageStyle = {
@@ -84,7 +84,7 @@ const Home = () => {
     fontSize: "1.5rem",
     fontWeight: "bold",
     marginBottom: "10px",
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   };
 
   const authorStyle = {
@@ -132,7 +132,7 @@ const Home = () => {
             flexWrap: "wrap",
             padding: "0 40px",
             height: "600px",
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           {books.map((book) => (

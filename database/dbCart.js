@@ -59,8 +59,6 @@ async function getCartByUserId(userId) {
   }
 }
 
-
-
 module.exports = {
   createCart,
   getCartByUserId,
