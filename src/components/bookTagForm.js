@@ -47,11 +47,14 @@ const BookTagForm = (props) => {
               onClick={async (e) => {
                 e.preventDefault();
                 const tagReturned = await createNewTag({ tag: newTag });
-                // console.log("Tag Created", tagReturned)
+                console.log("Tag Created", tagReturned)
+                if(tagReturned.error){
+                  enqueueSnackbar(tagReturned.error, {variant: "error"})
+                }else{
                 enqueueSnackbar("Tag Created!", { variant: "success" });
                 setTags([...tags, tagReturned]);
                 setNewTag("");
-                setClick(false);
+                setClick(false);}
               }}
             >
               Add Tag!
@@ -60,7 +63,6 @@ const BookTagForm = (props) => {
         </div>
       ) : (
         <div className="authorFormButtons">
-          {" "}
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -68,7 +70,7 @@ const BookTagForm = (props) => {
             }}
           >
             New Tag
-          </button>{" "}
+          </button>
         </div>
       )}
     </div>
