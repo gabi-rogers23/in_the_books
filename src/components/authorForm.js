@@ -53,7 +53,7 @@ const AuthorForm = (props) => {
                   newAuthorId === "New Author" ? setEdit(true) : newAuthorId
                 );
                 props.bookToSend.current.authorId = newAuthorId;
-                // console.log(props.bookToSend.current.authorId)
+                console.log(props.bookToSend.current.authorId)
               }}
             >
               <option value={"--"} label="--"></option>

@@ -36,13 +36,13 @@ router.patch("/:bookId", requireUser, async (req, res, next) => {
   // console.log(req.params.bookId)
   if (req.user.isAdmin) {
     try {
-      console.log("DELETING");
+      // console.log("DELETING");
       await deleteAllBookTags(req.params.bookId);
-      console.log("DELETED");
-      console.log("CREATING", req.body.tags);
+      // console.log("DELETED");
+      // console.log("CREATING", req.body.tags);
       const tagNames = req.body.tags.map((tag) => tag.name);
       await createBookTag(req.params.bookId, tagNames);
-      console.log("CREATED", req.body);
+      // console.log("CREATED", req.body);
       const book = await getBookById(req.params.bookId);
       // console.log("BOOK", book)
       res.send(book);

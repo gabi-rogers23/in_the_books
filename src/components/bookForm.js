@@ -134,7 +134,7 @@ const BookForm = () => {
             onClick={async (e) => {
               e.preventDefault();
               bookToSend.current.id = bookId;
-              // console.log("BOOK TO SEND", bookToSend.current)
+              console.log("BOOK TO SEND", bookToSend.current)
               const updatedBook = await updateBook(bookToSend.current);
               if (updatedBook.error) {
                 enqueueSnackbar(updatedBook.message, { variant: "error" });
