@@ -33,6 +33,10 @@ const Home = () => {
     maxWidth: "700px",
     margin: "0 auto",
     padding: "0 20px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   };
 
   const h1Style = {
@@ -58,8 +62,9 @@ const Home = () => {
     fontSize: "1.2rem",
     fontWeight: "bold",
     cursor: "pointer",
-    marginTop: "40px",
+    marginTop: "10px",
     boxShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+    width: "50%"
   };
 
   const bookStyle = {
