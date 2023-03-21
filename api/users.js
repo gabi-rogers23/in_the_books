@@ -34,7 +34,7 @@ usersRouter.post("/register", async (req, res, next) => {
       res.status(401).send({
         error: "ERROR",
         name: "PasswordLengthError",
-        message: "Password Too Short!",
+        message: "Password Too Short! Make your password at least 8 characters.",
       });
     } else {
       let isAdmin = false;
