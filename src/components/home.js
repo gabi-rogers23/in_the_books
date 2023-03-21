@@ -31,7 +31,7 @@ const Home = () => {
     textAlign: "center",
     color: "#ffffff",
     maxWidth: "700px",
-    margin: "0 auto",
+    marginLeft: "75px",
     padding: "0 20px",
     display: "flex",
     flexDirection: "column",
@@ -64,7 +64,7 @@ const Home = () => {
     cursor: "pointer",
     marginTop: "10px",
     boxShadow: "1px 1px 2px rgba(0,0,0,0.3)",
-    width: "50%"
+    width: "50%",
   };
 
   const bookStyle = {
@@ -73,8 +73,7 @@ const Home = () => {
     alignItems: "center",
     margin: "40px 0",
     padding: "20px",
-    border: "1px solid #cccccc",
-    backgroundColor: "#ffffff",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
     width: "400px",
   };
 
@@ -123,7 +122,6 @@ const Home = () => {
           style={{
             textAlign: "center",
             fontSize: "2rem",
-            margin: "40px 0",
             color: "#ffffff",
             textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
           }}
