@@ -916,3 +916,14 @@ input[type="tel"] {
 .cartContainer {
   margin-bottom: 75px;
 }
+
+.allBookSearch {
+  display: absolute;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.allBookSearch input {
+  width: 50%;
+  text-align: center;
+}

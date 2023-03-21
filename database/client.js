@@ -1,8 +1,7 @@
 const { Pool } = require("pg");
 require("dotenv").config();
 
-const connectionString = process.env.DATABASE_URL;
-// || 'https://localhost:5432/in-the-books' ;
+const connectionString = process.env.DATABASE_URL 
 
 const client = new Pool({
   connectionString,

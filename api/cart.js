@@ -70,11 +70,6 @@ router.post("/", requireUser, async (req, res, next) => {
 
 router.patch("/", requireUser, async (req, res, next) => {
   try {
-    // console.log("PATCH BODY", req.body)
-    // if (req.body.quantity == 0) {
-    //   await removeCartItem(req.body.cartItemId);
-    //   res.send();
-    // } else {
     const updatedCartItem = await updateCartItem(
       req.body.cartItemId,
       req.body.quantity

@@ -290,10 +290,10 @@ async function rebuildDB() {
     console.log("Starting to rebuild DB");
     await dropTables();
     await createTables();
+    await createInitialUsers();
     await seedAuthors();
     await seedBooks();
     await seedTags();
-    await createInitialUsers();
     await seedCartItems();
     await getCartByUserId(4);
     await testDB();
