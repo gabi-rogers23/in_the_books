@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers, fetchUserCart } from "../api/api";
+import { getAllUsers } from "../api/api";
 
 const ViewUsers = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -59,18 +59,21 @@ const ViewUsers = () => {
                     <b>Email: </b>
                     {user.email}
                   </div>
-                  <div><b>Phone:  </b> {user.phoneNumber}</div>
+                  <div>
+                    <b>Phone: </b> {user.phoneNumber}
+                  </div>
                 </div>
                 <div className="adminButtons">
-                <button
-                  className="userButton"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    navigate(`/me/viewUsers/${user.id}`);
-                  }}
-                >
-                  User Cart
-                </button></div>
+                  <button
+                    className="userButton"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      navigate(`/me/viewUsers/${user.id}`);
+                    }}
+                  >
+                    User Cart
+                  </button>
+                </div>
               </div>
             );
           })}

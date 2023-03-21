@@ -142,7 +142,7 @@ async function createInitialUsers() {
         lastName: faker.name.lastName(),
         shippingAddress: faker.address.streetAddress(),
         phoneNumber: faker.phone.number(),
-        isAdmin: false
+        isAdmin: false,
       };
       promises.push(createUser(user));
     }
@@ -196,7 +196,7 @@ async function seedBooks() {
           authorBio: faker.lorem.paragraph(),
         });
       }
-  
+
       const randomBook = {
         title: faker.random.words(),
         price: faker.finance.amount(15, 200, 2),
@@ -268,7 +268,6 @@ async function testDB() {
       isAdmin: true,
     };
 
-
     await createUser(Admin);
     await getAllBooks();
     await getBookById(20);
@@ -279,7 +278,7 @@ async function testDB() {
     await destroyBook(20);
     await getBooksByTag("Sleek");
     await removeCartItem(26);
-    await updateCartItem(27, 4)
+    await updateCartItem(27, 4);
   } catch (error) {
     throw error;
   }
@@ -291,10 +290,10 @@ async function rebuildDB() {
     console.log("Starting to rebuild DB");
     await dropTables();
     await createTables();
+    await createInitialUsers();
     await seedAuthors();
     await seedBooks();
     await seedTags();
-    await createInitialUsers();
     await seedCartItems();
     await getCartByUserId(4);
     await testDB();

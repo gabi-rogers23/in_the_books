@@ -75,10 +75,9 @@ JOIN tags t ON t.id=bt."tagId"
 WHERE b.id = ${bookId};  
 `);
 
-
-if(book){
-    book.tags = tags;
-}
+    if (book) {
+      book.tags = tags;
+    }
 
     // console.log("Book" , book)
 
@@ -151,21 +150,21 @@ async function destroyBook(id) {
     await client.query(`
     DELETE FROM cart_items
     WHERE "bookId" = ${id};
-    `)
+    `);
 
     await client.query(`
     DELETE FROM books
     WHERE id=${id};
     `);
 
-    return 
+    return;
   } catch (error) {
     throw error;
   }
 }
 
-async function getBooksByTag(tagName){
-  try{
+async function getBooksByTag(tagName) {
+  try {
     const { rows: books } = await client.query(`
     SELECT b.title AS title, b.id AS id,"bookImage",bt."tagId", "authorFirstName","authorLastName", t.name AS "tagName", price 
     FROM tags t
@@ -174,10 +173,9 @@ async function getBooksByTag(tagName){
     JOIN author a ON a.id=b."authorId"
     WHERE t.name IN ('${tagName}');
     `);
-// console.log(books)
+    // console.log(books)
     return books;
-    
-  }catch(error){
+  } catch (error) {
     throw error;
   }
 }
@@ -188,5 +186,5 @@ module.exports = {
   getBookById,
   updateBook,
   destroyBook,
-  getBooksByTag
+  getBooksByTag,
 };

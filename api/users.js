@@ -1,7 +1,12 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const usersRouter = express.Router();
-const { getUserByEmail, createUser, getUser, getAllUsers } = require("../database");
+const {
+  getUserByEmail,
+  createUser,
+  getUser,
+  getAllUsers,
+} = require("../database");
 const { requireUser } = require("./utils");
 
 const SALT_COUNT = 10;

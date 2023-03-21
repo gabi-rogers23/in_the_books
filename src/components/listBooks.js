@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../api/api";
-import { formatter } from "../index"
+import { formatter } from "../index";
 import { useSnackbar } from "notistack";
 
 const ListBooks = ({ allBooks }) => {
   const navigate = useNavigate();
   const { tagName } = useParams();
-  const {enqueueSnackbar} = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   function buttonHandler(e, nav) {
     e.preventDefault();
@@ -17,7 +17,7 @@ const ListBooks = ({ allBooks }) => {
   return (
     <div className="container">
       {tagName ? (
-       <h1>{`Shop Books marked as ${tagName}`}</h1>
+        <h1>{`Shop Books marked as ${tagName}`}</h1>
       ) : (
         <h1>Shop All Books!</h1>
       )}
@@ -47,7 +47,9 @@ const ListBooks = ({ allBooks }) => {
                     By: {book.authorFirstName} {book.authorLastName}
                   </div>
                 </div>
-                <div className="booksPrice">${formatter.format(book.price)}</div>
+                <div className="booksPrice">
+                  ${formatter.format(book.price)}
+                </div>
                 <div className="booksButtons">
                   <button
                     onClick={async (e) => {
@@ -55,12 +57,16 @@ const ListBooks = ({ allBooks }) => {
                       book.quantity = 1;
                       // console.log(book)
                       const add = await addToCart(book);
-                     enqueueSnackbar(add.message, {variant: 'success'})
+
+                      if (add.error) {
+                        enqueueSnackbar(add.message, { variant: "warning" });
+                      } else {
+                        enqueueSnackbar(add.message, { variant: "success" });
+                      }
                     }}
                   >
-                    <span class="material-symbols-outlined">
-add
-</span>Add to Cart
+                    <span className="material-symbols-outlined">add</span>Add to
+                    Cart
                   </button>
                 </div>
               </div>

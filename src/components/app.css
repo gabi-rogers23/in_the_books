@@ -602,7 +602,7 @@ input[type="password"]::placeholder {
   margin-right: 10px;
 }
 
-.searchButtons{
+.searchButtons {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -660,7 +660,7 @@ input[type="password"]::placeholder {
   padding: 20px;
 }
 
-.cartItemContainer{
+.cartItemContainer {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -845,12 +845,12 @@ input[type="tel"] {
   height: fit-content;
 }
 
-
-.bookDetails, .cartContainer {
+.bookDetails,
+.cartContainer {
   margin-bottom: 75px;
 }
 
-.bookFormContainer{
+.bookFormContainer {
   margin-top: 15px;
   margin-bottom: 75px;
   margin-left: 25px;
@@ -910,9 +910,20 @@ input[type="tel"] {
   align-items: flex-start;
 }
 
-.authorFormButtons button{
+.authorFormButtons button {
   margin-left: 10px;
 }
 .cartContainer {
   margin-bottom: 75px;
+}
+
+.allBookSearch {
+  display: absolute;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.allBookSearch input {
+  width: 50%;
+  text-align: center;
 }

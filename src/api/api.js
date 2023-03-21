@@ -2,7 +2,7 @@ export const BASE_URL = "http://localhost:3000/api";
 
 export function getHeaders() {
   let headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   };
   const currentToken = localStorage.getItem("token");
   // console.log("CURRENT TOKEN IN GET HEADERS:, ", currentToken);
@@ -13,7 +13,6 @@ export function getHeaders() {
   // console.log("Current Headers: " + JSON.stringify(headers));
   return headers;
 }
-
 
 export async function getAllBooks() {
   try {
@@ -141,8 +140,7 @@ export async function fetchUserCart(userId) {
   try {
     let res = null;
     if (userId) {
-      res = await fetch(`${BASE_URL}/cart/${userId}`
-      , {
+      res = await fetch(`${BASE_URL}/cart/${userId}`, {
         headers: getHeaders(),
       });
     } else {
@@ -343,7 +341,6 @@ export async function fetchAllTags() {
   }
 }
 
-
 export async function createNewTag(tag) {
   // console.log(tag)
   try {
@@ -360,17 +357,16 @@ export async function createNewTag(tag) {
   }
 }
 
-
-export async function checkoutCart(cartId){
-  try{
-    const res = await fetch(`${BASE_URL}/cart/checkout/${cartId}`,{
+export async function checkoutCart(cartId) {
+  try {
+    const res = await fetch(`${BASE_URL}/cart/checkout/${cartId}`, {
       method: "DELETE",
       headers: getHeaders(),
-    })
+    });
     const data = await res.json();
     return data;
-  }catch(error){
-  throw error;
+  } catch (error) {
+    throw error;
   }
 }
 

@@ -17,7 +17,7 @@ const AuthorForm = (props) => {
   const [authorImage, setAuthorImage] = useState("");
   const [authorBio, setAuthorBio] = useState("");
 
-  const {enqueueSnackbar} = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   function refreshAuthors() {
     fetchAllAuthors().then((authors) => {
@@ -48,14 +48,12 @@ const AuthorForm = (props) => {
               defaultValue={props.book ? props.book.authorId : "--"}
               onChange={(e) => {
                 e.preventDefault();
-                const newAuthorId = e.target.value
+                const newAuthorId = e.target.value;
                 setAuthorId(
-                  newAuthorId === "New Author"
-                    ? setEdit(true)
-                    : newAuthorId
+                  newAuthorId === "New Author" ? setEdit(true) : newAuthorId
                 );
-                  props.bookToSend.current.authorId = newAuthorId;
-                  // console.log(props.bookToSend.current.authorId)
+                props.bookToSend.current.authorId = newAuthorId;
+                // console.log(props.bookToSend.current.authorId)
               }}
             >
               <option value={"--"} label="--"></option>
@@ -81,12 +79,12 @@ const AuthorForm = (props) => {
           </fieldset>
         </div>
       ) : (
-        <form className="bookForm"> 
+        <form className="bookForm">
           <h3>Add New Author</h3>
           <div>
             Author First Name
             <input
-            required
+              required
               value={authorFirstName}
               onChange={(e) => {
                 e.preventDefault();
@@ -99,7 +97,7 @@ const AuthorForm = (props) => {
           <div>
             Author Last Name
             <input
-            required
+              required
               value={authorLastName}
               onChange={(e) => {
                 e.preventDefault();
@@ -112,7 +110,7 @@ const AuthorForm = (props) => {
           <div>
             Date Of Birth
             <input
-            required
+              required
               value={dateOfBirth}
               onChange={(e) => {
                 e.preventDefault();
@@ -125,7 +123,7 @@ const AuthorForm = (props) => {
           <div>
             Birth Place
             <input
-            required
+              required
               value={birthPlace}
               onChange={(e) => {
                 e.preventDefault();
@@ -159,35 +157,38 @@ const AuthorForm = (props) => {
               }}
             ></input>
             <div className="authorFormButtons">
-            <button
-              onClick={async (e) => {
-                e.preventDefault();
-                // console.log(newAuthor);
-                const updatedAuthor = await createAuthor(newAuthor);
-                // console.log(updatedAuthor);
-                if (updatedAuthor.error) {
-                  enqueueSnackbar(updatedAuthor.message, {variant:'error'});
-                } else {
+              <button
+                onClick={async (e) => {
+                  e.preventDefault();
+                  // console.log(newAuthor);
+                  const updatedAuthor = await createAuthor(newAuthor);
+                  // console.log(updatedAuthor);
+                  if (updatedAuthor.error) {
+                    enqueueSnackbar(updatedAuthor.message, {
+                      variant: "error",
+                    });
+                  } else {
+                    setEdit(false);
+                    setAuthorFirstName("");
+                    setAuthorLastName("");
+                    setDateOfBirth("");
+                    setAuthorImage("");
+                    setAuthorBio("");
+                    refreshAuthors();
+                  }
+                }}
+              >
+                Add Author
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
                   setEdit(false);
-                  setAuthorFirstName("")
-                  setAuthorLastName("")
-                  setDateOfBirth("")
-                  setAuthorImage("")
-                  setAuthorBio("")
-                  refreshAuthors();
-                }
-              }}
-            >
-              Add Author
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setEdit(false);
-              }}
-            >
-              Cancel
-            </button></div>
+                }}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </form>
       )}

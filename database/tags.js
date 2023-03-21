@@ -94,12 +94,15 @@ async function addNewTag(tag) {
   try {
     const {
       rows: [newTag],
-    } = await client.query(`
+    } = await client.query(
+      `
     INSERT INTO tags(name)
     VALUES($1)
     RETURNING *;
-    `, [tag]);
-    console.log(newTag)
+    `,
+      [tag]
+    );
+    console.log(newTag);
     return newTag;
   } catch (error) {
     throw error;
@@ -112,5 +115,5 @@ module.exports = {
   getTagById,
   getAllTags,
   deleteAllBookTags,
-  addNewTag
+  addNewTag,
 };
