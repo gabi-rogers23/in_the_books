@@ -26,7 +26,7 @@ const BookTagForm = (props) => {
   // console.log(props.book);
   return (
     <div>
-      <h3>Tags!</h3>
+      <h3>Add/Remove Tags:</h3>
       <form>
         {tags.map((tag) => {
           return <TagSelector tag={tag} key={tag.id} />;
@@ -45,30 +45,35 @@ const BookTagForm = (props) => {
             ></input>
             <button
               onClick={async (e) => {
-                e.preventDefault();
-                const tagReturned = await createNewTag({ tag: newTag });
-                // console.log("Tag Created", tagReturned)
-                enqueueSnackbar("Tag Created!", { variant: "success" });
-                setTags([...tags, tagReturned]);
-                setNewTag("");
-                setClick(false);
-              }}
-            >
+                  e.preventDefault();
+                  const tagReturned = await createNewTag({ tag: newTag });
+                  // console.log("Tag Created", tagReturned)
+                  enqueueSnackbar("Tag Created!", { variant: "success" });
+                  setTags([...tags, tagReturned]);
+                  setNewTag("");
+                  setClick(false);
+              }}>
               Add Tag!
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setClick(false);
+              }}>
+              Cancel
             </button>
           </form>
         </div>
       ) : (
         <div className="authorFormButtons">
-          {" "}
           <button
             onClick={(e) => {
               e.preventDefault();
               setClick(true);
             }}
           >
-            New Tag
-          </button>{" "}
+            Create New Tag
+          </button>
         </div>
       )}
     </div>

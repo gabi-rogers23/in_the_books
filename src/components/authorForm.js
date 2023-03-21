@@ -38,11 +38,11 @@ const AuthorForm = (props) => {
   }, [props.book]);
 
   return (
-    <div className="authorFormContainer">
+    <div>
       {!edit ? (
         <div>
-          <fieldset>
-            <label> Select Author: </label>
+          <fieldset className="authorDropDown">
+            <label> <h3>Select Author:</h3> </label>
             <select
               value={authorId}
               defaultValue={props.book ? props.book.authorId : "--"}

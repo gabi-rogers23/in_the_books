@@ -10,7 +10,7 @@ const TagSelector = (props) => {
 
   return (
     <div className="tagSelectorMap" key={props.tag.id}>
-      <label for={props.tag.name}>{props.tag.name}</label>
+      <label form={props.tag.name}>{props.tag.name}</label>
       <input
         type="checkbox"
         checked={tagSelected}

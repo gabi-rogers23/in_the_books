@@ -36,7 +36,7 @@ const Home = () => {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   };
 
   const h1Style = {
@@ -137,7 +137,7 @@ const Home = () => {
             flexWrap: "wrap",
             padding: "0 40px",
             height: "600px",
-            overflow: "hidden",
+            overflow: "auto",
           }}
         >
           {books.map((book) => (

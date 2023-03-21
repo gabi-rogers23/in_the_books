@@ -505,7 +505,6 @@ input[type="password"]::placeholder {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  border: 1px solid blue;
 }
 
 .profileGreeting {
@@ -902,6 +901,10 @@ input[type="tel"] {
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.authorDropDown {
+  border: none;
 }
 
 .authorFormButtons {
