@@ -64,12 +64,13 @@ const Home = () => {
 
   const bookStyle = {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     margin: "40px 0",
     padding: "20px",
     border: "1px solid #cccccc",
     backgroundColor: "#ffffff",
+    width: "400px"
   };
 
   const imageStyle = {
@@ -83,6 +84,7 @@ const Home = () => {
     fontSize: "1.5rem",
     fontWeight: "bold",
     marginBottom: "10px",
+    textTransform: "capitalize"
   };
 
   const authorStyle = {
@@ -126,9 +128,11 @@ const Home = () => {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
             flexWrap: "wrap",
             padding: "0 40px",
+            height: "600px",
+            overflow: "hidden"
           }}
         >
           {books.map((book) => (
