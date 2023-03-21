@@ -38,7 +38,7 @@ async function createUser({
 
     if (hashedPassword) {
       delete user.password;
-      createCart(user.id);
+      await createCart(user.id);
       // console.log(user)
       return user;
     }
