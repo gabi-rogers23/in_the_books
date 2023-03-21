@@ -54,6 +54,12 @@ button:hover {
   padding-left: 50px;
 }
 
+.container h1 {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .navbar-logo {
   color: #fff;
   justify-self: start;
@@ -920,7 +926,7 @@ input[type="tel"] {
 .allBookSearch {
   display: absolute;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .allBookSearch input {
