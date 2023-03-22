@@ -33,11 +33,11 @@ const Search = () => {
           type="search"
           placeholder="Search by Title, Author, or Description"
           value={searchTerm}
+          onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault(); }}
           onChange={(e) => {
             e.preventDefault();
             // console.log(e.target.value);
             setSearchTerm(e.target.value);
-
             if (e.target.value.length === 0) {
               setBooksToDisplay([]);
             } else {

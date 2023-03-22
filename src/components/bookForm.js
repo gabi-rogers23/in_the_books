@@ -42,7 +42,12 @@ const BookForm = () => {
   return (
     <div className="bookFormContainer">
       <h3>Book Information:</h3>
-      <form className="bookForm">
+      <form
+        className="bookForm"
+        onKeyDown={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
+      >
         <div>
           Title
           <input
@@ -134,7 +139,7 @@ const BookForm = () => {
             onClick={async (e) => {
               e.preventDefault();
               bookToSend.current.id = bookId;
-              console.log("BOOK TO SEND", bookToSend.current)
+              console.log("BOOK TO SEND", bookToSend.current);
               const updatedBook = await updateBook(bookToSend.current);
               if (updatedBook.error) {
                 enqueueSnackbar(updatedBook.message, { variant: "error" });

@@ -29,7 +29,13 @@ const Login = ({ setLoggedIn }) => {
   };
   return (
     <section className="loginForm">
-      <form onSubmit={handleLogin} className="form">
+      <form
+        onSubmit={handleLogin}
+        className="form"
+        onKeyDown={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
+      >
         <header>
           <h1 className="loginHeader">Log In</h1>
         </header>

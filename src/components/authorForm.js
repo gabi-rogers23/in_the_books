@@ -42,7 +42,10 @@ const AuthorForm = (props) => {
       {!edit ? (
         <div>
           <fieldset className="authorDropDown">
-            <label> <h3>Select Author:</h3> </label>
+            <label>
+              {" "}
+              <h3>Select Author:</h3>{" "}
+            </label>
             <select
               value={authorId}
               defaultValue={props.book ? props.book.authorId : "--"}
@@ -53,7 +56,7 @@ const AuthorForm = (props) => {
                   newAuthorId === "New Author" ? setEdit(true) : newAuthorId
                 );
                 props.bookToSend.current.authorId = newAuthorId;
-                console.log(props.bookToSend.current.authorId)
+                console.log(props.bookToSend.current.authorId);
               }}
             >
               <option value={"--"} label="--"></option>
@@ -79,7 +82,12 @@ const AuthorForm = (props) => {
           </fieldset>
         </div>
       ) : (
-        <form className="bookForm">
+        <form
+          className="bookForm"
+          onKeyDown={(e) => {
+            e.key === "Enter" && e.preventDefault();
+          }}
+        >
           <h3>Add New Author</h3>
           <div>
             Author First Name
