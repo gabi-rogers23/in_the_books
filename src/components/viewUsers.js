@@ -79,6 +79,14 @@ const ViewUsers = () => {
           })}
         </div>
       )}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/me");
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 };
