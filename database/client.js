@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const connectionString = process.env.DATABASE_URL  
 // || 'https://localhost:5432/in-the-books' ;
-
+console.log("connection string error", connectionString)
 const client = new Pool({
   connectionString,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,

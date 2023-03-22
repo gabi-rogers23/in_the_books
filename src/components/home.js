@@ -26,7 +26,7 @@ const Home = () => {
     alignItems: "center",
     justifyContent: "center",
   };
-
+  
   const textStyle = {
     textAlign: "center",
     color: "#ffffff",
@@ -34,7 +34,7 @@ const Home = () => {
     margin: "0 auto",
     padding: "0 20px",
   };
-
+  
   const h1Style = {
     fontSize: "3rem",
     fontWeight: "bold",
@@ -42,13 +42,13 @@ const Home = () => {
     marginBottom: "20px",
     textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
   };
-
+  
   const pStyle = {
     fontSize: "1.2rem",
     marginBottom: "40px",
     textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
   };
-
+  
   const buttonStyle = {
     backgroundColor: "#ffffff",
     color: "#000000",
@@ -60,8 +60,9 @@ const Home = () => {
     cursor: "pointer",
     marginTop: "40px",
     boxShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+    textAlign: "center",
   };
-
+  
   const bookStyle = {
     display: "flex",
     justifyContent: "space-around",
@@ -72,26 +73,26 @@ const Home = () => {
     backgroundColor: "#ffffff",
     width: "400px"
   };
-
+  
   const imageStyle = {
     width: "150px",
     height: "200px",
     objectFit: "cover",
     marginRight: "20px",
   };
-
+  
   const titleStyle = {
     fontSize: "1.5rem",
     fontWeight: "bold",
     marginBottom: "10px",
     textTransform: "capitalize"
   };
-
+  
   const authorStyle = {
     fontSize: "1.2rem",
     marginBottom: "10px",
   };
-
+  
   const priceStyle = {
     fontSize: "1.2rem",
     fontWeight: "bold",

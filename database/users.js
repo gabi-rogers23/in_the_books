@@ -27,7 +27,7 @@ async function createUser({
   `,
       [email, hashedPassword, firstName, lastName, shippingAddress, phoneNumber, isAdmin]
     );
-
+        console.log(user)
     if (hashedPassword) {
       delete user.password;
       createCart(user.id);
