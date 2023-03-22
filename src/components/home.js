@@ -139,7 +139,14 @@ const Home = () => {
           }}
         >
           {books.map((book) => (
-            <div style={bookStyle} key={book.id}>
+            <div
+              style={bookStyle}
+              key={book.id}
+              onClick={(e) => {
+                e.preventDefault() 
+                navigate(`/books/${book.id}`);
+              }}
+            >
               <img src={book.bookImage} style={imageStyle} />
               <div>
                 <h3 style={titleStyle}>{book.title}</h3>

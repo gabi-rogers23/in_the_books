@@ -1,14 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getBookById } from "../api/api";
+import { getBookById, addToCart } from "../api/api";
 import { formatter } from "../index";
+import { useSnackbar } from "notistack";
 import "./app.css";
 
 const BookDetails = () => {
   const [book, setBook] = useState({ tags: [] });
   const { bookId } = useParams();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getBookById(bookId).then((book) => {
@@ -60,7 +62,24 @@ const BookDetails = () => {
           >
             Back
           </button>
-          <button className="addCartButton">Add to Cart</button>
+          <button
+          className="addCartButton"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      book.quantity = 1;
+                      // console.log(book)
+                      const add = await addToCart(book);
+
+                      if (add.error) {
+                        enqueueSnackbar(add.message, { variant: "warning" });
+                      } else {
+                        enqueueSnackbar(add.message, { variant: "success" });
+                      }
+                    }}
+                  >
+                    <span className="material-symbols-outlined">add</span>Add to
+                    Cart
+                  </button>
         </div>
       </div>
       <div className="authorInfo">
