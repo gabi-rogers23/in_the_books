@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { fetchUserCart, checkoutCart } from "../api/api";
 import { CartItem } from "./exports";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router";
 
 const Cart = () => {
   const [cart, setCart] = useState({ items: [] });
   const [isEmpty, setIsEmpty] = useState(false);
   // console.log(cart)
-
+ const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar();
 
   const getUserCart = () => {
@@ -75,7 +76,10 @@ const Cart = () => {
       ) : (
         <div className="cartEmpty">
           Your Cart is Empty! <br />
-          <a href="./books">Check out all our books!</a>
+          <a onClick={((e)=>{
+            e.preventDefault();
+            navigate("/books")
+          })}>Check out all our books!</a>
         </div>
       )}
     </div>
