@@ -28,6 +28,7 @@ const ViewUsers = () => {
           type="search"
           placeholder="Search by Email or Phone Number"
           value={searchTerm}
+          onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault(); }}
           onChange={(e) => {
             e.preventDefault();
             setSearchTerm(e.target.value);
@@ -79,6 +80,14 @@ const ViewUsers = () => {
           })}
         </div>
       )}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/me");
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 };

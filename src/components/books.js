@@ -27,6 +27,7 @@ const Books = () => {
           type="search"
           placeholder="Search by Title, Author, or Description"
           value={searchTerm}
+          onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault(); }}
           onChange={(e) => {
             e.preventDefault();
             // console.log(e.target.value);

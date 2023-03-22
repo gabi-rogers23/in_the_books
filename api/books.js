@@ -49,6 +49,7 @@ router.post("/", requireUser, async (req, res, next) => {
       // console.log(req.body)
       const author = { id: req.body.authorId };
       const newBook = await createBook(author, req.body);
+      await createBook
       res.send(newBook);
     } catch (error) {
       next(error);
@@ -64,6 +65,7 @@ router.post("/", requireUser, async (req, res, next) => {
 
 router.patch("/:bookId", requireUser, async (req, res, next) => {
   if (req.user.isAdmin) {
+    // console.log("Patch book ", req.body)
     try {
       const updatedBook = await updateBook(req.body);
       res.send(updatedBook);

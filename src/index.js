@@ -60,7 +60,7 @@ const root = createRoot(container);
 
 root.render(
   <BrowserRouter>
-    <SnackbarProvider autoHideDuration={1000}>
+    <SnackbarProvider autoHideDuration={1500}>
       <App />
     </SnackbarProvider>
   </BrowserRouter>

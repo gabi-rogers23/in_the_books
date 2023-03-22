@@ -26,7 +26,7 @@ const BookTagForm = (props) => {
   // console.log(props.book);
   return (
     <div>
-      <h3>Tags!</h3>
+      <h3>Add/Remove Tags:</h3>
       <form>
         {tags.map((tag) => {
           return <TagSelector tag={tag} key={tag.id} />;
@@ -59,6 +59,13 @@ const BookTagForm = (props) => {
             >
               Add Tag!
             </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setClick(false);
+              }}>
+              Cancel
+            </button>
           </form>
         </div>
       ) : (
@@ -69,7 +76,7 @@ const BookTagForm = (props) => {
               setClick(true);
             }}
           >
-            New Tag
+            Create New Tag
           </button>
         </div>
       )}

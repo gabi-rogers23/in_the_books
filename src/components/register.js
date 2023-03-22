@@ -45,7 +45,13 @@ const Register = ({ setLoggedIn }) => {
   };
   return (
     <>
-      <form id="registerForm" onSubmit={handleRegister}>
+      <form
+        id="registerForm"
+        onSubmit={handleRegister}
+        onKeyDown={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
+      >
         <div className="signUp">
           <h1 id="signUpHeader">Sign up!</h1>
           <div></div>

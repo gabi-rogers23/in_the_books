@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllBooks, deleteBook } from "../api/api";
+import { formatter } from "../index";
 
 const Search = () => {
   const [allBooks, setAllBooks] = useState([]);
@@ -32,11 +33,13 @@ const Search = () => {
           type="search"
           placeholder="Search by Title, Author, or Description"
           value={searchTerm}
+          onKeyDown={(e) => {
+            e.key === "Enter" && e.preventDefault();
+          }}
           onChange={(e) => {
             e.preventDefault();
             // console.log(e.target.value);
             setSearchTerm(e.target.value);
-
             if (e.target.value.length === 0) {
               setBooksToDisplay([]);
             } else {
@@ -87,7 +90,9 @@ const Search = () => {
                     By: {book.authorFirstName} {book.authorLastName}
                   </div>
                 </div>
-                <div className="booksPrice">${book.price}</div>
+                <div className="booksPrice">
+                  ${formatter.format(book.price)}
+                </div>
                 <div className="searchButtons">
                   <button
                     onClick={async (e) => {
@@ -99,7 +104,9 @@ const Search = () => {
                   <button
                     onClick={async (e) => {
                       e.preventDefault();
-                      const deletedBook = await deleteBook(book.id);
+                      const bookIndex = allBooks.indexOf(book);
+                      await deleteBook(book.id);
+                      allBooks.splice(bookIndex, 1);
                       setSearchTerm("");
                       setBooksToDisplay(allBooks);
                     }}
