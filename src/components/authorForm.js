@@ -43,8 +43,7 @@ const AuthorForm = (props) => {
         <div>
           <fieldset className="authorDropDown">
             <label>
-              {" "}
-              <h3>Select Author:</h3>{" "}
+              <h3>Select Author:</h3>
             </label>
             <select
               value={authorId}

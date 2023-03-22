@@ -294,12 +294,22 @@ export async function updateBook(book) {
 export async function createNewBook(book) {
   // console.log(book)
   try {
+    book.tags = book.tags.filter((tag) => tag.isSelected);
+
     const res = await fetch(`${BASE_URL}/books`, {
       method: "POST",
       headers: getHeaders(),
       body: JSON.stringify(book),
     });
+
     const data = await res.json();
+
+    await fetch(`${BASE_URL}/tags/${data.id}`, {
+      method: "PATCH",
+      headers: getHeaders(),
+      body: JSON.stringify(book),
+    });
+
     return data;
   } catch (error) {
     throw error;

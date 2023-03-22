@@ -33,7 +33,9 @@ const Search = () => {
           type="search"
           placeholder="Search by Title, Author, or Description"
           value={searchTerm}
-          onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+          onKeyDown={(e) => {
+            e.key === "Enter" && e.preventDefault();
+          }}
           onChange={(e) => {
             e.preventDefault();
             // console.log(e.target.value);
@@ -88,7 +90,9 @@ const Search = () => {
                     By: {book.authorFirstName} {book.authorLastName}
                   </div>
                 </div>
-                <div className="booksPrice">${formatter.format(book.price)}</div>
+                <div className="booksPrice">
+                  ${formatter.format(book.price)}
+                </div>
                 <div className="searchButtons">
                   <button
                     onClick={async (e) => {
@@ -100,7 +104,9 @@ const Search = () => {
                   <button
                     onClick={async (e) => {
                       e.preventDefault();
-                      const deletedBook = await deleteBook(book.id);
+                      const bookIndex = allBooks.indexOf(book);
+                      await deleteBook(book.id);
+                      allBooks.splice(bookIndex, 1);
                       setSearchTerm("");
                       setBooksToDisplay(allBooks);
                     }}

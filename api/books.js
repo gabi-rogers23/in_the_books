@@ -49,6 +49,7 @@ router.post("/", requireUser, async (req, res, next) => {
       // console.log(req.body)
       const author = { id: req.body.authorId };
       const newBook = await createBook(author, req.body);
+      await createBook
       res.send(newBook);
     } catch (error) {
       next(error);
