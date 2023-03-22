@@ -25,23 +25,28 @@ const ViewUserCart = () => {
         cart.items.map((item) => {
           return (
             <div className="usersCartMap" key={item.cartItemId}>
-              <div><h4>*{item.title}</h4>
-              <div>Price: ${item.price}</div>
-              <div>Quantity: {item.quantity}</div></div>
+              <div>
+                <h4>*{item.title}</h4>
+                <div>Price: ${item.price}</div>
+                <div>Quantity: {item.quantity}</div>
+              </div>
             </div>
           );
         })
       ) : (
         <div>User has an empty cart.</div>
       )}
-      <div className="adminButtons"><button className="userButton"
-        onClick={(e) => {
-          e.preventDefault;
-          navigate("/me/viewUsers");
-        }}
-      >
-        Back
-      </button></div>
+      <div className="adminButtons">
+        <button
+          className="userButton"
+          onClick={(e) => {
+            e.preventDefault;
+            navigate("/me/viewUsers");
+          }}
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 };

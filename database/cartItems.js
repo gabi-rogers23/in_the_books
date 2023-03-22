@@ -13,12 +13,14 @@ async function createCartItem(cartId, bookId, quantity) {
       [cartId, bookId, quantity]
     );
 
-   const { rows: [cartItem]} = await client.query(`
+    const {
+      rows: [cartItem],
+    } = await client.query(`
    SELECT ci.id, ci."cartId", "bookId", quantity, price, stock, "bookImage"
    FROM cart_items ci
    JOIN books ON books.id = "bookId"
    WHERE ci.id = ${createItem.id};
-   `)
+   `);
     // console.log(cartItem, "created!")
     return cartItem;
   } catch (error) {
@@ -76,17 +78,15 @@ async function removeCartItem(cartItemId) {
   }
 }
 
-async function deleteAllCartItems(cartId){
-  try{
-
-  const { rows: cartItems} = await client.query(`
+async function deleteAllCartItems(cartId) {
+  try {
+    const { rows: cartItems } = await client.query(`
   DELETE FROM cart_items
   WHERE "cartId" =${cartId};
-  `)
+  `);
 
-return cartId;
-
-  }catch(error){
+    return cartId;
+  } catch (error) {
     throw error;
   }
 }
@@ -96,5 +96,5 @@ module.exports = {
   updateCartItem,
   removeCartItem,
   getCartItem,
-  deleteAllCartItems
+  deleteAllCartItems,
 };

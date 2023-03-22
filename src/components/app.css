@@ -22,6 +22,10 @@ button {
   transition: background-color 0.3s ease;
 }
 
+a {
+  cursor: pointer;
+}
+
 button:hover {
   background-color: #09bef0;
 }
@@ -52,6 +56,12 @@ button:hover {
   margin-left: auto;
   padding-right: 50px;
   padding-left: 50px;
+}
+
+.container h1 {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .navbar-logo {
@@ -505,7 +515,6 @@ input[type="password"]::placeholder {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  border: 1px solid blue;
 }
 
 .profileGreeting {
@@ -602,7 +611,7 @@ input[type="password"]::placeholder {
   margin-right: 10px;
 }
 
-.searchButtons{
+.searchButtons {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -660,7 +669,7 @@ input[type="password"]::placeholder {
   padding: 20px;
 }
 
-.cartItemContainer{
+.cartItemContainer {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -845,12 +854,12 @@ input[type="tel"] {
   height: fit-content;
 }
 
-
-.bookDetails, .cartContainer {
+.bookDetails,
+.cartContainer {
   margin-bottom: 75px;
 }
 
-.bookFormContainer{
+.bookFormContainer {
   margin-top: 15px;
   margin-bottom: 75px;
   margin-left: 25px;
@@ -904,15 +913,30 @@ input[type="tel"] {
   justify-content: space-evenly;
 }
 
+.authorDropDown {
+  border: none;
+}
+
 .authorFormButtons {
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
 }
 
-.authorFormButtons button{
+.authorFormButtons button {
   margin-left: 10px;
 }
 .cartContainer {
   margin-bottom: 75px;
+}
+
+.allBookSearch {
+  display: absolute;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.allBookSearch input {
+  width: 50%;
+  text-align: center;
 }

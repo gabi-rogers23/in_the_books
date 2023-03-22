@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllBooks().then((data) => {
-      setBooks(data.slice(0, 4)); 
+      setBooks(data.slice(0, 4));
     });
   }, []);
 
@@ -31,8 +31,12 @@ const Home = () => {
     textAlign: "center",
     color: "#ffffff",
     maxWidth: "700px",
-    margin: "0 auto",
+    marginLeft: "75px",
     padding: "0 20px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   };
   
   const h1Style = {
@@ -58,9 +62,13 @@ const Home = () => {
     fontSize: "1.2rem",
     fontWeight: "bold",
     cursor: "pointer",
-    marginTop: "40px",
+    marginTop: "10px",
     boxShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+<<<<<<< HEAD
     textAlign: "center",
+=======
+    width: "50%",
+>>>>>>> 29cb861fabc365df948871ae03a781ccfb3475c0
   };
   
   const bookStyle = {
@@ -69,9 +77,8 @@ const Home = () => {
     alignItems: "center",
     margin: "40px 0",
     padding: "20px",
-    border: "1px solid #cccccc",
-    backgroundColor: "#ffffff",
-    width: "400px"
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    width: "400px",
   };
   
   const imageStyle = {
@@ -85,7 +92,7 @@ const Home = () => {
     fontSize: "1.5rem",
     fontWeight: "bold",
     marginBottom: "10px",
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   };
   
   const authorStyle = {
@@ -119,7 +126,6 @@ const Home = () => {
           style={{
             textAlign: "center",
             fontSize: "2rem",
-            margin: "40px 0",
             color: "#ffffff",
             textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
           }}
@@ -133,11 +139,18 @@ const Home = () => {
             flexWrap: "wrap",
             padding: "0 40px",
             height: "600px",
-            overflow: "hidden"
+            overflow: "auto",
           }}
         >
           {books.map((book) => (
-            <div style={bookStyle} key={book.id}>
+            <div
+              style={bookStyle}
+              key={book.id}
+              onClick={(e) => {
+                e.preventDefault() 
+                navigate(`/books/${book.id}`);
+              }}
+            >
               <img src={book.bookImage} style={imageStyle} />
               <div>
                 <h3 style={titleStyle}>{book.title}</h3>

@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const { getUserById } = require("../database");
 const { JWT_SECRET } = process.env;
 
-
 router.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
@@ -33,7 +32,7 @@ router.use(async (req, res, next) => {
 
 router.use((req, res, next) => {
   if (req.user) {
-      // console.log("User is set:", req.user);
+    // console.log("User is set:", req.user);
   }
   next();
 });
@@ -51,12 +50,12 @@ const usersRouter = require("./users");
 router.use("/users", usersRouter);
 
 const authorsRouter = require("./authors");
-router.use("/authors", authorsRouter)
+router.use("/authors", authorsRouter);
 
 router.get("/health", async (req, res, next) => {
-    res.status(200).send({
-      message: "Server is up and healthy"
-    });
+  res.status(200).send({
+    message: "Server is up and healthy",
   });
-  
+});
+
 module.exports = router;

@@ -1,7 +1,12 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const usersRouter = express.Router();
-const { getUserByEmail, createUser, getUser, getAllUsers } = require("../database");
+const {
+  getUserByEmail,
+  createUser,
+  getUser,
+  getAllUsers,
+} = require("../database");
 const { requireUser } = require("./utils");
 
 const SALT_COUNT = 10;
@@ -29,7 +34,7 @@ usersRouter.post("/register", async (req, res, next) => {
       res.status(401).send({
         error: "ERROR",
         name: "PasswordLengthError",
-        message: "Password Too Short!",
+        message: "Password Too Short! Make your password at least 8 characters.",
       });
     } else {
       let isAdmin = false;

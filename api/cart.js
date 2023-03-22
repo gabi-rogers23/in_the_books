@@ -6,7 +6,7 @@ const {
   removeCartItem,
   createCartItem,
   getCartItem,
-  deleteAllCartItems
+  deleteAllCartItems,
 } = require("../database");
 const { requireUser } = require("./utils");
 
@@ -22,25 +22,25 @@ router.get("/", requireUser, async (req, res, next) => {
 });
 
 router.get("/:userId", requireUser, async (req, res, next) => {
-  if(req.user.isAdmin){
-  try {
-    const userCart = await getCartByUserId(req.params.userId);
-    // console.log("USER CART", userCart)
-    res.send(userCart);
-  } catch (error) {
-    next(error);
-  }} else{
+  if (req.user.isAdmin) {
+    try {
+      const userCart = await getCartByUserId(req.params.userId);
+      // console.log("USER CART", userCart)
+      res.send(userCart);
+    } catch (error) {
+      next(error);
+    }
+  } else {
     res.status(403).send({
       error: "403 Forbidden",
       message: `${req.user.email} is not an Admin!`,
-      name: "Admin Error"
-    })
+      name: "Admin Error",
+    });
   }
 });
 
 router.post("/", requireUser, async (req, res, next) => {
   try {
-
     // console.log("REQ BODY:", req.body, "REQ USER:", req.user);
     const cart = await getCartByUserId(req.user.id);
     const cartItemTest = await getCartItem(req.body.bookId, cart.cartId);
@@ -49,18 +49,20 @@ router.post("/", requireUser, async (req, res, next) => {
     if (cartItemTest) {
       cartItemTest.quantity += req.body.quantity;
       // console.log("QUANTITY", cartItemTest.quantity)
-      const updatedCartItem = await updateCartItem(cartItemTest.id, cartItemTest.quantity);
+      const updatedCartItem = await updateCartItem(
+        cartItemTest.id,
+        cartItemTest.quantity
+      );
       // console.log("QUANTITY 2", cartItemTest.quantity, updatedCartItem.quantity)
-      res.send({cartItem : updatedCartItem, message: "Added To Cart!"});
+      res.send({ cartItem: updatedCartItem, message: "Added To Cart!" });
     } else {
       const addedBook = await createCartItem(
         cart.cartId,
         req.body.bookId,
         req.body.quantity
-      ); 
+      );
       res.send({ cartItem: addedBook, message: "Added To Cart!" });
     }
-
   } catch (error) {
     console.error(error)
     next(error);
@@ -69,17 +71,12 @@ router.post("/", requireUser, async (req, res, next) => {
 
 router.patch("/", requireUser, async (req, res, next) => {
   try {
-    // console.log("PATCH BODY", req.body)
-    // if (req.body.quantity == 0) {
-    //   await removeCartItem(req.body.cartItemId);
-    //   res.send();
-    // } else {
-      const updatedCartItem = await updateCartItem(
-        req.body.cartItemId,
-        req.body.quantity
-      );
-      //   console.log("UPDATED CART ITEM", updatedCartItem)
-      res.send(updatedCartItem);
+    const updatedCartItem = await updateCartItem(
+      req.body.cartItemId,
+      req.body.quantity
+    );
+    //   console.log("UPDATED CART ITEM", updatedCartItem)
+    res.send(updatedCartItem);
     // }
   } catch (error) {
     next(error);
@@ -87,25 +84,24 @@ router.patch("/", requireUser, async (req, res, next) => {
 });
 
 router.delete("/:cartItemId", requireUser, async (req, res, next) => {
-  try{
+  try {
     // console.log("ITEM TO DELETE ", req.params.cartItemId)
-    const deletedCartItem = await removeCartItem(req.params.cartItemId)
+    const deletedCartItem = await removeCartItem(req.params.cartItemId);
 
-    res.send({message : "Deleted!"})
-
-  }catch (error){
-    next(error)
+    res.send({ message: "Deleted!" });
+  } catch (error) {
+    next(error);
   }
-})
+});
 
-router.delete("/checkout/:cartId", requireUser, async (req, res, next)=>{
-  console.log(req.params.cartId)
-  try{
+router.delete("/checkout/:cartId", requireUser, async (req, res, next) => {
+  console.log(req.params.cartId);
+  try {
     const deleteAll = await deleteAllCartItems(req.params.cartId);
-    res.send(deleteAll)
-  }catch(error){
-    next(error)
+    res.send(deleteAll);
+  } catch (error) {
+    next(error);
   }
-})
+});
 
 module.exports = router;

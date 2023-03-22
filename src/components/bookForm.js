@@ -16,8 +16,7 @@ const BookForm = () => {
   const [fiction, setFiction] = useState(false);
 
   let bookToSend = useRef({});
-  const {enqueueSnackbar} = useSnackbar()
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
   const { bookId } = useParams();
@@ -43,7 +42,12 @@ const BookForm = () => {
   return (
     <div className="bookFormContainer">
       <h3>Book Information:</h3>
-      <form className="bookForm">
+      <form
+        className="bookForm"
+        onKeyDown={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
+      >
         <div>
           Title
           <input
@@ -72,7 +76,8 @@ const BookForm = () => {
         </div>
         <div>
           Description
-          <input className="descriptionInput"
+          <input
+            className="descriptionInput"
             required
             value={description}
             onChange={(e) => {
@@ -127,55 +132,57 @@ const BookForm = () => {
         <AuthorForm book={book} bookToSend={bookToSend} />
       </div>
 
-      <BookTagForm book={book} bookToSend={bookToSend}/>
-      <div className="bookFormButtons">{bookId != "new" ? (
+      <BookTagForm book={book} bookToSend={bookToSend} />
+      <div className="bookFormButtons">
+        {bookId != "new" ? (
+          <button
+            onClick={async (e) => {
+              e.preventDefault();
+              bookToSend.current.id = bookId;
+              console.log("BOOK TO SEND", bookToSend.current);
+              const updatedBook = await updateBook(bookToSend.current);
+              if (updatedBook.error) {
+                enqueueSnackbar(updatedBook.message, { variant: "error" });
+              } else {
+                enqueueSnackbar("Book Updated!", { variant: "success" });
+                navigate("/me");
+              }
+            }}
+          >
+            Update Book
+          </button>
+        ) : (
+          <button
+            onClick={async (e) => {
+              e.preventDefault();
+              // console.log(bookToSend.current)
+              const book = await createNewBook(bookToSend.current);
+              if (book.error) {
+                enqueueSnackbar(book.error, { variant: "error" });
+              } else {
+                setTitle("");
+                setPrice("");
+                setDescription("");
+                setImage("");
+                setStock("");
+                setFiction(false);
+                enqueueSnackbar("Book Created!", { variant: "success" });
+                navigate("/me");
+              }
+            }}
+          >
+            Create New Book!
+          </button>
+        )}
         <button
-          onClick={async (e) => {
+          onClick={(e) => {
             e.preventDefault();
-            bookToSend.current.id = bookId
-            // console.log("BOOK TO SEND", bookToSend.current)
-            const updatedBook = await updateBook(bookToSend.current)
-            if(updatedBook.error){
-              enqueueSnackbar(updatedBook.message, {variant:'error'});
-            }else{
-              enqueueSnackbar("Book Updated!", {variant:'success'});
-              navigate("/me")
-            }
+            navigate("/me");
           }}
         >
-          Update Book
+          Cancel
         </button>
-      ) : (
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            // console.log(bookToSend.current)
-            const book = await createNewBook(bookToSend.current);
-            if (book.error) {
-              enqueueSnackbar(book.error, {variant:'error'});
-            } else {
-              setTitle("");
-              setPrice("");
-              setDescription("");
-              setImage("");
-              setStock("");
-              setFiction(false);
-              enqueueSnackbar("Book Created!", {variant:'success'});
-              navigate("/me");
-            }
-          }}
-        >
-          Create New Book!
-        </button>
-      )}
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/me");
-        }}
-      >
-        Cancel
-      </button></div>
+      </div>
     </div>
   );
 };

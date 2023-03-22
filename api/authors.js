@@ -13,21 +13,21 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", requireUser, async (req, res, next)=>{
-  if(req.user.isAdmin){
-    try{
-    // console.log(req.body)
-    const author = await createAuthor(req.body)
-    res.send(author)
-  }catch(error){
-    next(error)
+router.post("/", requireUser, async (req, res, next) => {
+  if (req.user.isAdmin) {
+    try {
+      // console.log(req.body)
+      const author = await createAuthor(req.body);
+      res.send(author);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    res.status(403).send({
+      error: "403 Forbidden",
+      message: `${req.user.email} is not an Admin!`,
+      name: "Admin Error",
+    });
   }
-}else{
-  res.status(403).send({
-    error: "403 Forbidden",
-    message: `${req.user.email} is not an Admin!`,
-    name: "Admin Error"
-  })
-}
-})
+});
 module.exports = router;

@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { registerNewUser } from "../api/api";
 import { useSnackbar } from "notistack";
 
-
-const Register = ({setLoggedIn}) => {
+const Register = ({ setLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -13,7 +12,7 @@ const Register = ({setLoggedIn}) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
-  const {enqueueSnackbar} = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -28,16 +27,16 @@ const Register = ({setLoggedIn}) => {
       );
       // console.log(register);
       if (register.error) {
-        enqueueSnackbar(register.message, {variant:'error'});
+        enqueueSnackbar(register.message, { variant: "error" });
       } else {
-        enqueueSnackbar(register.message, {variant:'success'});
+        enqueueSnackbar(register.message, { variant: "success" });
         setEmail("");
         setPassword("");
         setFirstName("");
         setLastName("");
         setShippingAddress("");
         setPhoneNumber("");
-        setLoggedIn(localStorage.getItem("token"))
+        setLoggedIn(localStorage.getItem("token"));
         navigate("/me");
       }
     } catch (error) {
@@ -46,12 +45,19 @@ const Register = ({setLoggedIn}) => {
   };
   return (
     <>
-      <form id="registerForm" onSubmit={handleRegister}>
+      <form
+        id="registerForm"
+        onSubmit={handleRegister}
+        onKeyDown={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
+      >
         <div className="signUp">
           <h1 id="signUpHeader">Sign up!</h1>
           <div></div>
           <label className="inputsRegister">
-            <input id="email"
+            <input
+              id="email"
               type="email"
               placeholder="email"
               autoFocus
@@ -62,7 +68,8 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input id="password"
+            <input
+              id="password"
               type="password"
               placeholder="********"
               required
@@ -72,7 +79,8 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input id="firstName"
+            <input
+              id="firstName"
               type="text"
               placeholder="First Name"
               required
@@ -82,7 +90,8 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input id="lastName"
+            <input
+              id="lastName"
               type="text"
               placeholder="Last Name"
               required
@@ -92,7 +101,8 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input id="address"
+            <input
+              id="address"
               type="text"
               placeholder="Address"
               required
@@ -102,7 +112,8 @@ const Register = ({setLoggedIn}) => {
           </label>
 
           <label>
-            <input id="phoneNumber"
+            <input
+              id="phoneNumber"
               type="tel"
               placeholder="Phone Number"
               required

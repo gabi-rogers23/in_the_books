@@ -9,7 +9,7 @@ const BookTagForm = (props) => {
   const [click, setClick] = useState(false);
   const [newTag, setNewTag] = useState("");
 
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
   tags.forEach((tag) => {
@@ -26,49 +26,59 @@ const BookTagForm = (props) => {
   // console.log(props.book);
   return (
     <div>
-      <h3>Tags!</h3>
+      <h3>Add/Remove Tags:</h3>
       <form>
         {tags.map((tag) => {
           return <TagSelector tag={tag} key={tag.id} />;
         })}
       </form>
       {click ? (
-
-<div>
-<form>
-  <input
-    required
-    value={newTag}
-    onChange={(e) => {
-      e.preventDefault();
-      setNewTag(e.target.value);
-    }}
-  ></input>
-  <button
-    onClick={async (e) => {
-      e.preventDefault();
-      const tagReturned = await createNewTag({ tag: newTag });
-      // console.log("Tag Created", tagReturned)
-      enqueueSnackbar("Tag Created!", {variant:'success'});
-      setTags([...tags, tagReturned]);
-      setNewTag("");
-      setClick(false);
-    }}
-  >
-    Add Tag!
-  </button>
-</form>
-</div>
-
+        <div>
+          <form>
+            <input
+              required
+              value={newTag}
+              onChange={(e) => {
+                e.preventDefault();
+                setNewTag(e.target.value);
+              }}
+            ></input>
+            <button
+              onClick={async (e) => {
+                e.preventDefault();
+                const tagReturned = await createNewTag({ tag: newTag });
+                console.log("Tag Created", tagReturned)
+                if(tagReturned.error){
+                  enqueueSnackbar(tagReturned.error, {variant: "error"})
+                }else{
+                enqueueSnackbar("Tag Created!", { variant: "success" });
+                setTags([...tags, tagReturned]);
+                setNewTag("");
+                setClick(false);}
+              }}
+            >
+              Add Tag!
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setClick(false);
+              }}>
+              Cancel
+            </button>
+          </form>
+        </div>
       ) : (
-       <div className="authorFormButtons"> <button
-          onClick={(e) => {
-            e.preventDefault();
-            setClick(true);
-          }}
-        >
-          New Tag
-        </button> </div>
+        <div className="authorFormButtons">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setClick(true);
+            }}
+          >
+            Create New Tag
+          </button>
+        </div>
       )}
     </div>
   );
