@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllBooks, deleteBook } from "../api/api";
+import { formatter } from "../index";
 
 const Search = () => {
   const [allBooks, setAllBooks] = useState([]);
@@ -87,7 +88,7 @@ const Search = () => {
                     By: {book.authorFirstName} {book.authorLastName}
                   </div>
                 </div>
-                <div className="booksPrice">${book.price}</div>
+                <div className="booksPrice">${formatter.format(book.price)}</div>
                 <div className="searchButtons">
                   <button
                     onClick={async (e) => {
