@@ -48,7 +48,7 @@ const App = () => {
           path="/register"
           element={<Register setLoggedIn={setLoggedIn} />}
         />
-        <Route path="/me" element={<Profile />} />
+        <Route path="/me" element={<Profile setIsLoading={setIsLoading}/>} />
         <Route path="/bookForm/:bookId" element={<BookForm />} />
         <Route path="/me/viewUsers" element={<ViewUsers />} />
         <Route path="/me/viewUsers/:userId" element={<ViewUserCart />} />

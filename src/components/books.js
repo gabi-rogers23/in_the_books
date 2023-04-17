@@ -17,7 +17,8 @@ const Books = (props) => {
         setBooksToDisplay(allBooksResults)
       } catch (error) {
         error.log(error, " Problem with All Books Promises");
-      }finally{
+      }
+      finally{
         props.setIsLoading(false);
       }
     });

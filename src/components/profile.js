@@ -4,17 +4,20 @@ import { fetchUserProfile } from "../api/api";
 import { Search } from "./exports";
 import "./app.css";
 
-const Profile = () => {
+const Profile = (props) => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserProfile().then((userResults) => {
+      props.setIsLoading(true)
       try {
         setUser(userResults);
         // console.log(user);
       } catch (error) {
-        console.log(error, " Problem with getting User");
+        error.log(error, " Problem with getting User");
+      }finally{
+        props.setIsLoading(false)
       }
     });
   }, []);
