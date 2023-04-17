@@ -4,18 +4,21 @@ import { getAllBooks } from "../api/api";
 import "./app.css";
 import { ListBooks } from "./exports";
 
-const Books = () => {
+const Books = (props) => {
   const [allBooks, setAllBooks] = useState([]);
   const [booksToDisplay, setBooksToDisplay] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    props.setIsLoading(true);
     Promise.all([getAllBooks()]).then(([allBooksResults]) => {
       try {
         setAllBooks(allBooksResults);
         setBooksToDisplay(allBooksResults)
       } catch (error) {
-        console.log(error, " Problem with All Books Promises");
+        error.log(error, " Problem with All Books Promises");
+      }finally{
+        props.setIsLoading(false);
       }
     });
   }, []);

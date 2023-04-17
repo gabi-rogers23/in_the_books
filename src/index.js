@@ -14,6 +14,7 @@ import {
   BookForm,
   ViewUsers,
   ViewUserCart,
+  Loading
 } from "./components/exports";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
@@ -25,12 +26,14 @@ export const formatter = new Intl.NumberFormat("en-US", {
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
+  const [isLoading, setIsLoading] = useState(false)
   return (
     <>
       <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      {isLoading ? <Loading/> : null}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Books />} />
+        <Route path="/" element={<Home setIsLoading={setIsLoading}/>} />
+        <Route path="/books" element={<Books setIsLoading={setIsLoading}/>} />
         <Route path="/books/:bookId" element={<BookDetails />} />
         <Route path="/booktag/:tagName" element={<BookTagSearch />} />
         <Route

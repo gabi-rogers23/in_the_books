@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import backgroundImage from "./assets/background-image.jpg";
 import { getAllBooks } from "../api/api";
 
-const Home = () => {
+const Home = (props) => {
   const navigate = useNavigate();
 
   const handleShopClick = () => {
@@ -13,9 +13,15 @@ const Home = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
+    props.setIsLoading(true)
+   try {
     getAllBooks().then((data) => {
       setBooks(data.slice(0, 4));
-    });
+    });} catch (error){
+      error.log(error)
+    }finally{
+      props.setIsLoading(false);
+    }
   }, []);
 
   const backgroundStyle = {
@@ -64,11 +70,8 @@ const Home = () => {
     cursor: "pointer",
     marginTop: "10px",
     boxShadow: "1px 1px 2px rgba(0,0,0,0.3)",
-<<<<<<< HEAD
     textAlign: "center",
-=======
     width: "50%",
->>>>>>> 29cb861fabc365df948871ae03a781ccfb3475c0
   };
   
   const bookStyle = {
