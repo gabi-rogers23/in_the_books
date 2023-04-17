@@ -17,3 +17,4 @@ export { default as Search } from "./search";
 export { default as TagSelector } from "./tagSelector";
 export { default as ViewUsers } from "./viewUsers";
 export { default as ViewUserCart } from "./viewUserCart";
+export { default as Loading } from "./loading";
