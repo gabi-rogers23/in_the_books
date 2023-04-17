@@ -38,10 +38,7 @@ const App = () => {
         <Route path="/booktag/:tagName" element={<BookTagSearch />} />
         <Route
           path="/cart"
-          element={<Cart />}
-          onLeave={() => {
-            console.log("hi");
-          }}
+          element={<Cart setLoggedIn={setLoggedIn}/>}
         />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
         <Route

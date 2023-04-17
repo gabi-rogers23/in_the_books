@@ -5,7 +5,7 @@ import { CartItem } from "./exports";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
 
-const Cart = () => {
+const Cart = (props) => {
   const [cart, setCart] = useState({ items: [] });
   const [isEmpty, setIsEmpty] = useState(false);
   // console.log(cart)
@@ -14,11 +14,14 @@ const Cart = () => {
 
   const getUserCart = () => {
     fetchUserCart().then((cartResults) => {
+      props.setIsLoading(true)
       try {
         setCart(cartResults);
         setIsEmpty(cartResults.items.length === 0); // set isEmpty state
       } catch (error) {
         console.log(error, "Problem with Cart Promises");
+      } finally {
+        props.setIsLoading(false)
       }
     });
   };
