@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/booktag/:tagName" element={<BookTagSearch />} />
         <Route
           path="/cart"
-          element={<Cart setLoggedIn={setLoggedIn}/>}
+          element={<Cart setLoggedIn={setLoggedIn} setIsLoading={setIsLoading}/>}
         />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
         <Route
