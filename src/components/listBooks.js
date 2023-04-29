@@ -34,19 +34,16 @@ const ListBooks = ({ allBooks }) => {
                 <img src={book.bookImage} />
               </div>
               <div className="booksWords">
-                <div>
                   <div
                     className="booksTitle"
                     onClick={(e) => {
                       buttonHandler(e, `/books/${book.id}`);
                     }}
-                  >
-                    <b>{book.title}</b>
+                  >{book.title}
                   </div>
                   <div className="booksAuthor">
                     By: {book.authorFirstName} {book.authorLastName}
                   </div>
-                </div>
                 <div className="booksPrice">
                   ${formatter.format(book.price)}
                 </div>
@@ -65,8 +62,8 @@ const ListBooks = ({ allBooks }) => {
                       }
                     }}
                   >
-                    <span className="material-symbols-outlined">add</span>Add to
-                    Cart
+                    <div className="add"><span className="material-symbols-outlined">add</span><div>Add to
+                    Cart</div></div>
                   </button>
                 </div>
               </div>
