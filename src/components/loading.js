@@ -1,6 +1,5 @@
 import React from 'react';
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
-import {GiBookshelf} from "react-icons/gi"
 
 const Loading = () => {
   return (

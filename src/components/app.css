@@ -473,34 +473,7 @@ input[type="password"]::placeholder {
   margin-left: 50px;
 }
 
-@media only screen and (max-width: 768px) {
-  .bookDetails {
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .bookImage {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .bookInfo {
-    width: 100%;
-  }
-
-  .authorInfo {
-    margin-top: 30px;
-  }
-
-  .authorImage {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .authorBio {
-    width: 100%;
-  }
-}
 
 .profile {
   max-width: 800px;
@@ -761,7 +734,7 @@ input[type="password"]::placeholder {
   text-decoration: underline;
 }
 
-#registerForm {
+.registerForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -773,7 +746,43 @@ input[type="password"]::placeholder {
   background-color: #141414;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
+@media only screen and (max-width: 768px) {
+  .bookDetails {
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .bookImage {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .bookInfo {
+    width: 100%;
+  }
+
+  .authorInfo {
+    margin-top: 30px;
+  }
+
+  .authorImage {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .authorBio {
+    width: 100%;
+  }
+
+  .form{
+    width: 70%;
+  }
+
+  .registerForm{
+    width: 70%;
+  }
+
+}
 #signUpHeader {
   font-size: 48px;
   font-weight: bold;
@@ -790,7 +799,7 @@ input[type="tel"] {
   display: block;
   height: 40px;
   width: 100%;
-  max-width: 400px;
+  /* max-width: 400px; */
   padding: 10px;
   border: none;
   border-radius: 10px;
