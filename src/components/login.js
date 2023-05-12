@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchLogIn } from "../api/api";
-import "./app.css";
 import { useSnackbar } from "notistack";
 
 const Login = ({ setLoggedIn }) => {

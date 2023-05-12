@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getBookById, addToCart } from "../api/api";
 import { formatter } from "../index";
 import { useSnackbar } from "notistack";
-import "./app.css";
+
 
 const BookDetails = () => {
   const [book, setBook] = useState({ tags: [] });

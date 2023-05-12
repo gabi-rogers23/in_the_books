@@ -1,13 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap");
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 40;
 }
 
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .container {
@@ -169,6 +172,946 @@
 .allBookSearch input {
   width: 50%;
   text-align: center;
+}
+
+button {
+  display: block;
+  background-color: #6c6d6d;
+  color: white;
+  margin: 10px 0 0 0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+a {
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #09bef0;
+}
+
+.navbar {
+  background: #19191a;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.container {
+  z-index: 1;
+  width: 100%;
+  max-width: 1300px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.container h1 {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.navbar-logo {
+  color: #fff;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-icon {
+  margin-right: 0.5rem;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  text-align: center;
+  justify-content: flex-end;
+}
+
+.nav-item {
+  height: 80px;
+  border-bottom: 2px solid transparent;
+  margin-right: auto;
+}
+
+.nav-item:hover {
+  border-bottom: 2px solid #09bef0;
+}
+
+.nav-links {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 100%;
+}
+
+.activated {
+  color: #09bef0;
+}
+
+.fa-bars {
+  color: #fff;
+}
+
+.menu-icon {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .NavbarItems {
+    position: relative;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu.active {
+    background: #19191a;
+    left: 0;
+    opacity: 1;
+    transition: all 0.6s ease;
+    z-index: 1;
+  }
+
+  .nav-links {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .nav-links:hover {
+    color: #09bef0;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+  }
+
+  .nav-item:hover {
+    border: none;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  #lastChildItem {
+    margin-right: auto;
+  }
+
+  .navbar-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  padding: 40px;
+  border-radius: 15px;
+  background-color: #000000;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
+  margin: 10% auto;
+}
+
+.loginHeader {
+  font-size: 36px;
+  color: #ffffff;
+  margin: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.label1,
+.label2 {
+  margin-bottom: 10px;
+}
+
+.input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+  color: #999;
+}
+
+.button {
+  display: block;
+  width: 50%;
+  background-color: #6c6d6d;
+  color: white;
+  margin: 20px 0 0 0;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #09bef0;
+}
+
+.bookDetails {
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#bookImage {
+  margin-top: 50px;
+  margin-bottom: 40px;
+  border: 25px black double;
+  padding: 20px;
+  background-color: #fff;
+}
+
+#bookDes {
+  width: 700px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 5px black solid;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+#bookAuthorImage {
+  margin-left: -800px;
+  border: 15px black double;
+  padding: 15px;
+  background-color: #fff;
+}
+
+#authorAbout {
+  width: 500px;
+  margin-top: -155px;
+  padding-bottom: 50px;
+  border: 5px black solid;
+  padding: 15px;
+  margin-bottom: 25px;
+  background-color: #fff;
+}
+
+.bookTags {
+  padding-top: 40px;
+  padding-bottom: 45px;
+  justify-items: center;
+}
+
+#backButton {
+  padding: 8px;
+  margin-left: 200px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+#addCartButton {
+  padding: 8px;
+  margin-top: -48px;
+  margin-bottom: 50px;
+  margin-left: -200px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+#addCartButton:hover {
+  background-color: #666666;
+}
+
+#backButton:hover {
+  background-color: #666666;
+}
+
+.footer {
+  background-color: #1d1d1d;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+}
+
+.footer__content {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.bookDetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 50px;
+  text-transform: capitalize;
+}
+
+.bookImage {
+  width: 300px;
+  margin-right: 50px;
+}
+
+.bookInfo {
+  width: calc(100% - 350px);
+}
+
+.bookTitle {
+  font-size: 28px;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.bookAuthor {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.bookAuthor span:first-child {
+  margin-right: 5px;
+}
+
+.bookPrice {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.bookDescription {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+.bookTags {
+  margin-top: 20px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.bookActions {
+  margin-top: 30px;
+}
+
+.backButton {
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.backButton:hover {
+  background-color: #09bef0;
+  transform: translateY(-2px);
+}
+
+.addCartButton {
+  background-color: #242321;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.addCartButton:hover {
+  background-color: #a7a7a1;
+  transform: translateY(-2px);
+}
+
+.authorInfo {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.authorImage {
+  width: 150px;
+  margin-right: 50px;
+  padding: 50px;
+  margin-left: 100px;
+}
+
+.authorBio {
+  width: calc(100% - 200px);
+  padding: 15px;
+  margin-left: 100px;
+}
+
+.authorBio h2 {
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 50px;
+}
+
+.authorBio p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  margin-left: 50px;
+}
+
+
+
+.profile {
+  max-width: 800px;
+  padding: 50px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-top: 75px;
+  margin-bottom: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.profileGreeting {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.profileDetails {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-gap: 20px;
+  margin-bottom: 20px;
+}
+
+.profileDetail-item {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.profileDetail-label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.adminAccess {
+  margin-top: 30px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.adminButtons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.adminButtons button {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12.2px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #6d6d6d;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 10px;
+}
+
+.adminButtons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #09bef0;
+}
+
+.adminButtons button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.adminButtons button:first-child {
+  margin-right: 10px;
+}
+
+.searchContainer {
+  display: absolute;
+  text-align: center;
+  overflow: auto;
+  width: 100%;
+}
+
+.searchContainer input {
+  width: 75%;
+  text-align: center;
+}
+
+.searchContainer img {
+  width: 350px;
+  margin: 0 15px 15px 0;
+}
+
+.searchMap {
+  height: 500px;
+  margin-top: 50px;
+  overflow: auto;
+}
+
+.searchBook {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  text-transform: capitalize;
+  border-bottom: 1px solid lightgray;
+  width: 100%;
+}
+
+.searchButtons {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.searchButtons button {
+  background-color: #242321;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.searchButtons button:hover {
+  background-color: #09bef0;
+  transform: translateY(-2px);
+}
+
+.searchBooks {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.searchBooksLabel {
+  font-weight: bold;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.viewUsersButton {
+  background-color: #7c454b;
+}
+
+.viewUsersButton:hover {
+  background-color: #e72e40;
+}
+
+.booksMapCart {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.cartItemContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cartItemContainer img {
+  width: 300px;
+}
+
+.booksMapCart:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+.booksMapCart img {
+  align-self: center;
+  max-width: 100%;
+}
+
+.booksMapCart h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.booksMapCart p {
+  font-size: 1rem;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.booksMapCart button {
+  background-color: #636363;
+  border: none;
+  border-radius: 3px;
+  color: #111;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px;
+  margin-left: 20px;
+  transition: all 0.3s ease-in-out;
+  width: 10%;
+}
+
+.booksMapCart button:hover {
+  background-color: #09bef0;
+}
+
+.cartTotal {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.cartTotal h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cartTotal span {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.cartEmpty {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: #19191a;
+  margin-top: 20px;
+  padding: 100px;
+  margin-bottom: 800px;
+  text-align: center;
+}
+
+.cartEmpty a {
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cartEmpty a:hover {
+  text-decoration: underline;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  margin: 10% auto;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: #141414;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+@media only screen and (max-width: 768px) {
+  .bookDetails {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bookImage {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .bookInfo {
+    width: 100%;
+  }
+
+  .authorInfo {
+    margin-top: 30px;
+  }
+
+  .authorImage {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .authorBio {
+    width: 100%;
+  }
+
+  .form{
+    width: 70%;
+  }
+
+  .registerForm{
+    width: 70%;
+  }
+
+}
+#signUpHeader {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #faf8f8;
+  text-align: center;
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"] {
+  display: block;
+  height: 40px;
+  width: 100%;
+  /* max-width: 400px; */
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #fcfbfb;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#registerButton {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #6c6d6d;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 40px;
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+#registerButton:hover {
+  background-color: #09bef0;
+}
+
+.viewUserCart {
+  margin-top: 15px;
+  margin-bottom: 75px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.usersCartMap {
+  margin: 15px;
+  padding: 10px;
+  text-transform: capitalize;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  border: 1px dashed lightgray;
+  text-align: center;
+}
+
+.bookForm div {
+  padding: 5px;
+  margin: 5px;
+}
+
+.bookForm input {
+  width: 500px;
+  margin-left: 15px;
+  height: fit-content;
+}
+
+.bookDetails,
+.cartContainer {
+  margin-bottom: 75px;
+}
+
+.bookFormContainer {
+  margin-top: 15px;
+  margin-bottom: 75px;
+  margin-left: 25px;
+}
+
+.tagSelectorMap {
+  margin-left: 15px;
+  padding: 8px;
+}
+
+.viewUsersContainer {
+  margin-bottom: 75px;
+  padding: 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewUsersContainer h3 {
+  text-align: center;
+  font-size: 2rem;
+  width: 500px;
+  border-bottom: 2px double lightgray;
+}
+
+.viewUsersContainer input {
+  width: 500px;
+}
+
+.usersMap {
+  margin: 15px;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.userButton {
+  align-self: flex-end;
+}
+
+.cartItemValue {
+  width: 50px;
+}
+
+.bookFormButtons {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.authorDropDown {
+  border: none;
+}
+
+.authorFormButtons {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+.authorFormButtons button {
+  margin-left: 10px;
+}
+
+.cartContainer {
+  margin-bottom: 75px;
 }
 
 @-webkit-keyframes spin {
