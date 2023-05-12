@@ -5,7 +5,6 @@ import { getBookById, addToCart } from "../api/api";
 import { formatter } from "../index";
 import { useSnackbar } from "notistack";
 
-
 const BookDetails = () => {
   const [book, setBook] = useState({ tags: [] });
   const { bookId } = useParams();
@@ -37,13 +36,41 @@ const BookDetails = () => {
       <div className="bookInfo">
         <h1 className="bookTitle">{book.title}</h1>
         <div className="bookAuthor">
-          <span>By</span>
+          <span>By:</span>
           <span>
             {book.authorFirstName} {book.authorLastName}
           </span>
         </div>
+
         <div className="bookPrice">${formatter.format(book.price)}</div>
         <div className="bookDescription">{book.description}</div>
+          <div className="booksButtons">
+            <button
+              onClick={async (e) => {
+                e.preventDefault();
+                book.quantity = 1;
+                // console.log(book)
+                const add = await addToCart(book);
+
+                if (add.error) {
+                  enqueueSnackbar(add.message, { variant: "warning" });
+                } else {
+                  enqueueSnackbar(add.message, { variant: "success" });
+                }
+              }}
+            >
+              <div className="add">
+                <span className="material-symbols-outlined">add</span>
+                <div>Add to Cart</div>
+              </div>
+            </button>
+            <button
+              className="backButton"
+              onClick={(e) => buttonHandler(e, "/books")}
+            >
+              Back
+            </button>
+          </div>
         <div className="bookTags">
           {book.tags.map((tag) => (
             <span
@@ -54,32 +81,6 @@ const BookDetails = () => {
               {tag.tag}
             </span>
           ))}
-        </div>
-        <div className="bookActions">
-          <button
-            className="backButton"
-            onClick={(e) => buttonHandler(e, "/books")}
-          >
-            Back
-          </button>
-          <button
-          className="addCartButton"
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      book.quantity = 1;
-                      // console.log(book)
-                      const add = await addToCart(book);
-
-                      if (add.error) {
-                        enqueueSnackbar(add.message, { variant: "warning" });
-                      } else {
-                        enqueueSnackbar(add.message, { variant: "success" });
-                      }
-                    }}
-                  >
-                    <span className="material-symbols-outlined">add</span>Add to
-                    Cart
-                  </button>
         </div>
       </div>
       <div className="authorInfo">
