@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import backgroundImage from "./assets/background-image.jpg";
-import { getAllBooks } from "../api/api";
 
-const Home = (props) => {
+const Home = () => {
   const navigate = useNavigate();
 
   const handleShopClick = () => {
@@ -11,18 +10,6 @@ const Home = (props) => {
   };
 
   const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    props.setIsLoading(true)
-   try {
-    getAllBooks().then((data) => {
-      setBooks(data.slice(0, 4));
-    });} catch (error){
-      error.log(error)
-    }finally{
-      props.setIsLoading(false);
-    }
-  }, []);
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -125,16 +112,6 @@ const Home = (props) => {
         </button>
       </div>
       <div>
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "2rem",
-            color: "#ffffff",
-            textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
-          }}
-        >
-          Featured Books
-        </h2>
         <div
           style={{
             display: "flex",

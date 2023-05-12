@@ -77,7 +77,7 @@ const Search = () => {
               >
                 <img src={book.bookImage} />
               </div>
-              <div>
+              <div className="bookContent">
                 <div>
                   <div
                     onClick={(e) => {

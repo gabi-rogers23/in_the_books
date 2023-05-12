@@ -562,10 +562,17 @@ input[type="password"]::placeholder {
   display: absolute;
   text-align: center;
   overflow: auto;
+  width: 100%;
+}
+
+.searchContainer input {
+  width: 75%;
+  text-align: center;
 }
 
 .searchContainer img {
   width: 350px;
+  margin: 0 15px 15px 0;
 }
 
 .searchMap {
@@ -576,12 +583,12 @@ input[type="password"]::placeholder {
 
 .searchBook {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   text-transform: capitalize;
   border-bottom: 1px solid lightgray;
-  margin-right: 10px;
+  width: 100%;
 }
 
 .searchButtons {
@@ -616,12 +623,14 @@ input[type="password"]::placeholder {
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  width: 400px;
+  width: 100%;
 }
+
 
 .searchBooksLabel {
   font-weight: bold;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .viewUsersButton {
@@ -935,17 +944,8 @@ input[type="tel"] {
 .authorFormButtons button {
   margin-left: 10px;
 }
+
 .cartContainer {
   margin-bottom: 75px;
 }
 
-.allBookSearch {
-  display: absolute;
-  text-align: center;
-  margin-top: 40px;
-}
-
-.allBookSearch input {
-  width: 50%;
-  text-align: center;
-}

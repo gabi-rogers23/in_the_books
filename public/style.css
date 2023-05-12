@@ -10,10 +10,6 @@
   box-sizing: border-box;
 }
 
-input {
-  width: 300px;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -99,6 +95,11 @@ input {
   margin: 10px 0 0 0;
 }
 
+.shopButton:hover {
+  background-color: #09bef0;
+  transform: translateY(-2px);
+}
+
 .booksButtons button {
   background-color: #242321;
   border: none;
@@ -157,6 +158,17 @@ input {
   animation: spin 2s linear infinite;
   color: #09bef0;
   border: none;
+}
+
+.allBookSearch {
+  display: absolute;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.allBookSearch input {
+  width: 50%;
+  text-align: center;
 }
 
 @-webkit-keyframes spin {
