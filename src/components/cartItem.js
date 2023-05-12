@@ -12,7 +12,12 @@ const CartItem = (props) => {
   return (
     <form className="cartItemContainer">
       <img className="booksImage" src={props.item.bookImage} />
+      <div className="cartItemDetails">
       <div className="booksTitle">{props.item.title}</div>
+      <div>${formatter.format(props.item.price)}</div>
+      <div>
+        By: {props.item.authorFirstName} {props.item.authorLastName}
+      </div>
       <input
         className="cartItemValue"
         value={quantity}
@@ -30,12 +35,9 @@ const CartItem = (props) => {
           await updateCart(props.item);
           props.setUpdate(true);
         }}
-      />
+        />
 
-      <div>${formatter.format(props.item.price)}</div>
-      <div>
-        By: {props.item.authorFirstName} {props.item.authorLastName}
-      </div>
+      <div className="booksButtons">
       <button
         onClick={async (e) => {
           e.preventDefault();
@@ -43,10 +45,11 @@ const CartItem = (props) => {
           props.setUpdate();
           console.log(del);
         }}
-      >
+        >
         Delete
       </button>
-      <br />
+      </div>
+        </div>
     </form>
   );
 };
