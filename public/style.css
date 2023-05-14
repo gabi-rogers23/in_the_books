@@ -417,7 +417,7 @@ input[type="password"]::placeholder {
 }
 
 .bookTags {
-  padding: 20px;
+  padding: 10px;
   justify-items: center;
 }
 
@@ -477,7 +477,7 @@ input[type="password"]::placeholder {
   justify-content: space-evenly;
   margin-top: 50px;
   border-bottom: 1px solid lightgray;
-  width: 100%;
+  width: 90%;
 }
 
 .bookImage img{
@@ -486,6 +486,7 @@ input[type="password"]::placeholder {
 
 .bookInfo {
   width: 30%;
+  height: auto;
 }
 
 .bookTitle {
@@ -520,8 +521,8 @@ input[type="password"]::placeholder {
 
 .tag {
   display: inline-block;
-  padding: 5px 10px;
-  margin-right: 10px;
+  margin: 5px;
+  padding: 5px 10px 5px 10px;
   background-color: #eee;
   border-radius: 5px;
   font-size: 14px;
@@ -564,7 +565,8 @@ input[type="password"]::placeholder {
 
 .authorInfo {
   width: 90%;
-  margin-top: 50px;
+  height: auto;
+  margin: 50px 0 50px 0;
   padding: 50px 0 25px 0;
   border-top: 1px solid lightgray;
   display: flex;
@@ -884,6 +886,10 @@ input[type="password"]::placeholder {
 
   .registerForm{
     width: 70%;
+  }
+
+  .bookDetails {
+    margin-top: 0;
   }
 
 }
