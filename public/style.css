@@ -68,7 +68,7 @@
   font-size: 20px;
   font-weight: 800;
   text-align: center;
-  height: 55px;
+  height: auto;
   width: 95%;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -416,13 +416,6 @@ input[type="password"]::placeholder {
   background-color: #09bef0;
 }
 
-.bookDetails {
-  font-size: 25px;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-}
-
 #bookImage {
   margin-top: 50px;
   margin-bottom: 40px;
@@ -432,7 +425,7 @@ input[type="password"]::placeholder {
 }
 
 #bookDes {
-  width: 700px;
+  width: 50%;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -440,23 +433,6 @@ input[type="password"]::placeholder {
   margin-bottom: 50px;
   margin-top: 20px;
   padding: 10px;
-  background-color: #fff;
-}
-
-#bookAuthorImage {
-  margin-left: -800px;
-  border: 15px black double;
-  padding: 15px;
-  background-color: #fff;
-}
-
-#authorAbout {
-  width: 500px;
-  margin-top: -155px;
-  padding-bottom: 50px;
-  border: 5px black solid;
-  padding: 15px;
-  margin-bottom: 25px;
   background-color: #fff;
 }
 
@@ -522,10 +498,11 @@ input[type="password"]::placeholder {
   justify-content: space-evenly;
   margin-top: 50px;
   border-bottom: 1px solid lightgray;
+  width: 100%;
 }
 
-.bookImage {
-  width: 200px;
+.bookImage img{
+  width: 400px;
 }
 
 .bookInfo {
@@ -820,7 +797,7 @@ input[type="password"]::placeholder {
 
 .cartItemContainer {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }
@@ -829,7 +806,7 @@ input[type="password"]::placeholder {
   width: 20%;
   height: 200px;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: space-evenly;
 }
@@ -899,10 +876,6 @@ input[type="password"]::placeholder {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 @media only screen and (max-width: 768px) {
-  .bookDetails {
-    flex-direction: column;
-    align-items: center;
-  }
 
   .bookImage {
     margin-right: 0;
@@ -1014,11 +987,6 @@ input[type="tel"] {
   width: 500px;
   margin-left: 15px;
   height: fit-content;
-}
-
-.bookDetails,
-.cartContainer {
-  margin-bottom: 75px;
 }
 
 .bookFormContainer {
