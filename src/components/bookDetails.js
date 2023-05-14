@@ -91,7 +91,7 @@ const BookDetails = () => {
           />
         </div>
         <div className="authorBio">
-          <h2>About the author:</h2>
+          <h2>About the Author:</h2>
           <p>{book.authorBio}</p>
         </div>
       </div>

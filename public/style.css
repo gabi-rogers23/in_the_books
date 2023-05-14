@@ -610,37 +610,37 @@ input[type="password"]::placeholder {
 .authorInfo {
   width: 100%;
   margin-top: 50px;
+  padding: 50px 0 25px 0;
   border-top: 1px solid lightgray;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .authorImage {
   width: 150px;
-  margin-right: 50px;
-  padding: 50px;
-  margin-left: 100px;
+}
+
+.authorImage img {
+  width: 150px;
+  height: auto;
 }
 
 .authorBio {
-  width: calc(100% - 200px);
-  padding: 15px;
-  margin-left: 100px;
+  width: 70%;
 }
 
 .authorBio h2 {
   font-size: 24px;
-  margin-top: 0;
-  margin-bottom: 10px;
-  margin-left: 50px;
+  margin-bottom: 5px;
 }
 
 .authorBio p {
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 25px;
-  margin-left: 50px;
 }
-
-
 
 .profile {
   max-width: 800px;
