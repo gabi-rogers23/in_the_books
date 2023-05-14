@@ -416,29 +416,8 @@ input[type="password"]::placeholder {
   background-color: #09bef0;
 }
 
-#bookImage {
-  margin-top: 50px;
-  margin-bottom: 40px;
-  border: 25px black double;
-  padding: 20px;
-  background-color: #fff;
-}
-
-#bookDes {
-  width: 50%;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: 5px black solid;
-  margin-bottom: 50px;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #fff;
-}
-
 .bookTags {
-  padding-top: 20px;
-  padding-bottom: 25px;
+  padding: 20px;
   justify-items: center;
 }
 
@@ -507,7 +486,6 @@ input[type="password"]::placeholder {
 
 .bookInfo {
   width: 30%;
-  /* border-bottom: 1px solid lightgray; */
 }
 
 .bookTitle {
@@ -585,7 +563,7 @@ input[type="password"]::placeholder {
 }
 
 .authorInfo {
-  width: 100%;
+  width: 90%;
   margin-top: 50px;
   padding: 50px 0 25px 0;
   border-top: 1px solid lightgray;
