@@ -27,7 +27,7 @@ usersRouter.post("/register", async (req, res, next) => {
     if (queriedUser) {
       res.status(401).send({
         error: "ERROR",
-        name: "Error",
+        name: "E-mail Error",
         message: `The E-mail ${email} already exists.`,
       });
     } else if (password.length < 8) {

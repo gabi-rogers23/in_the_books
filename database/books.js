@@ -5,7 +5,7 @@ async function createBook(
   { title, price, description, bookImage, stock, fiction }
 ) {
   try {
-    // console.log("author in createbook", author);
+    // console.log("AUTHOR IN CREATE BOOK", author);
 
     const {
       rows: [book],

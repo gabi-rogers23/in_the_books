@@ -83,12 +83,10 @@ async function updateAuthor({ id, ...fields }) {
     const {
       rows: [updatedAuthor],
     } = await client.query(
-      `
-    UPDATE author
+    `UPDATE author
     SET ${setString}
     WHERE id=${id}
-    RETURNING *;
-    `,
+    RETURNING *;`,
       Object.values(updateFields)
     );
 

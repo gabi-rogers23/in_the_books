@@ -11,7 +11,6 @@ const {
 const { requireUser } = require("./utils");
 
 //GET all tags
-
 router.get("/", async (req, res, next) => {
   try {
     const tagsList = await getAllTags();
@@ -38,13 +37,13 @@ router.patch("/:bookId", requireUser, async (req, res, next) => {
     try {
       // console.log("DELETING");
       await deleteAllBookTags(req.params.bookId);
-      // console.log("DELETED");
-      // console.log("CREATING", req.body.tags);
+      // console.log("DELETED TAGS");
+      // console.log("CREATING NEW TAGS", req.body.tags);
       const tagNames = req.body.tags.map((tag) => tag.name);
       await createBookTag(req.params.bookId, tagNames);
-      // console.log("CREATED", req.body);
+      // console.log("CREATED TAGS", req.body);
       const book = await getBookById(req.params.bookId);
-      // console.log("BOOK", book)
+      // console.log("BOOK WITH TAGS", book)
       res.send(book);
     } catch (error) {
       next(error);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import backgroundImage from "./assets/background-image.jpg";
 
@@ -8,8 +8,6 @@ const Home = () => {
   const handleShopClick = () => {
     navigate("/books");
   };
-
-  const [books, setBooks] = useState([]);
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -112,36 +110,6 @@ const Home = () => {
         </button>
       </div>
       <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap",
-            padding: "0 40px",
-            height: "600px",
-            overflow: "auto",
-          }}
-        >
-          {books.map((book) => (
-            <div
-              style={bookStyle}
-              key={book.id}
-              onClick={(e) => {
-                e.preventDefault() 
-                navigate(`/books/${book.id}`);
-              }}
-            >
-              <img src={book.bookImage} style={imageStyle} />
-              <div>
-                <h3 style={titleStyle}>{book.title}</h3>
-                <p style={authorStyle}>
-                  By {book.authorFirstName} {book.authorLastName}
-                </p>
-                <p style={priceStyle}>${book.price}</p>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

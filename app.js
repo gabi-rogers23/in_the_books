@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-// Setup Middleware and API Router here
+//Middleware 
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
@@ -14,6 +14,7 @@ app.use(cors());
 
 app.use(express.json());
 
+//API Router
 const apiRouter = require("./api");
 app.use("/api", apiRouter);
 

@@ -40,11 +40,10 @@ const AuthorForm = (props) => {
   return (
     <div>
       {!edit ? (
-        <div>
+        <div className="authorContainer">
+            <h3>Select Author:</h3>
           <fieldset className="authorDropDown">
-            <label>
-              <h3>Select Author:</h3>
-            </label>
+            
             <select
               value={authorId}
               defaultValue={props.book ? props.book.authorId : "--"}
@@ -87,9 +86,9 @@ const AuthorForm = (props) => {
             e.key === "Enter" && e.preventDefault();
           }}
         >
-          <h3>Add New Author</h3>
+          <h3>Add New Author:</h3>
           <div>
-            Author First Name
+            <h4>Author First Name</h4>
             <input
               required
               value={authorFirstName}
@@ -102,7 +101,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            Author Last Name
+            <h4>Author Last Name</h4>
             <input
               required
               value={authorLastName}
@@ -115,7 +114,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            Date Of Birth
+            <h4>Date Of Birth</h4>
             <input
               required
               value={dateOfBirth}
@@ -128,7 +127,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            Birth Place
+            <h4>Birth Place</h4>
             <input
               required
               value={birthPlace}
@@ -141,7 +140,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            Link to Portrait
+            <h4>Link to Portrait</h4>
             <input
               value={authorImage}
               onChange={(e) => {
@@ -153,7 +152,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            Bio
+            <h4>Author Bio</h4>
             <input
               value={authorBio}
               onChange={(e) => {

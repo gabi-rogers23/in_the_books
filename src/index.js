@@ -19,6 +19,7 @@ import {
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
+//Formats price to 0.00
 export const formatter = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,

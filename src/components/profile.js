@@ -26,7 +26,8 @@ const Profile = (props) => {
   }
 
   return (
-    <div className="profile">
+    <div className="container">
+      <div className="profile">
       <h2 className="profileGreeting">
         Hello {user.firstName} {user.lastName}!
       </h2>
@@ -40,6 +41,7 @@ const Profile = (props) => {
         </div>
         <div className="profileDetail-item">
           <span className="profileDetail-label">Phone:</span> {user.phoneNumber}
+        </div>
         </div>
         {user.isAdmin && (
           <>
@@ -68,12 +70,12 @@ const Profile = (props) => {
             </div>
           </>
         )}
-      </div>
       {user.isAdmin && (
         <div className="searchBooks">
           <Search />
         </div>
       )}
+      </div>
     </div>
   );
 };

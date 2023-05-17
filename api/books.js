@@ -10,7 +10,7 @@ const {
 } = require("../database");
 const { requireUser } = require("./utils");
 
-//GET /books
+//GET /books  | get all books
 router.get("/", async (req, res, next) => {
   try {
     const books = await getAllBooks();
@@ -20,7 +20,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//GET /books/:bookId
+//GET /books/:bookId | get Book by Id
 router.get("/:bookId", async (req, res, next) => {
   try {
     const book = await getBookById(req.params.bookId);
@@ -31,25 +31,24 @@ router.get("/:bookId", async (req, res, next) => {
   }
 });
 
-//GET /books/:tag
+//GET books by tag
 router.get("/bookTag/:tag", async (req, res, next) => {
   try {
     const bookTagList = await getBooksByTag(req.params.tag);
-    // console.log("HELLO FROM ROUTES", bookTagList)
+    // console.log("FROM ROUTES GET BOOKS BY TAG", bookTagList)
     res.send(bookTagList);
   } catch (error) {
     next(error);
   }
 });
 
-//POST new book
+//Create new book
 router.post("/", requireUser, async (req, res, next) => {
   if (req.user.isAdmin) {
     try {
       // console.log(req.body)
       const author = { id: req.body.authorId };
       const newBook = await createBook(author, req.body);
-      await createBook
       res.send(newBook);
     } catch (error) {
       next(error);
@@ -63,9 +62,10 @@ router.post("/", requireUser, async (req, res, next) => {
   }
 });
 
+//Edit Book by Id
 router.patch("/:bookId", requireUser, async (req, res, next) => {
   if (req.user.isAdmin) {
-    // console.log("Patch book ", req.body)
+    // console.log("PATCH BOOK BY ID: ", req.body)
     try {
       const updatedBook = await updateBook(req.body);
       res.send(updatedBook);
@@ -81,6 +81,8 @@ router.patch("/:bookId", requireUser, async (req, res, next) => {
   }
 });
 
+
+//Delete Book by Id
 router.delete("/:bookId", requireUser, async (req, res, next) => {
   // console.log(req.params.bookId)
   if (req.user.isAdmin) {

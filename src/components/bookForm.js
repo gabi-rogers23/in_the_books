@@ -41,7 +41,7 @@ const BookForm = () => {
 
   return (
     <div className="bookFormContainer">
-      <h3>Book Information:</h3>
+      <h2>Book Information</h2>
       <form
         className="bookForm"
         onKeyDown={(e) => {
@@ -49,7 +49,7 @@ const BookForm = () => {
         }}
       >
         <div>
-          Title
+          <h4>Title: </h4>
           <input
             required
             value={title}
@@ -62,7 +62,7 @@ const BookForm = () => {
           ></input>
         </div>
         <div>
-          Price $
+          <h4>Price $: </h4>
           <input
             required
             value={price}
@@ -75,8 +75,8 @@ const BookForm = () => {
           ></input>
         </div>
         <div>
-          Description
-          <input
+          <h4>Description: </h4>
+          <textarea
             className="descriptionInput"
             required
             value={description}
@@ -86,10 +86,10 @@ const BookForm = () => {
               setDescription(des);
               bookToSend.current.description = des;
             }}
-          ></input>
+          ></textarea>
         </div>
         <div>
-          Link to Image
+          <h4>Link to Image: </h4>
           <input
             value={image}
             onChange={(e) => {
@@ -101,7 +101,7 @@ const BookForm = () => {
           ></input>
         </div>
         <div>
-          Stock
+          <h4>Stock: </h4>
           <input
             required
             value={stock}
@@ -114,8 +114,9 @@ const BookForm = () => {
           ></input>
         </div>
         <div>
-          Fiction
+         <h4>Fiction: </h4>
           <input
+            className="checkbox"
             required
             type="checkbox"
             checked={fiction}

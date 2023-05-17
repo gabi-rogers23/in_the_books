@@ -9,6 +9,7 @@ router.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
 
+  //Checks for jwt token
   if (!auth) {
     next();
   } else if (auth.startsWith(prefix)) {
@@ -16,8 +17,7 @@ router.use(async (req, res, next) => {
 
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
-
-      if (id) {
+      if(id) {
         req.user = await getUserById(id);
         next();
       }
@@ -30,12 +30,12 @@ router.use(async (req, res, next) => {
   }
 });
 
-router.use((req, res, next) => {
-  if (req.user) {
-    // console.log("User is set:", req.user);
-  }
-  next();
-});
+// router.use((req, res, next) => {
+//   if (req.user) {
+//     console.log("User is set:", req.user);
+//   }
+//   next();
+// });
 
 const booksRouter = require("./books");
 router.use("/books", booksRouter);

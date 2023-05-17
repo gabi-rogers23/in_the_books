@@ -94,6 +94,7 @@ router.delete("/:cartItemId", requireUser, async (req, res, next) => {
   }
 });
 
+//Deletes all cart items by cartId
 router.delete("/checkout/:cartId", requireUser, async (req, res, next) => {
   console.log(req.params.cartId);
   try {
