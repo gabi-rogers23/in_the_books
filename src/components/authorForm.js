@@ -38,7 +38,7 @@ const AuthorForm = (props) => {
   }, [props.book]);
 
   return (
-    <div>
+    <>
       {!edit ? (
         <div className="authorContainer">
             <h3>Select Author:</h3>
@@ -86,9 +86,9 @@ const AuthorForm = (props) => {
             e.key === "Enter" && e.preventDefault();
           }}
         >
-          <h3>Add New Author:</h3>
+          <h3>Add New Author</h3>
           <div>
-            <h4>Author First Name</h4>
+            <h4>Author First Name: </h4>
             <input
               required
               value={authorFirstName}
@@ -101,7 +101,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            <h4>Author Last Name</h4>
+            <h4>Author Last Name: </h4>
             <input
               required
               value={authorLastName}
@@ -114,7 +114,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            <h4>Date Of Birth</h4>
+            <h4>Date Of Birth: </h4>
             <input
               required
               value={dateOfBirth}
@@ -127,7 +127,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            <h4>Birth Place</h4>
+            <h4>Birth Place: </h4>
             <input
               required
               value={birthPlace}
@@ -140,7 +140,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            <h4>Link to Portrait</h4>
+            <h4>Link to Portrait: </h4>
             <input
               value={authorImage}
               onChange={(e) => {
@@ -152,7 +152,7 @@ const AuthorForm = (props) => {
             ></input>
           </div>
           <div>
-            <h4>Author Bio</h4>
+            <h4>Author Bio: </h4>
             <input
               value={authorBio}
               onChange={(e) => {
@@ -198,7 +198,7 @@ const AuthorForm = (props) => {
           </div>
         </form>
       )}
-    </div>
+    </>
   );
 };
 

@@ -114,7 +114,7 @@ const BookForm = () => {
           ></input>
         </div>
         <div>
-         <h4>Fiction: </h4>
+          <h4>Fiction: </h4>
           <input
             className="checkbox"
             required
@@ -129,10 +129,7 @@ const BookForm = () => {
           ></input>
         </div>
       </form>
-      <div>
-        <AuthorForm book={book} bookToSend={bookToSend} />
-      </div>
-
+      <AuthorForm book={book} bookToSend={bookToSend} />
       <BookTagForm book={book} bookToSend={bookToSend} />
       <div className="bookFormButtons">
         {bookId != "new" ? (

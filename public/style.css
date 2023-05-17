@@ -971,6 +971,7 @@ input[type="tel"] {
   margin: 15px 0 75px 25px;
   padding: 25px 0 0 0;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
