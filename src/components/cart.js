@@ -46,8 +46,7 @@ const Cart = (props) => {
   return (
     <div className="cartContainer">
       {cart.items.length ? (
-        <div>
-          <div className="booksListCart">
+        <>
             {cart.items.map((item) => {
               return (
                 <div className="booksMapCart" key={item.cartItemId}>
@@ -57,7 +56,6 @@ const Cart = (props) => {
                 </div>
               );
             })}
-          </div>
           <div className="cartTotal"> Total: ${setPrice()} </div>
           <div className="booksButtons">
             <button
@@ -75,7 +73,7 @@ const Cart = (props) => {
               Checkout
             </button>
           </div>
-        </div>
+        </>
       ) : (
         <div className="cartEmpty">
           Your Cart is Empty! <br />

@@ -9,11 +9,6 @@ async function createAuthor({
   authorBio,
 }) {
   try {
-
-    if (!authorFirstName || !authorLastName || !dateOfBirth || !birthPlace){
-      throw error;
-    }
-
     const {
       rows: [author],
     } = await client.query(

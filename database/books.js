@@ -5,11 +5,7 @@ async function createBook(
   { title, price, description, bookImage, stock, fiction }
 ) {
   try {
-    console.log("AUTHOR IN CREATE BOOK", author);
-    
-if(!title || !price || !stock || !fiction || !author.id){
-  throw error
-}
+    // console.log("AUTHOR IN CREATE BOOK", author);
 
     const {
       rows: [book],
@@ -22,7 +18,7 @@ if(!title || !price || !stock || !fiction || !author.id){
       [title, author.id, price, description, bookImage, stock, fiction]
     );
 
-    console.log("CREATE BOOK RETURNING: ", book)
+    // console.log("CREATE BOOK RETURNING: ", book)
 
     return book;
   } catch (error) {
