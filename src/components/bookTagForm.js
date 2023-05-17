@@ -25,14 +25,13 @@ const BookTagForm = (props) => {
 
   // console.log(props.book);
   return (
-    <div>
+    <div className="tagContainer">
       <h3>Add/Remove Tags:</h3>
-      <form>
+      <form className="tagForm">
         {tags.map((tag) => {
           return <TagSelector tag={tag} key={tag.id} />;
         })}
-      </form>
-      {click ? (
+              {click ? (
         <div>
           <form>
             <input
@@ -80,6 +79,8 @@ const BookTagForm = (props) => {
           </button>
         </div>
       )}
+      </form>
+
     </div>
   );
 };

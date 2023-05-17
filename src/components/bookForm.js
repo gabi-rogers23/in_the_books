@@ -77,7 +77,6 @@ const BookForm = () => {
         <div>
           <h4>Description: </h4>
           <textarea
-            className="descriptionInput"
             required
             value={description}
             onChange={(e) => {

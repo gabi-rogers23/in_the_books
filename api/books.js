@@ -47,6 +47,7 @@ router.post("/", requireUser, async (req, res, next) => {
   if (req.user.isAdmin) {
     try {
       // console.log(req.body)
+      
       const author = { id: req.body.authorId };
       const newBook = await createBook(author, req.body);
       res.send(newBook);

@@ -86,7 +86,7 @@ const AuthorForm = (props) => {
             e.key === "Enter" && e.preventDefault();
           }}
         >
-          <h3>Add New Author</h3>
+          <h2>Add New Author</h2>
           <div>
             <h4>Author First Name: </h4>
             <input
