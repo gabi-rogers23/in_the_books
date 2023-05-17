@@ -51,22 +51,19 @@ const Register = ({ setLoggedIn }) => {
           e.key === "Enter" && e.preventDefault();
         }}
       >
-        <div className="signUp">
+        
           <h1 id="signUpHeader">Sign up!</h1>
-          <div></div>
-          <label className="inputsRegister">
+        
             <input
               id="email"
               type="email"
-              placeholder="email"
+              placeholder="Email"
               autoFocus
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
-          </label>
-
-          <label>
+     
             <input
               id="password"
               type="password"
@@ -75,9 +72,7 @@ const Register = ({ setLoggedIn }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-          </label>
 
-          <label>
             <input
               id="firstName"
               type="text"
@@ -86,9 +81,7 @@ const Register = ({ setLoggedIn }) => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             ></input>
-          </label>
-
-          <label>
+       
             <input
               id="lastName"
               type="text"
@@ -97,9 +90,7 @@ const Register = ({ setLoggedIn }) => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             ></input>
-          </label>
 
-          <label>
             <input
               id="address"
               type="text"
@@ -108,9 +99,7 @@ const Register = ({ setLoggedIn }) => {
               value={shippingAddress}
               onChange={(e) => setShippingAddress(e.target.value)}
             ></input>
-          </label>
 
-          <label>
             <input
               id="phoneNumber"
               type="tel"
@@ -119,10 +108,8 @@ const Register = ({ setLoggedIn }) => {
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             ></input>
-          </label>
 
           <button id="registerButton">Register</button>
-        </div>
         <div></div>
       </form>
   );

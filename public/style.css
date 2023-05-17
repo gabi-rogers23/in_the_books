@@ -380,6 +380,10 @@ button:hover {
   margin: 10% auto;
 }
 
+.loginForm{
+  width: 100%;
+}
+
 .loginHeader {
   font-size: 36px;
   color: #ffffff;
@@ -388,22 +392,18 @@ button:hover {
   text-align: center;
 }
 
-.label1,
-.label2 {
-  margin-bottom: 10px;
-}
 
-.input[type="text"],
+/* .input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 15px;
+  padding: 5px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f8f8f8;
   font-size: 16px;
   color: #333;
   margin-bottom: 20px;
-}
+} */
 
 input[type="text"]::placeholder,
 input[type="password"]::placeholder {
@@ -874,16 +874,23 @@ input[type="password"]::placeholder {
 
 .registerForm {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  width: 60%;
   margin: 10% auto;
   padding: 40px;
   border-radius: 20px;
   background-color: #141414;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
+
+.registerForm input, .loginForm input {
+  width: 100%;
+}
+
+
+
 @media only screen and (max-width: 768px) {
 
   .bookImage {
@@ -922,6 +929,8 @@ input[type="password"]::placeholder {
   }
 
 }
+
+
 #signUpHeader {
   font-size: 48px;
   font-weight: bold;
@@ -935,11 +944,8 @@ input[type="email"],
 input[type="password"],
 input[type="text"],
 input[type="tel"] {
-  display: block;
   height: 40px;
-  width: 100%;
-  /* max-width: 400px; */
-  padding: 10px;
+  padding: 5px;
   border: none;
   border-radius: 10px;
   background-color: #fcfbfb;
@@ -950,15 +956,14 @@ input[type="tel"] {
 }
 
 #registerButton {
-  display: block;
-  width: 100%;
-  max-width: 400px;
+  width: 50%;
+  max-width: 300px;
   padding: 10px;
   border: none;
   border-radius: 10px;
   background-color: #6c6d6d;
   color: #fff;
-  font-size: 24px;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   margin-top: 40px;

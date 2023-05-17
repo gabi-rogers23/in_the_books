@@ -27,7 +27,7 @@ const Search = () => {
 
   return (
     <div className="searchContainer">
-      <form>
+      <form className="searchForm">
         <div className="searchBooksLabel">Search Books to Edit or Delete</div>
         <input
           type="search"

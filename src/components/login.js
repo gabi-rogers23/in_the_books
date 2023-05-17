@@ -38,7 +38,6 @@ const Login = ({ setLoggedIn }) => {
         <header>
           <h1 className="loginHeader">Log In</h1>
         </header>
-        <label className="label1">
           <input
             id="userInput"
             type="text"
@@ -48,8 +47,6 @@ const Login = ({ setLoggedIn }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </label>
-        <label className="label2">
           <input
             type="password"
             placeholder="Password"
@@ -57,7 +54,6 @@ const Login = ({ setLoggedIn }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
         <button type="submit" className="button">
           Submit
         </button>
