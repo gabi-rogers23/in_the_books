@@ -20,6 +20,11 @@ router.post("/", requireUser, async (req, res, next) => {
       const author = await createAuthor(req.body);
       res.send(author);
     } catch (error) {
+      res.status(406).send({
+        error: "406 Not Acceptable",
+        message: "Please fill out the required author fields",
+        name: "Not Acceptable"
+      })
       next(error);
     }
   } else {

@@ -42,16 +42,21 @@ router.get("/bookTag/:tag", async (req, res, next) => {
   }
 });
 
-//Create new book
+//Create New Book
 router.post("/", requireUser, async (req, res, next) => {
   if (req.user.isAdmin) {
     try {
-      // console.log(req.body)
+      console.log(req.body)
       
       const author = { id: req.body.authorId };
       const newBook = await createBook(author, req.body);
       res.send(newBook);
     } catch (error) {
+      res.status(406).send({
+        error: "406 Not Acceptable",
+        message: "Please fill out the required fields",
+        name: "Not Acceptable"
+      })
       next(error);
     }
   } else {

@@ -91,6 +91,7 @@ const AuthorForm = (props) => {
             <h4>Author First Name: </h4>
             <input
               required
+              placeholder="*Required Field"
               value={authorFirstName}
               onChange={(e) => {
                 e.preventDefault();
@@ -104,6 +105,7 @@ const AuthorForm = (props) => {
             <h4>Author Last Name: </h4>
             <input
               required
+              placeholder="*Required Field"
               value={authorLastName}
               onChange={(e) => {
                 e.preventDefault();
@@ -117,6 +119,7 @@ const AuthorForm = (props) => {
             <h4>Date Of Birth: </h4>
             <input
               required
+              placeholder="*Required Field"
               value={dateOfBirth}
               onChange={(e) => {
                 e.preventDefault();
@@ -130,6 +133,7 @@ const AuthorForm = (props) => {
             <h4>Birth Place: </h4>
             <input
               required
+              placeholder="*Required Field"
               value={birthPlace}
               onChange={(e) => {
                 e.preventDefault();
@@ -153,7 +157,7 @@ const AuthorForm = (props) => {
           </div>
           <div>
             <h4>Author Bio: </h4>
-            <input
+            <textarea
               value={authorBio}
               onChange={(e) => {
                 e.preventDefault();
@@ -161,7 +165,7 @@ const AuthorForm = (props) => {
                 setAuthorBio(bio);
                 newAuthor.authorBio = bio;
               }}
-            ></input>
+            ></textarea>
             <div className="authorFormButtons">
               <button
                 onClick={async (e) => {
@@ -174,10 +178,12 @@ const AuthorForm = (props) => {
                       variant: "error",
                     });
                   } else {
+                    enqueueSnackbar("Author Added!", { variant: "success" })
                     setEdit(false);
                     setAuthorFirstName("");
                     setAuthorLastName("");
                     setDateOfBirth("");
+                    setBirthPlace("");
                     setAuthorImage("");
                     setAuthorBio("");
                     refreshAuthors();

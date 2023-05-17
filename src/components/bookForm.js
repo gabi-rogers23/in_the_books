@@ -16,6 +16,8 @@ const BookForm = () => {
   const [fiction, setFiction] = useState(false);
 
   let bookToSend = useRef({});
+  bookToSend.current.fiction = fiction
+
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ const BookForm = () => {
           <h4>Title: </h4>
           <input
             required
+            placeholder="*Required Field"
             value={title}
             onChange={(e) => {
               e.preventDefault();
@@ -65,6 +68,7 @@ const BookForm = () => {
           <h4>Price $: </h4>
           <input
             required
+            placeholder="*Required Field"
             value={price}
             onChange={(e) => {
               e.preventDefault();
@@ -77,7 +81,6 @@ const BookForm = () => {
         <div>
           <h4>Description: </h4>
           <textarea
-            required
             value={description}
             onChange={(e) => {
               e.preventDefault();
@@ -103,6 +106,7 @@ const BookForm = () => {
           <h4>Stock: </h4>
           <input
             required
+            placeholder="*Required Field"
             value={stock}
             onChange={(e) => {
               e.preventDefault();
@@ -112,20 +116,20 @@ const BookForm = () => {
             }}
           ></input>
         </div>
-        <div>
+        <div className="fiction">
           <h4>Fiction: </h4>
+          <div>
           <input
             className="checkbox"
-            required
             type="checkbox"
             checked={fiction}
             onChange={(e) => {
               const fic = e.target.checked;
-              console.log(fic);
+              // console.log(fic);
               setFiction(fic);
               bookToSend.current.fiction = fic;
             }}
-          ></input>
+          ></input></div>
         </div>
       </form>
       <AuthorForm book={book} bookToSend={bookToSend} />
@@ -155,7 +159,7 @@ const BookForm = () => {
               // console.log(bookToSend.current)
               const book = await createNewBook(bookToSend.current);
               if (book.error) {
-                enqueueSnackbar(book.error, { variant: "error" });
+                enqueueSnackbar(book.message, { variant: "error" });
               } else {
                 setTitle("");
                 setPrice("");

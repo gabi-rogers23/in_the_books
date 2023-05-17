@@ -300,7 +300,7 @@ export async function updateBook(book) {
 }
 
 export async function createNewBook(book) {
-  // console.log(book)
+  console.log(book)
   try {
     book.tags = book.tags.filter((tag) => tag.isSelected);
 
