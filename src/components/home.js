@@ -13,6 +13,8 @@ const Home = () => {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
     height: "100vh",
+    width: "100%",
+    margin:"-25px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
