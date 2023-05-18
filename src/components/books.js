@@ -23,7 +23,7 @@ const Books = (props) => {
     });
   }, []);
 
-  return( <div>
+  return( 
     <div className="allBookSearch">      
       <form>
         <input
@@ -59,7 +59,7 @@ const Books = (props) => {
             }
           }}
         ></input>
-      </form></div>
+      </form>
     <ListBooks allBooks={booksToDisplay} />
   </div>)
 };
