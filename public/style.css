@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap");
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 40;
@@ -392,18 +391,6 @@ button:hover {
   text-align: center;
 }
 
-
-/* .input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f8f8f8;
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
-} */
 
 input[type="text"]::placeholder,
 input[type="password"]::placeholder {
@@ -830,14 +817,14 @@ input[type="password"]::placeholder {
 
 .cartTotal {
   background-color: #fff;
+  width: 100%;
+  font-family: "Open Sans";
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
   padding: 20px;
   text-align: center;
   font-size: 1.5rem;
-  color:#09bef0;
-  font-weight: 900;
 }
 
 .cartTotal h2 {

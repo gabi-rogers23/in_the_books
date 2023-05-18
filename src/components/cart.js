@@ -56,7 +56,7 @@ const Cart = (props) => {
                 </div>
               );
             })}
-          <div className="cartTotal"> Total: ${setPrice()} </div>
+          <div className="cartTotal"> TOTAL: ${setPrice()} </div>
           <div className="booksButtons">
             <button
               onClick={async (e) => {

@@ -23,8 +23,8 @@
     "stripe": "^11.14.0"
   },
   "scripts": {
-    "seed:dev": "nodemon ./database/seed.js",
-    "start:dev": "nodemon server.js",
+    "seed:db": "nodemon ./database/seed.js",
+    "start:db": "nodemon server.js",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },

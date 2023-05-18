@@ -1,5 +1,5 @@
-export const BASE_URL = process.env.REACT_APP_BASE_URL 
-// "http://localhost:3000/api";
+export const BASE_URL = "http://localhost:3000/api";
+// process.env.REACT_APP_BASE_URL
 
 export function getHeaders() {
   let headers = {
@@ -248,7 +248,7 @@ export async function fetchAllAuthors() {
         return 0;
       }
     });
-    // console.log("alpha ", data)
+    
     return data;
   } catch (error) {
     throw error;
