@@ -272,27 +272,23 @@ export async function createAuthor(author) {
 }
 
 export async function updateBook(book) {
-  book.tags = book.tags.filter((tag) => tag.isSelected);
+  const tags = book.tags.filter((tag) => tag.isSelected);
+  book.tags = null
   // console.log(book);
   try {
-    const res = await fetch(`${BASE_URL}/books/${book.id}`, {
+      await fetch(`${BASE_URL}/books/${book.id}`, {
       method: "PATCH",
       headers: getHeaders(),
       body: JSON.stringify(book),
     });
 
-    if(book.tags.length){
     const tagsResponse = await fetch(`${BASE_URL}/tags/${book.id}`, {
       method: "PATCH",
       headers: getHeaders(),
-      body: JSON.stringify(book),
+      body: JSON.stringify({tags: tags}),
     });
     const tagData = await tagsResponse.json();
     return tagData;
-  }else{
-    const data = await res.json();
-    return data
-  }
 
   } catch (error) {
     throw error;

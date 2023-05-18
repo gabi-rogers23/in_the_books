@@ -90,7 +90,7 @@ WHERE b.id = ${bookId};
 async function updateBook({ id, ...fields }) {
   try {
     const updateFields = {};
-// console.log(id, fields)
+    // console.log(id, fields)
     if (Object.hasOwn(fields, "title")) {
       updateFields.title = fields.title;
     }

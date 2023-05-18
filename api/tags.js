@@ -32,18 +32,16 @@ router.get("/:tagId", async (req, res, next) => {
 });
 
 router.patch("/:bookId", requireUser, async (req, res, next) => {
-  // console.log(req.params.bookId)
   if (req.user.isAdmin) {
     try {
-      // console.log("DELETING");
       await deleteAllBookTags(req.params.bookId);
-      // console.log("DELETED TAGS");
+      // console.log("TAGS PATCH", req.body)
+      if (req.body.tags.length !== 0) {
+        const tagNames = req.body.tags.map((tag) => tag.name);
+        await createBookTag(req.params.bookId, tagNames);
+      }
       // console.log("CREATING NEW TAGS", req.body.tags);
-      const tagNames = req.body.tags.map((tag) => tag.name);
-      await createBookTag(req.params.bookId, tagNames);
-      // console.log("CREATED TAGS", req.body);
       const book = await getBookById(req.params.bookId);
-      // console.log("BOOK WITH TAGS", book)
       res.send(book);
     } catch (error) {
       next(error);
