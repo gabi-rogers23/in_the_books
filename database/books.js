@@ -112,6 +112,7 @@ async function updateBook({ id, ...fields }) {
     if (Object.hasOwn(fields, "authorId")) {
       updateFields.authorId = fields.authorId;
     }
+
     if (Object.keys(updateFields).length === 0) {
       return await getBookById(id);
     }
@@ -120,7 +121,7 @@ async function updateBook({ id, ...fields }) {
       .map((key, i) => `"${key}"=$${i + 1}`)
       .join(", ");
 
-    // console.log (setString)
+    // console.log ("SET STRING ", setString)
 
     const {
       rows: [updatedBook],

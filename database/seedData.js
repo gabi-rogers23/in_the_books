@@ -121,7 +121,7 @@ async function seedAuthors() {
       promises.push(createAuthor(fakeAuthor));
     }
 
-    const authors = await Promise.all(promises);
+    await Promise.all(promises);
     console.log("Authors seeded!");
   } catch (error) {
     console.log("Error in seedAuthors");
@@ -146,8 +146,7 @@ async function createInitialUsers() {
       };
       promises.push(createUser(user));
     }
-    const users = await Promise.all(promises);
-    // console.log("---INITIAL USERS---", users)
+    await Promise.all(promises);
 
     console.log("Finished creating users with carts!");
   } catch (error) {
@@ -167,8 +166,8 @@ async function seedCartItems() {
       const randomQuantity = Math.floor(Math.random() * 5) + 1;
       promises.push(createCartItem(randomUserId, randomBookId, randomQuantity));
     }
-    const cartItems = await Promise.all(promises);
-    // console.log(cartItems)
+    await Promise.all(promises);
+   
     console.log("Finished seeding cart items!");
   } catch (error) {
     console.log("Error seeding cart items!");
@@ -209,7 +208,7 @@ async function seedBooks() {
       promises.push(createBook(author, randomBook));
     }
 
-    const books = await Promise.all(promises);
+    await Promise.all(promises);
     console.log("Books seeded!");
   } catch (error) {
     console.log("Error in createBooks");
@@ -231,7 +230,7 @@ async function seedTags() {
       tagPromises.push(createBookTag(randomId, tagList));
     }
 
-    const tags = await Promise.all(tagPromises);
+    await Promise.all(tagPromises);
     console.log("Tags Seeded!");
   } catch (error) {
     console.log("Error Seeding Tags!");
