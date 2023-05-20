@@ -7,7 +7,6 @@ const AuthorForm = (props) => {
   const [authorList, setAuthorList] = useState([]);
   const [newAuthor] = useState({});
   //dropdown state
-  const [authorId, setAuthorId] = useState("");
   const [edit, setEdit] = useState(false);
   //form state
   const [authorFirstName, setAuthorFirstName] = useState("");
@@ -29,32 +28,20 @@ const AuthorForm = (props) => {
     refreshAuthors();
   }, []);
 
-  useEffect(() => {
-    if (props.book === null) {
-      return;
-    } else {
-      setAuthorId(props.book.authorId);
-    }
-  }, [props.book]);
-
   return (
     <>
       {!edit ? (
         <div className="authorContainer">
-            <h3>Select Author:</h3>
+          <h3>Select Author:</h3>
           <fieldset className="authorDropDown">
-            
             <select
-              value={authorId}
-              defaultValue={props.book ? props.book.authorId : "--"}
+              value={props.authorId}
               onChange={(e) => {
                 e.preventDefault();
                 const newAuthorId = e.target.value;
-                setAuthorId(
+                props.setAuthorId(
                   newAuthorId === "New Author" ? setEdit(true) : newAuthorId
                 );
-                props.bookToSend.current.authorId = newAuthorId;
-                console.log(props.bookToSend.current.authorId);
               }}
             >
               <option value={"--"} label="--"></option>
@@ -178,7 +165,7 @@ const AuthorForm = (props) => {
                       variant: "error",
                     });
                   } else {
-                    enqueueSnackbar("Author Added!", { variant: "success" })
+                    enqueueSnackbar("Author Added!", { variant: "success" });
                     setEdit(false);
                     setAuthorFirstName("");
                     setAuthorLastName("");

@@ -59,7 +59,7 @@ const Search = () => {
                 );
               });
               setBooksToDisplay(filteredBooks);
-              console.log(booksToDisplay);
+              // console.log(booksToDisplay);
             }
           }}
         ></input>

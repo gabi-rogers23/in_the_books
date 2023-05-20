@@ -7,16 +7,13 @@ import { useSnackbar } from "notistack";
 
 const BookForm = () => {
   //Book Form State
-  const [book, setBook] = useState({ tags: [] });
+  const [authorId, setAuthorId] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [stock, setStock] = useState("");
   const [fiction, setFiction] = useState(false);
-
-  // let bookToSend = useRef({});
-  bookToSend.current.fiction = fiction
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -27,7 +24,7 @@ const BookForm = () => {
     if (bookId != "new") {
       getBookById(bookId).then((book) => {
         try {
-          setBook(book);
+          setAuthorId(book.authorId);
           setTitle(book.title);
           setPrice(book.price);
           setDescription(book.description);
@@ -58,9 +55,7 @@ const BookForm = () => {
             value={title}
             onChange={(e) => {
               e.preventDefault();
-              const title = e.target.value;
-              setTitle(title);
-              bookToSend.current.title = title;
+              setTitle(e.target.value);
             }}
           ></input>
         </div>
@@ -72,9 +67,7 @@ const BookForm = () => {
             value={price}
             onChange={(e) => {
               e.preventDefault();
-              const price = e.target.value;
-              setPrice(price);
-              bookToSend.current.price = price;
+              setPrice(e.target.value);
             }}
           ></input>
         </div>
@@ -84,9 +77,7 @@ const BookForm = () => {
             value={description}
             onChange={(e) => {
               e.preventDefault();
-              const des = e.target.value;
-              setDescription(des);
-              bookToSend.current.description = des;
+              setDescription(e.target.value);
             }}
           ></textarea>
         </div>
@@ -96,9 +87,7 @@ const BookForm = () => {
             value={image}
             onChange={(e) => {
               e.preventDefault();
-              const pic = e.target.value;
-              setImage(pic);
-              bookToSend.current.bookImage = pic;
+              setImage(e.target.value);
             }}
           ></input>
         </div>
@@ -110,38 +99,42 @@ const BookForm = () => {
             value={stock}
             onChange={(e) => {
               e.preventDefault();
-              const stock = e.target.value;
-              setStock(stock);
-              bookToSend.current.stock = stock;
+              setStock(e.target.value);
             }}
           ></input>
         </div>
         <div className="fiction">
           <h4>Fiction: </h4>
           <div>
-          <input
-            className="checkbox"
-            type="checkbox"
-            checked={fiction}
-            onChange={(e) => {
-              const fic = e.target.checked;
-              // console.log(fic);
-              setFiction(fic);
-              bookToSend.current.fiction = fic;
-            }}
-          ></input></div>
+            <input
+              className="checkbox"
+              type="checkbox"
+              checked={fiction}
+              onChange={(e) => {
+                setFiction(e.target.value);
+              }}
+            ></input>
+          </div>
         </div>
       </form>
-      <AuthorForm book={book} bookToSend={bookToSend} />
-      <BookTagForm book={book} bookToSend={bookToSend} />
+      <AuthorForm authorId={authorId} setAuthorId={setAuthorId} />
+      {/* <BookTagForm book={book} bookToSend={book} /> */}
       <div className="bookFormButtons">
         {bookId != "new" ? (
           <button
             onClick={async (e) => {
               e.preventDefault();
-              bookToSend.current.id = bookId;
-              // console.log("BOOK TO SEND", bookToSend.current);
-              const updatedBook = await updateBook(bookToSend.current);
+              const updatedBook = await updateBook({
+                id: bookId,
+                authorId: authorId,
+                title: title,
+                price: price,
+                description: description,
+                image: image,
+                stock: stock,
+                fiction: fiction,
+                tags: [],
+              });
               if (updatedBook.error) {
                 enqueueSnackbar(updatedBook.message, { variant: "error" });
               } else {
@@ -156,10 +149,20 @@ const BookForm = () => {
           <button
             onClick={async (e) => {
               e.preventDefault();
-              // console.log(bookToSend.current)
-              const book = await createNewBook(bookToSend.current);
-              if (book.error) {
-                enqueueSnackbar(book.message, { variant: "error" });
+              // console.log(book)
+              const newBook = await createNewBook({
+                id: bookId,
+                authorId: authorId,
+                title: title,
+                price: price,
+                description: description,
+                image: image,
+                stock: stock,
+                fiction: fiction,
+                tags: [],
+              });
+              if (newBook.error) {
+                enqueueSnackbar(newBook.message, { variant: "error" });
               } else {
                 setTitle("");
                 setPrice("");
