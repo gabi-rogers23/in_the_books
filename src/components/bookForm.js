@@ -58,6 +58,19 @@ const BookForm = () => {
     });
   }, []);
 
+
+const bookToSend = () => {
+  return {id: bookId,
+  authorId: authorId,
+  title: title,
+  price: price,
+  description: description,
+  bookImage: image,
+  stock: stock,
+  fiction: fiction,
+  tags: allTags.filter((tag) => tag.isSelected),}
+}
+
   return (
     <div className="bookFormContainer">
       <h2>Book Information</h2>
@@ -144,17 +157,7 @@ const BookForm = () => {
           <button
             onClick={async (e) => {
               e.preventDefault();
-              const updatedBook = await updateBook({
-                id: bookId,
-                authorId: authorId,
-                title: title,
-                price: price,
-                description: description,
-                bookImage: image,
-                stock: stock,
-                fiction: fiction,
-                tags: allTags.filter((tag) => tag.isSelected),
-              });
+              const updatedBook = await updateBook(bookToSend());
               if (updatedBook.error) {
                 enqueueSnackbar(updatedBook.message, { variant: "error" });
               } else {
@@ -170,17 +173,7 @@ const BookForm = () => {
             onClick={async (e) => {
               e.preventDefault();
               // console.log(book)
-              const newBook = await createNewBook({
-                id: bookId,
-                authorId: authorId,
-                title: title,
-                price: price,
-                description: description,
-                bookImage: image,
-                stock: stock,
-                fiction: fiction,
-                tags: allTags.filter((tag) => tag.isSelected),
-              });
+              const newBook = await createNewBook(bookToSend());
               if (newBook.error) {
                 enqueueSnackbar(newBook.message, { variant: "error" });
               } else {
