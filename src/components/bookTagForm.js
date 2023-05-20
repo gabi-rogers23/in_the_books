@@ -1,34 +1,26 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { fetchAllTags, createNewTag } from "../api/api";
+import { useState } from "react";
+import { createNewTag } from "../api/api";
 import { TagSelector } from "./exports";
 import { useSnackbar } from "notistack";
 
 const BookTagForm = (props) => {
-  const [tags, setTags] = useState([]);
   const [click, setClick] = useState(false);
   const [newTag, setNewTag] = useState("");
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const selectedBookTags = props.book.tags.map((tag) => tag.tagId);
-  tags.forEach((tag) => {
+  const selectedBookTags = props.bookTags.map((tag) => tag.tagId);
+
+  props.allTags.forEach((tag) => {
     tag.isSelected = selectedBookTags.includes(tag.id);
   });
-  // console.log("CurrentTags", tags);
 
-  props.bookToSend.current.tags = tags;
-
-  useEffect(() => {
-    fetchAllTags().then(setTags).catch(console.log);
-  }, []);
-
-  // console.log(props.book);
   return (
     <div className="tagContainer">
       <h3>Add/Remove Tags:</h3>
-      <form className="tagForm">
-        {tags.map((tag) => {
+      <div className="tagForm">
+        {props.allTags.map((tag) => {
           return <TagSelector tag={tag} key={tag.id} />;
         })}
               {click ? (
@@ -46,12 +38,12 @@ const BookTagForm = (props) => {
               onClick={async (e) => {
                 e.preventDefault();
                 const tagReturned = await createNewTag({ tag: newTag });
-                console.log("Tag Created", tagReturned)
+                // console.log("Tag Created", tagReturned)
                 if(tagReturned.error){
                   enqueueSnackbar(tagReturned.error, {variant: "error"})
                 }else{
                 enqueueSnackbar("Tag Created!", { variant: "success" });
-                setTags([...tags, tagReturned]);
+                props.setAllTags([...props.allTags, tagReturned]);
                 setNewTag("");
                 setClick(false);}
               }}
@@ -79,7 +71,7 @@ const BookTagForm = (props) => {
           </button>
         </div>
       )}
-      </form>
+      </div>
 
     </div>
   );

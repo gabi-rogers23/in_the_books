@@ -1,8 +1,13 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BookTagForm, AuthorForm } from "./exports";
-import { getBookById, updateBook, createNewBook } from "../api/api";
+import {
+  getBookById,
+  updateBook,
+  createNewBook,
+  fetchAllTags,
+} from "../api/api";
 import { useSnackbar } from "notistack";
 
 const BookForm = () => {
@@ -14,6 +19,10 @@ const BookForm = () => {
   const [image, setImage] = useState("");
   const [stock, setStock] = useState("");
   const [fiction, setFiction] = useState(false);
+  const [bookTags, setBookTags] = useState([]);
+
+  //All Tags State
+  const [allTags, setAllTags] = useState([]);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -31,11 +40,22 @@ const BookForm = () => {
           setImage(book.bookImage);
           setStock(book.stock);
           setFiction(book.fiction);
+          setBookTags(book.tags);
         } catch (error) {
           console.error("Uh oh! Problems with Promises");
         }
       });
     }
+  }, []);
+
+  useEffect(() => {
+    fetchAllTags().then((allTags) => {
+      try {
+        setAllTags(allTags);
+      } catch (error) {
+        console.error("Problems with AllTags");
+      }
+    });
   }, []);
 
   return (
@@ -111,14 +131,14 @@ const BookForm = () => {
               type="checkbox"
               checked={fiction}
               onChange={(e) => {
-                setFiction(e.target.value);
+                setFiction(e.target.checked);
               }}
             ></input>
           </div>
         </div>
       </form>
       <AuthorForm authorId={authorId} setAuthorId={setAuthorId} />
-      {/* <BookTagForm book={book} bookToSend={book} /> */}
+      <BookTagForm bookTags={bookTags} allTags={allTags} setAllTags={setAllTags} />
       <div className="bookFormButtons">
         {bookId != "new" ? (
           <button
@@ -130,10 +150,10 @@ const BookForm = () => {
                 title: title,
                 price: price,
                 description: description,
-                image: image,
+                bookImage: image,
                 stock: stock,
                 fiction: fiction,
-                tags: [],
+                tags: allTags.filter((tag) => tag.isSelected),
               });
               if (updatedBook.error) {
                 enqueueSnackbar(updatedBook.message, { variant: "error" });
@@ -156,10 +176,10 @@ const BookForm = () => {
                 title: title,
                 price: price,
                 description: description,
-                image: image,
+                bookImage: image,
                 stock: stock,
                 fiction: fiction,
-                tags: [],
+                tags: allTags.filter((tag) => tag.isSelected),
               });
               if (newBook.error) {
                 enqueueSnackbar(newBook.message, { variant: "error" });

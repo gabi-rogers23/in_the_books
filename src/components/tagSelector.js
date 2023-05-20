@@ -15,10 +15,10 @@ const TagSelector = (props) => {
         checked={tagSelected}
         name={props.tag.name}
         onChange={(e) => {
-          const tag = e.target.checked;
+          const tagCheck = e.target.checked;
           // console.log(tag);
-          setTagSelected(tag);
-          props.tag.isSelected = tag;
+          setTagSelected(tagCheck);
+          props.tag.isSelected = tagCheck;
         }}
       ></input>
       <label form={props.tag.name}>{props.tag.name}</label>
