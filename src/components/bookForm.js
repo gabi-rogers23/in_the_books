@@ -15,7 +15,7 @@ const BookForm = () => {
   const [stock, setStock] = useState("");
   const [fiction, setFiction] = useState(false);
 
-  let bookToSend = useRef({});
+  // let bookToSend = useRef({});
   bookToSend.current.fiction = fiction
 
   const { enqueueSnackbar } = useSnackbar();
