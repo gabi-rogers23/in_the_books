@@ -42,7 +42,7 @@ const BookForm = () => {
           setFiction(book.fiction);
           setBookTags(book.tags);
         } catch (error) {
-          console.error("Uh oh! Problems with Promises");
+          console.error("bookForm useEffect");
         }
       });
     }
@@ -53,7 +53,7 @@ const BookForm = () => {
       try {
         setAllTags(allTags);
       } catch (error) {
-        console.error("Problems with AllTags");
+        console.error("bookForm Tags useEffect");
       }
     });
   }, []);
