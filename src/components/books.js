@@ -55,7 +55,7 @@ const Books = (props) => {
                 );
               });
               setBooksToDisplay(filteredBooks);
-              console.log(booksToDisplay);
+              // console.log(booksToDisplay);
             }
           }}
         ></input>
