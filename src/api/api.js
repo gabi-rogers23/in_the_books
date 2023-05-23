@@ -272,7 +272,7 @@ export async function createAuthor(author) {
 
 export async function updateBook(book) {
   const tags = book.tags.filter((tag) => tag.isSelected);
-  book.tags = null
+
   // console.log(book);
   try {
       await fetch(`${BASE_URL}/books/${book.id}`, {
@@ -286,7 +286,9 @@ export async function updateBook(book) {
       headers: getHeaders(),
       body: JSON.stringify({tags: tags}),
     });
+
     const updatedBook = await res.json();
+    
     return updatedBook;
   } catch (error) {
     throw error;
